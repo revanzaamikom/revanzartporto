@@ -1,0 +1,174 @@
+---
+import Lanyard3D from './Lanyard3D.jsx';
+import LightRays from './LightRays.jsx';
+import SpecularButton from './SpecularButton.jsx';
+---
+<section id="hero-section" class="min-h-screen flex flex-col justify-center px-6 md:px-24 relative overflow-hidden pt-20 md:pt-0">
+	<!-- LightRays WebGL background -->
+	<div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+		<LightRays
+			raysOrigin="top-center"
+			raysColor="#00ffff"
+			raysSpeed={1.2}
+			lightSpread={0.6}
+			rayLength={1.5}
+			followMouse={true}
+			mouseInfluence={0.15}
+			noiseAmount={0.08}
+			distortion={0.03}
+			fadeDistance={0.8}
+			saturation={0.7}
+			client:only="react"
+		/>
+	</div>
+
+	<!-- Background glow effect -->
+	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] z-0 pointer-events-none"></div>
+
+	<!-- Interactive Lanyard: Canvas occupies full screen to avoid clipping, card hangs vertically on the right side -->
+	<Lanyard3D 
+		client:visible
+		className="absolute inset-0 z-10 w-full h-full flex items-center justify-center overflow-hidden pointer-events-auto" 
+		anchorPosition={[3.5, 4.5, 0]}
+	/>
+
+	<div class="max-w-7xl mx-auto relative z-20 pointer-events-none w-full">
+		<div class="max-w-4xl">
+			<h2 class="text-textMuted tracking-widest uppercase text-sm mb-4 font-semibold hero-text" style="transition-delay: 100ms;">Portofolio</h2>
+			<h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-6 leading-tight hero-text" style="transition-delay: 300ms;">
+				MUHAMAD REVANZA <br/> RAFIF HAMDANI
+			</h1>
+			<p class="text-2xl md:text-4xl text-textMuted font-medium max-w-2xl leading-relaxed mb-10 hero-text select-none min-h-[48px]" style="transition-delay: 500ms;">
+				I'm a <span id="typewriter-role" class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff] to-white font-extrabold drop-shadow-[0_0_12px_rgba(0,255,255,0.6)]"></span><span id="typewriter-cursor" class="inline-block w-[3px] h-[1.15em] bg-[#00ffff] ml-1 opacity-0 align-middle drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]"></span>
+			</p>
+			
+			<div class="flex gap-4 pointer-events-auto hero-text" style="transition-delay: 700ms;">
+				<SpecularButton
+					client:load
+					size="lg"
+					radius={30}
+					tint="#111111"
+					tintOpacity={0.8}
+					textColor="#ffffff"
+					lineColor="#ffffff"
+					baseColor="#333333"
+					intensity={1.0}
+					className="font-bold"
+					onClick={() => { window.location.href = '#work'; }}
+				>
+					Lihat Karya
+				</SpecularButton>
+				<SpecularButton
+					client:load
+					size="lg"
+					radius={30}
+					tint="#111111"
+					tintOpacity={0.8}
+					textColor="#ffffff"
+					lineColor="#ffffff"
+					baseColor="#333333"
+					intensity={1.0}
+					className="font-bold"
+					onClick={() => { window.location.href = 'mailto:contact@example.com'; }}
+				>
+					Hubungi Saya
+				</SpecularButton>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const roles = [
+		"Video Editor",
+		"Motion Designer",
+		"Graphics Designer",
+		"Scriptwriter",
+		"Videographer"
+	];
+
+	let roleIdx = 0;
+	let charIdx = 0;
+	let isDeleting = false;
+	let typewriterTimeout: any = null;
+	let isStarted = false;
+
+	const startTypewriter = () => {
+		if (isStarted) return;
+		
+		const roleSpan = document.getElementById('typewriter-role');
+		const cursorSpan = document.getElementById('typewriter-cursor');
+		if (!roleSpan || !cursorSpan) return;
+
+		isStarted = true;
+
+		// Make cursor visible & start blinking
+		cursorSpan.classList.remove('opacity-0');
+		cursorSpan.classList.add('animate-blink');
+
+		const type = () => {
+			const currentRole = roles[roleIdx];
+			
+			if (isDeleting) {
+				charIdx--;
+			} else {
+				charIdx++;
+			}
+
+			roleSpan.textContent = currentRole.substring(0, charIdx);
+
+			let typingSpeed = isDeleting ? 40 : 80;
+
+			if (!isDeleting && charIdx === currentRole.length) {
+				// Hold before starting delete
+				typingSpeed = 2000;
+				isDeleting = true;
+			} else if (isDeleting && charIdx === 0) {
+				isDeleting = false;
+				roleIdx = (roleIdx + 1) % roles.length;
+				typingSpeed = 300; // brief pause before next word
+			}
+
+			typewriterTimeout = setTimeout(type, typingSpeed);
+		};
+
+		type();
+	};
+
+	const activateHeroAnimation = () => {
+		const heroSection = document.getElementById('hero-section');
+		if (heroSection) {
+			heroSection.classList.add('splash-complete');
+		}
+		// Start typewriter seirama dengan splash-complete
+		startTypewriter();
+	};
+
+	// Listen to splash-complete event
+	window.addEventListener('splash-complete', activateHeroAnimation);
+
+	// Fallback to activate animation after 3 seconds in case the event was missed
+	setTimeout(activateHeroAnimation, 3000);
+</script>
+
+<style>
+	.hero-text {
+		opacity: 0;
+		transform: translateY(40px);
+		transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	#hero-section.splash-complete .hero-text {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@keyframes blink {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0; }
+	}
+
+	.animate-blink {
+		animation: blink 0.8s step-end infinite;
+	}
+</style>

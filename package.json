@@ -1,0 +1,30 @@
+{
+  "name": "revanza-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.1.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/rapier": "^1.5.0",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.22",
+    "astro": "^4.5.0",
+    "framer-motion": "^13.1.0",
+    "meshline": "^3.3.1",
+    "ogl": "^1.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "scrollreveal": "^4.0.9",
+    "tailwindcss": "^3.4.1",
+    "three": "^0.185.1"
+  }
+}

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import WhatIDo from '../components/WhatIDo.astro';
+import SplashScreen from '../components/SplashScreen.jsx';
+import ScrollReveal from '../components/ScrollReveal.astro';
+---
+
+<Layout title="Revanza Rafif | VFX & UI/UX Designer">
+	<SplashScreen client:only="react" onComplete={() => {
+		const event = new CustomEvent('splash-complete');
+		window.dispatchEvent(event);
+	}} />
+	<main>
+		<Hero />
+		<ProjectGrid />
+		<WhatIDo />
+	</main>
+	<ScrollReveal />
+</Layout>

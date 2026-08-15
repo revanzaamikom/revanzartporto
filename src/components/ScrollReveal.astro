@@ -1,0 +1,37 @@
+---
+// Komponen ini hanya berisi <script> client-side.
+// ScrollReveal diimpor di dalam <script> sehingga hanya dieksekusi di browser,
+// menghindari error "window is not defined" saat build/SSR.
+---
+
+<script>
+	// @ts-ignore - package scrollreveal tidak memiliki type definitions
+	import ScrollReveal from 'scrollreveal';
+
+	const sr = ScrollReveal({
+		distance: '60px',
+		duration: 1200,
+		easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+		interval: 100,
+		reset: false,
+		mobile: true,
+		origin: 'bottom',
+		opacity: 0,
+		scale: 0.95,
+	});
+
+	// Heading reveal
+	sr.reveal('.reveal-heading', {
+		delay: 200,
+		distance: '40px',
+		origin: 'bottom',
+	});
+
+	// Card reveal dengan stagger interval
+	sr.reveal('.reveal-card', {
+		delay: 100,
+		interval: 150,
+		distance: '50px',
+		origin: 'bottom',
+	});
+</script>
