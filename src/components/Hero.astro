@@ -3,7 +3,7 @@ import Lanyard3D from './Lanyard3D.jsx';
 import LightRays from './LightRays.jsx';
 import SpecularButton from './SpecularButton.jsx';
 ---
-<section id="hero-section" class="min-h-screen flex flex-col justify-center px-6 md:px-24 relative overflow-hidden pt-20 md:pt-0">
+<section id="hero-section" class="min-h-screen flex flex-col justify-center px-6 md:px-24 relative overflow-hidden pt-20 md:pt-0 reveal-section">
 	<!-- LightRays WebGL background -->
 	<div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 		<LightRays
@@ -73,6 +73,21 @@ import SpecularButton from './SpecularButton.jsx';
 				>
 					Hubungi Saya
 				</SpecularButton>
+			</div>
+		</div>
+
+		<!-- Amikom badge (Anti-UI-Slop: clean, minimal) -->
+		<div class="absolute bottom-8 right-8 z-30 pointer-events-auto">
+			<div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-zinc-900/60 backdrop-blur-md border border-white/10 shadow-sm">
+				<span class="relative flex items-center" aria-hidden="true">
+					<span class="absolute inline-block w-3 h-3 rounded-full bg-emerald-500 opacity-30 animate-ping"></span>
+					<span class="relative inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+				</span>
+				<img src="/images/amikom.svg" alt="Amikom" class="w-4 h-4 object-contain" />
+				<span class="text-[12px] tracking-tight flex items-center">
+					<span class="text-zinc-400 font-normal">Active Student at</span>
+					<span class="text-zinc-200 font-medium ml-1">Universitas Amikom Yogyakarta</span>
+				</span>
 			</div>
 		</div>
 	</div>
