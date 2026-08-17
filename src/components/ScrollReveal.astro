@@ -5,7 +5,7 @@
 ---
 
 <script type="module">
-	// Robust Scroll reveal initializer with media control: prefers IntersectionObserver
+	// Robust Scroll reveal initializer with media control: prefers IntersectionObserver and postMessage for YouTube
 	const initScrollReveal = async () => {
 		// Wider set of selectors to cover main sections and common list/grid items
 		const targetSelector = '.reveal-heading, .reveal-card, .hero-text, .reveal-section, .reveal-list-item';
@@ -25,7 +25,7 @@
 			});
 		});
 
-		// Helpers for panel visibility and media control
+		// Helpers
 		function isPanelVisible(el) {
 			if (!el) return true;
 			const panel = el.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
@@ -35,13 +35,45 @@
 			return cs && cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0';
 		}
 
+		function isYouTubeSrc(src) {
+			return /youtube\.com|youtu\.be/.test(src || '');
+		}
+
+		function sendYouTubeCommand(iframe, func) {
+			try {
+				if (!iframe || !iframe.contentWindow) return;
+				const msg = JSON.stringify({ event: 'command', func: func, args: [] });
+				iframe.contentWindow.postMessage(msg, '*');
+			} catch (e) {}
+		}
+
+		function ensureEnableJSAPI(iframe) {
+			try {
+				const current = iframe.dataset.origSrc || iframe.src || '';
+				if (!current) return;
+				if (!isYouTubeSrc(current)) { iframe.dataset.origSrc = current; return; }
+				const u = new URL(current, location.href);
+				if (!u.searchParams.get('enablejsapi')) {
+					u.searchParams.set('enablejsapi', '1');
+					iframe.dataset.origSrc = current;
+					iframe.src = u.toString(); // one-time reload to enable JS API
+				} else {
+					iframe.dataset.origSrc = current;
+				}
+			} catch (e) {}
+		}
+
 		function prepareMediaStopping(scope) {
-			// stop any iframe autoplay by clearing src until revealed
+			// Store original iframe src and ensure YouTube iframes have enablejsapi=1
 			scope.querySelectorAll('iframe').forEach(iframe => {
 				try {
 					if (!iframe.dataset.origSrc) iframe.dataset.origSrc = iframe.src || '';
-					// blank it to prevent autoplay until reveal
-					iframe.src = '';
+					if (isYouTubeSrc(iframe.dataset.origSrc || iframe.src)) {
+						ensureEnableJSAPI(iframe);
+					} else {
+						// blank non-YouTube iframe src to prevent autoplay until reveal
+						iframe.src = '';
+					}
 				} catch (e) {}
 			});
 
@@ -57,9 +89,16 @@
 				if (isPanelVisible(video)) { try { video.play().catch(()=>{}); } catch(e){} }
 			});
 			el.querySelectorAll('iframe').forEach(iframe => {
-				if (isPanelVisible(iframe) && iframe.dataset.origSrc) {
-					try { iframe.src = iframe.dataset.origSrc; } catch (e) {}
-				}
+				try {
+					if (!isPanelVisible(iframe)) return;
+					const src = iframe.dataset.origSrc || iframe.src || '';
+					if (isYouTubeSrc(src)) {
+						// use postMessage API to play without reloading
+						sendYouTubeCommand(iframe, 'playVideo');
+					} else if (iframe.dataset.origSrc) {
+						iframe.src = iframe.dataset.origSrc;
+					}
+				} catch (e) {}
 			});
 		}
 
@@ -69,7 +108,15 @@
 				try { video.pause(); } catch (e) {}
 			});
 			el.querySelectorAll('iframe').forEach(iframe => {
-				try { iframe.src = ''; } catch (e) {}
+				try {
+					const src = iframe.dataset.origSrc || iframe.src || '';
+					if (isYouTubeSrc(src)) {
+						// send pause command via postMessage
+						sendYouTubeCommand(iframe, 'pauseVideo');
+					} else {
+						iframe.src = '';
+					}
+				} catch (e) {}
 			});
 		}
 

@@ -534,7 +534,17 @@ function ensureGalleryModal(){
 												document.querySelectorAll('iframe').forEach(iframe => {
 													const panel = iframe.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
 													const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none');
-													if (!visible) { try { if (iframe.dataset.origSrc) { iframe.dataset.currentSrc = iframe.src || ''; iframe.src = ''; } } catch(e) {} }
+													if (!visible) {
+														try {
+															const src = iframe.dataset.origSrc || iframe.src || '';
+															if (/youtube\.com|youtu\.be/.test(src)) {
+																// pause via postMessage API
+																try { iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*'); } catch(e) {}
+															} else {
+																if (iframe.dataset.origSrc) { iframe.dataset.currentSrc = iframe.src || ''; iframe.src = ''; }
+															}
+														} catch(e) {}
+													}
 												});
 											}
 											// run once on init to ensure hidden panels have paused media
