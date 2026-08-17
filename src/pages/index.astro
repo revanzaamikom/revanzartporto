@@ -408,6 +408,8 @@ function collapseExpanded(){
 		expanded.style.maxHeight = desired + 'px';
 		// ensure expanded is visible on small screens — scroll to center to avoid overscrolling past the panel
 		try { expanded.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) { /* fallback */ expanded.scrollIntoView({ behavior: 'smooth' }); }
+		// refresh reveal for content inside the expanded panel
+		if (window.refreshScrollReveal) window.refreshScrollReveal();
 	});
 }
 
@@ -498,6 +500,8 @@ function ensureGalleryModal(){
 													const target = this.getAttribute('data-panel');
 													document.querySelectorAll('[data-panel-content]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-panel-content="'+target+'"]')?.classList.remove('hidden');
+													// Refresh scroll reveal for newly-visible content
+													if (window.refreshScrollReveal) window.refreshScrollReveal();
 												});
 											});
 											// Marketing tabs behavior (enhanced: pause videos in hidden panels)
@@ -510,6 +514,8 @@ function ensureGalleryModal(){
 													document.querySelector('[data-marketing-panel="'+mk+'"]')?.classList.remove('hidden');
 													// ensure videos in hidden panels are paused
 													pauseVideosInHiddenPanels();
+													// refresh reveal for any newly visible elements
+													if (window.refreshScrollReveal) window.refreshScrollReveal();
 												});
 											});
 											// Publication tabs behavior (enhanced)
@@ -521,6 +527,7 @@ function ensureGalleryModal(){
 													document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-publication-panel="'+pub+'"]')?.classList.remove('hidden');
 													pauseVideosInHiddenPanels();
+													if (window.refreshScrollReveal) window.refreshScrollReveal();
 												});
 											});
 											// Initialize defaults

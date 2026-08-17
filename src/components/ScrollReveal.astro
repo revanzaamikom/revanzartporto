@@ -7,10 +7,25 @@
 <script type="module">
 	// Robust Scroll reveal initializer with media control: prefers IntersectionObserver and postMessage for YouTube
 	const initScrollReveal = async () => {
-		// Wider set of selectors to cover main sections and common list/grid items
-		const targetSelector = '.reveal-heading, .reveal-card, .hero-text, .reveal-section, .reveal-list-item';
-		const targets = Array.from(document.querySelectorAll(targetSelector));
-		if (!targets.length) return;
+		// Wider set of selectors to cover main sections, gallery, panels and common list/grid items
+			const targetSelector = [
+				'.reveal-heading',
+				'.reveal-card',
+				'.hero-text',
+				'.reveal-section',
+				'.reveal-list-item',
+				'#gallery',
+				'#gallery *',
+				'[data-panel-content]',
+				'[data-category-panel] .rounded-lg',
+				'[data-marketing-panel] .rounded-lg',
+				'[data-publication-panel] .rounded-lg',
+				'.panel-content .rounded-lg',
+				'.publication-panels .rounded-lg'
+			].join(', ');
+			const targets = Array.from(document.querySelectorAll(targetSelector));
+			// continue even if some selectors are missing
+			// (no early return)
 
 		// Apply initial CSS state so fallback animations have something to work with
 		targets.forEach(el => el.classList.add('sr-init'));
@@ -124,7 +139,9 @@
 		targets.forEach(t => prepareMediaStopping(t));
 
 		// IntersectionObserver reveal that toggles on enter/exit and controls media
-		const io = new IntersectionObserver((entries) => {
+		let io = null;
+		const observerOptions = { threshold: 0.05 };
+		io = new IntersectionObserver((entries) => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					entry.target.classList.add('sr-revealed');
@@ -134,9 +151,43 @@
 					pauseMediaIn(entry.target);
 				}
 			});
-		}, { threshold: 0.05 });
+		}, observerOptions);
 
-		targets.forEach(el => io.observe(el));
+		// Observe all targets (safe if empty)
+		targets.forEach(el => {
+			try { io.observe(el); } catch (e) {}
+		});
+
+		// Manual refresh function for panels that become visible after display:none
+		function isElementVisibleInViewport(el) {
+			const rect = el.getBoundingClientRect();
+			const vh = window.innerHeight || document.documentElement.clientHeight;
+			// Consider visible if it crosses a small threshold of viewport
+			return rect.top < vh * 0.95 && rect.bottom > vh * 0.05 && rect.width > 0 && rect.height > 0;
+		}
+
+		function refreshReveal() {
+			targets.forEach(el => {
+				try {
+					if (isElementVisibleInViewport(el)) {
+						el.classList.add('sr-revealed');
+						playMediaIn(el);
+					} else {
+						// If it's not currently visible, let IO handle it; but remove only if it's truly out
+						if (!isElementVisibleInViewport(el)) {
+							el.classList.remove('sr-revealed');
+							pauseMediaIn(el);
+						}
+					}
+				} catch (e) {}
+			});
+		}
+
+		// Expose refresh globally so tab switches can call it
+		window.refreshScrollReveal = refreshReveal;
+
+		// Run initial refresh after a short delay to catch elements rendered later
+		setTimeout(refreshReveal, 300);
 	};
 
 	if (document.readyState === 'loading') {
