@@ -11,6 +11,45 @@ import SplashScreen from '../components/SplashScreen.jsx';
 		const event = new CustomEvent('splash-complete');
 		window.dispatchEvent(event);
 	}} />
+
+	<script>
+	// Media helpers exposed globally so multiple scripts can reuse logic (play/pause, YT postMessage)
+	(function(){
+	function isYouTubeSrc(src){ return /youtube\.com|youtu\.be/.test(src || ''); }
+	function sendYouTubeCommand(iframe, func){
+		try{ if (!iframe || !iframe.contentWindow) return; const msg = JSON.stringify({ event: 'command', func: func, args: [] }); iframe.contentWindow.postMessage(msg, '*'); }catch(e){}
+	}
+	function isPanelVisible(el){ if (!el) return true; const panel = el.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]'); if (!panel) return true; if (panel.classList && panel.classList.contains('hidden')) return false; const cs = getComputedStyle(panel); return cs && cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0'; }
+
+	function playMediaIn(el){ if (!el) return; try{
+		el.querySelectorAll('video').forEach(video=>{ if (isPanelVisible(video)) try{ video.play().catch(()=>{}); } catch(e){} });
+		el.querySelectorAll('iframe').forEach(iframe=>{ try{ if (!isPanelVisible(iframe)) return; const src = iframe.dataset.origSrc || iframe.src || ''; if (isYouTubeSrc(src)) { sendYouTubeCommand(iframe, 'playVideo'); } else if (iframe.dataset.origSrc) { iframe.src = iframe.dataset.origSrc; } }catch(e){} });
+	}catch(e){}
+	}
+
+	function pauseMediaIn(el){ if (!el) return; try{
+		el.querySelectorAll('video').forEach(video=>{ try{ video.pause(); }catch(e){} });
+		el.querySelectorAll('iframe').forEach(iframe=>{ try{ const src = iframe.dataset.origSrc || iframe.src || ''; if (isYouTubeSrc(src)){ sendYouTubeCommand(iframe, 'pauseVideo'); } else { iframe.src = ''; } }catch(e){} });
+	}catch(e){}
+	}
+
+	function prepareMediaStopping(scope){ try{
+		scope.querySelectorAll('iframe').forEach(iframe=>{ try{ if (!iframe.dataset.origSrc) iframe.dataset.origSrc = iframe.src || ''; if (isYouTubeSrc(iframe.dataset.origSrc || iframe.src)) { // ensure enablejsapi=1 param
+			try{ const u = new URL(iframe.dataset.origSrc, location.href); if (!u.searchParams.get('enablejsapi')){ u.searchParams.set('enablejsapi','1'); iframe.dataset.origSrc = iframe.dataset.origSrc; iframe.src = u.toString(); } }catch(e){} } else { iframe.src = ''; } }catch(e){} });
+		scope.querySelectorAll('video').forEach(video=>{ try{ video.pause(); }catch(e){} });
+	}catch(e){}
+	}
+
+	function pauseVideosInHiddenPanels(){ try{
+		document.querySelectorAll('video').forEach(v=>{ const panel = v.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]'); const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none'); if (!visible) try{ v.pause(); }catch(e){} });
+		document.querySelectorAll('iframe').forEach(iframe=>{ const panel = iframe.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]'); const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none'); if (!visible){ try{ const src = iframe.dataset.origSrc || iframe.src || ''; if (/youtube\.com|youtu\.be/.test(src)){ try{ iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*'); }catch(e){} } else { if (iframe.dataset.origSrc){ iframe.dataset.currentSrc = iframe.src || ''; iframe.src = ''; } } }catch(e){} } });
+	}catch(e){}
+	}
+
+	window.mediaHelpers = { isYouTubeSrc, sendYouTubeCommand, isPanelVisible, playMediaIn, pauseMediaIn, prepareMediaStopping, pauseVideosInHiddenPanels };
+	})();
+	</script>
+
 	<main>
 		<Hero />
 		<ProjectGrid />

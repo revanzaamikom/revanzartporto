@@ -78,62 +78,78 @@
 			} catch (e) {}
 		}
 
-		function prepareMediaStopping(scope) {
-			// Store original iframe src and ensure YouTube iframes have enablejsapi=1
-			scope.querySelectorAll('iframe').forEach(iframe => {
-				try {
-					if (!iframe.dataset.origSrc) iframe.dataset.origSrc = iframe.src || '';
-					if (isYouTubeSrc(iframe.dataset.origSrc || iframe.src)) {
-						ensureEnableJSAPI(iframe);
-					} else {
-						// blank non-YouTube iframe src to prevent autoplay until reveal
-						iframe.src = '';
-					}
-				} catch (e) {}
-			});
 
-			// pause native videos until reveal
-			scope.querySelectorAll('video').forEach(video => {
-				try { video.pause(); } catch (e) {}
-			});
+		// Allow overriding media control via global helpers (defined in page scope)
+		let playMediaInFn = null;
+		let pauseMediaInFn = null;
+		let prepareMediaStoppingFn = null;
+		if (window && window.mediaHelpers) {
+			playMediaInFn = window.mediaHelpers.playMediaIn;
+			pauseMediaInFn = window.mediaHelpers.pauseMediaIn;
+			prepareMediaStoppingFn = window.mediaHelpers.prepareMediaStopping;
+		} else {
+			prepareMediaStoppingFn = function(scope) {
+				// Store original iframe src and ensure YouTube iframes have enablejsapi=1
+				scope.querySelectorAll('iframe').forEach(iframe => {
+					try {
+						if (!iframe.dataset.origSrc) iframe.dataset.origSrc = iframe.src || '';
+						if (isYouTubeSrc(iframe.dataset.origSrc || iframe.src)) {
+							ensureEnableJSAPI(iframe);
+						} else {
+							// blank non-YouTube iframe src to prevent autoplay until reveal
+							iframe.src = '';
+						}
+					} catch (e) {}
+				});
+
+				// pause native videos until reveal
+				scope.querySelectorAll('video').forEach(video => {
+					try { video.pause(); } catch (e) {}
+				});
+			};
+
+			playMediaInFn = function(el) {
+				if (!el) return;
+				el.querySelectorAll('video').forEach(video => {
+					if (isPanelVisible(video)) { try { video.play().catch(()=>{}); } catch(e){} }
+				});
+				el.querySelectorAll('iframe').forEach(iframe => {
+					try {
+						if (!isPanelVisible(iframe)) return;
+						const src = iframe.dataset.origSrc || iframe.src || '';
+						if (isYouTubeSrc(src)) {
+							// use postMessage API to play without reloading
+							sendYouTubeCommand(iframe, 'playVideo');
+						} else if (iframe.dataset.origSrc) {
+							iframe.src = iframe.dataset.origSrc;
+						}
+					} catch (e) {}
+				});
+			};
+
+			pauseMediaInFn = function(el) {
+				if (!el) return;
+				el.querySelectorAll('video').forEach(video => {
+					try { video.pause(); } catch (e) {}
+				});
+				el.querySelectorAll('iframe').forEach(iframe => {
+					try {
+						const src = iframe.dataset.origSrc || iframe.src || '';
+						if (isYouTubeSrc(src)) {
+							// send pause command via postMessage
+							sendYouTubeCommand(iframe, 'pauseVideo');
+						} else {
+							iframe.src = '';
+						}
+					} catch (e) {}
+				});
+			};
 		}
 
-		function playMediaIn(el) {
-			if (!el) return;
-			el.querySelectorAll('video').forEach(video => {
-				if (isPanelVisible(video)) { try { video.play().catch(()=>{}); } catch(e){} }
-			});
-			el.querySelectorAll('iframe').forEach(iframe => {
-				try {
-					if (!isPanelVisible(iframe)) return;
-					const src = iframe.dataset.origSrc || iframe.src || '';
-					if (isYouTubeSrc(src)) {
-						// use postMessage API to play without reloading
-						sendYouTubeCommand(iframe, 'playVideo');
-					} else if (iframe.dataset.origSrc) {
-						iframe.src = iframe.dataset.origSrc;
-					}
-				} catch (e) {}
-			});
-		}
-
-		function pauseMediaIn(el) {
-			if (!el) return;
-			el.querySelectorAll('video').forEach(video => {
-				try { video.pause(); } catch (e) {}
-			});
-			el.querySelectorAll('iframe').forEach(iframe => {
-				try {
-					const src = iframe.dataset.origSrc || iframe.src || '';
-					if (isYouTubeSrc(src)) {
-						// send pause command via postMessage
-						sendYouTubeCommand(iframe, 'pauseVideo');
-					} else {
-						iframe.src = '';
-					}
-				} catch (e) {}
-			});
-		}
+		// Use the functions (local or global)
+		const prepareMediaStopping = (scope) => { try{ prepareMediaStoppingFn && prepareMediaStoppingFn(scope); } catch(e){} };
+		const playMediaIn = (el) => { try{ playMediaInFn && playMediaInFn(el); } catch(e){} };
+		const pauseMediaIn = (el) => { try{ pauseMediaInFn && pauseMediaInFn(el); } catch(e){} };
 
 		// Initialize media stop for entire document targets so nothing auto-plays before reveal
 		targets.forEach(t => prepareMediaStopping(t));
