@@ -4,34 +4,61 @@
 // menghindari error "window is not defined" saat build/SSR.
 ---
 
-<script>
-	// @ts-ignore - package scrollreveal tidak memiliki type definitions
-	import ScrollReveal from 'scrollreveal';
+<script type="module">
+	// Robust Scroll reveal initializer: prefer the scrollreveal package, fallback to IntersectionObserver
+	const initScrollReveal = async () => {
+			// Wider set of selectors to cover main sections and common list/grid items
+			const targetSelector = '.reveal-heading, .reveal-card, .hero-text, .reveal-section, .reveal-list-item';
+			const targets = Array.from(document.querySelectorAll(targetSelector));
+			if (!targets.length) return;
 
-	const sr = ScrollReveal({
-		distance: '60px',
-		duration: 1200,
-		easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-		interval: 100,
-		reset: false,
-		mobile: true,
-		origin: 'bottom',
-		opacity: 0,
-		scale: 0.95,
-	});
+			// Apply initial CSS state so fallback animations have something to work with
+			targets.forEach(el => el.classList.add('sr-init'));
 
-	// Heading reveal
-	sr.reveal('.reveal-heading', {
-		delay: 200,
-		distance: '40px',
-		origin: 'bottom',
-	});
+			// Prepare staggered delays for known group selectors (fallback)
+			const staggerGroups = ['.reveal-card', '.reveal-list-item'];
+			staggerGroups.forEach(sel => {
+				const nodes = Array.from(document.querySelectorAll(sel));
+				nodes.forEach((n, i) => {
+					// only set if not explicitly set already
+					if (!n.style.transitionDelay) n.style.transitionDelay = `${(i * 0.12).toFixed(2)}s`;
+				});
+			});
 
-	// Card reveal dengan stagger interval
-	sr.reveal('.reveal-card', {
-		delay: 100,
-		interval: 150,
-		distance: '50px',
-		origin: 'bottom',
-	});
+			// Use IntersectionObserver-based reveal for all environments (no dependency on scrollreveal lib)
+
+			// Fallback: IntersectionObserver reveal that toggles on enter/exit so effects reset
+			const io = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('sr-revealed');
+					} else {
+						entry.target.classList.remove('sr-revealed');
+					}
+				});
+			}, { threshold: 0.05 });
+
+			targets.forEach(el => io.observe(el));
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initScrollReveal);
+	} else {
+		// run next frame so any client islands have a chance to attach
+		requestAnimationFrame(initScrollReveal);
+	}
 </script>
+
+<style is:global>
+	/* Fallback CSS animations when ScrollReveal isn't available. */
+	.sr-init {
+		opacity: 0;
+		transform: translateY(40px) scale(0.95);
+		transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.sr-revealed {
+		opacity: 1 !important;
+		transform: translateY(0) scale(1) !important;
+	}
+</style>

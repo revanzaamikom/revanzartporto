@@ -13,8 +13,8 @@
 				Work
 				<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
 			</a>
-			<a href="/about" class="text-textMuted hover:text-white transition-all relative group">
-				About
+			<a href="/#gallery" class="text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
+				Gallery
 				<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
 			</a>
 			<a href="mailto:contact@example.com" class="text-textMuted hover:text-white transition-all relative group">
@@ -24,3 +24,14 @@
 		</div>
 	</div>
 </nav>
+<script>
+// Smooth scroll for nav links that target anchors on the same page
+document.addEventListener('click', function(e){
+	const a = e.target.closest && e.target.closest('a[data-smooth-scroll]');
+	if (!a) return;
+	// Only handle same-origin same-path anchors; fall back to default behavior otherwise	if (a.pathname !== location.pathname || a.hostname !== location.hostname){ return; }
+	e.preventDefault();
+	const hash = a.getAttribute('href') || '';	const id = hash.split('#')[1];	if (!id) return; const target = document.getElementById(id);	if (target){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+	else { location.href = hash; }
+});
+</script>

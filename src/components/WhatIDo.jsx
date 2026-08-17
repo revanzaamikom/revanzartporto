@@ -39,7 +39,7 @@ export default function WhatIDo() {
 	};
 
 	return (
-		<section id="what-i-do" className="px-6 md:px-24 py-24 bg-[#000000] relative overflow-hidden">
+		<section id="what-i-do" className="px-6 md:px-24 py-24 bg-[#000000] relative overflow-hidden reveal-section">
 			<div className="max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 					{/* Left Column: Heading & Description */}

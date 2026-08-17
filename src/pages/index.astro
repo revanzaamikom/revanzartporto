@@ -95,46 +95,437 @@ import SplashScreen from '../components/SplashScreen.jsx';
 					@keyframes marquee-logos { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
 					#software-skills .marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); }
 					#software-skills .marquee-mask:hover .marquee-track { animation-play-state: paused; }
-				</style><!-- PAGE 4: Graphic Library -->
-			<section id="graphic-library" class="pt-24 pb-16 max-w-7xl mx-auto px-6 md:px-24">
+				</style><!-- PAGE 4: Gallery -->
+			<section id="gallery" class="pt-24 pb-16 max-w-7xl mx-auto px-6 md:px-24">
 				<div class="mb-8">
-					<h2 class="text-2xl font-extrabold">Graphic Library</h2>
-					<p class="text-textMuted mt-2">Soft skills & selected graphic pieces. Klik gambar untuk pratinjau.</p>
-				</div>
-	n			<!-- Soft Skills Grid -->
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-					<div class="p-4 bg-zinc-900/60 rounded-xl text-center">Creative Direction</div>
-					<div class="p-4 bg-zinc-900/60 rounded-xl text-center">Visual Storytelling</div>
-					<div class="p-4 bg-zinc-900/60 rounded-xl text-center">Team Leadership</div>
-					<div class="p-4 bg-zinc-900/60 rounded-xl text-center">Problem Solving</div>
+					<h2 class="text-2xl font-extrabold">Gallery</h2>
+					<p class="text-textMuted mt-2">Koleksi video dan desain. Gunakan tab di bawah untuk menavigasi koleksi.</p>
+
+					<!-- BEGIN: Gallery main content replaced -->
+					<style>
+						/* Hide default scrollbars for horizontal category bars */
+						.no-scrollbar { -ms-overflow-style: none; /* IE and Edge */
+							scrollbar-width: none; /* Firefox */
+						}
+						.no-scrollbar::-webkit-scrollbar { display: none; /* Chrome, Safari, Opera */ }
+						#category-bar { -ms-overflow-style: none; scrollbar-width: none; }
+						#category-bar::-webkit-scrollbar { display: none; }
+						/* Minimalist scrollbar for magazine feed */
+						.magazine-feed { scrollbar-width: thin; scrollbar-color: rgba(34,211,238,0.3) transparent; }
+						.magazine-feed::-webkit-scrollbar { width: 4px; }
+						.magazine-feed::-webkit-scrollbar-track { background: transparent; }
+						.magazine-feed::-webkit-scrollbar-thumb { background: rgba(34,211,238,0.3); border-radius: 9999px; }
+						.magazine-feed::-webkit-scrollbar-thumb:hover { background: rgba(34,211,238,0.6); }
+					</style>
+					<!-- Section 1: Video Editing (Category Accordion - Single Column) -->
+											<h3 class="text-xl font-bold mb-4 mt-8">Video Editing</h3>
+					<div class="mt-6">
+						<div class="bg-black/40 border border-white/10 rounded-2xl overflow-hidden">
+							<!-- Category Bar: horizontal, single-row -->
+							<div id="category-bar" class="flex gap-4 overflow-x-auto no-scrollbar py-3 px-4">
+								<button type="button" class="category-card min-w-[200px] flex-none rounded-lg p-4 bg-zinc-900/60 text-textMuted hover:text-white hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-white/10 shadow-sm" data-category="short-movie">
+							<div class="font-medium">General Editing</div>
+									<div class="text-xs text-textMuted mt-1">(View)</div>
+						</button>
+								<button type="button" class="category-card min-w-[200px] flex-none rounded-lg p-4 bg-zinc-900/60 text-textMuted hover:text-white hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-white/10 shadow-sm" data-category="talking-head">
+							<div class="font-medium">Talking Head</div>
+									<div class="text-xs text-textMuted mt-1">(View)</div>
+						</button>
+								<button type="button" class="category-card min-w-[200px] flex-none rounded-lg p-4 bg-zinc-900/60 text-textMuted hover:text-white hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-white/10 shadow-sm" data-category="property">
+							<div class="font-medium">Property</div>
+									<div class="text-xs text-textMuted mt-1">(View)</div>
+						</button>
+								<button type="button" class="category-card min-w-[200px] flex-none rounded-lg p-4 bg-zinc-900/60 text-textMuted hover:text-white hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-white/10 shadow-sm" data-category="advertising">
+							<div class="font-medium">Advertising</div>
+									<div class="text-xs text-textMuted mt-1">(View)</div>
+						</button>
+							</div>
+
+							<!-- Expanded area below the bar -->
+							<div id="category-expanded" class="overflow-hidden max-h-0 transition-[max-height] duration-500">
+								<div class="p-4">
+									<div data-category-panel="short-movie" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<div class="rounded-lg p-0 cursor-pointer overflow-hidden" data-video-src="https://www.youtube.com/embed/lsFE3Kv7wmw" data-preview-src="https://www.youtube.com/embed/lsFE3Kv7wmw?autoplay=1&mute=1&controls=0&loop=1&playlist=lsFE3Kv7wmw&modestbranding=1">
+					<div class="aspect-video w-full bg-transparent rounded overflow-hidden">
+						<iframe src="https://www.youtube.com/embed/lsFE3Kv7wmw?autoplay=1&mute=1&controls=0&loop=1&playlist=lsFE3Kv7wmw&modestbranding=1" title="Pelunasan Sunyi preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+					</div>
+					<div class="text-sm text-textMuted mt-2">Pelunasan Sunyi</div>
+</div>
+<div class="rounded-lg p-0 cursor-pointer overflow-hidden" data-video-src="https://www.youtube.com/embed/KgNorqWh2IM" data-preview-src="https://www.youtube.com/embed/KgNorqWh2IM?autoplay=1&mute=1&controls=0&loop=1&playlist=KgNorqWh2IM&modestbranding=1">
+					<div class="aspect-video w-full bg-transparent rounded overflow-hidden">
+						<iframe src="https://www.youtube.com/embed/KgNorqWh2IM?autoplay=1&mute=1&controls=0&loop=1&playlist=KgNorqWh2IM&modestbranding=1" title="Untitled preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+					</div>
+					<div class="text-sm text-textMuted mt-2">Untitled</div>
+</div>
+									</div>
+
+									<div data-category-panel="talking-head" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/talkinghead-1.mp4">
+					<img src="/images/talking-1-thumb.jpg" class="w-full h-28 object-cover rounded" alt="Talking Head 1" />
+					<div class="text-sm text-textMuted mt-2">Talking Head 01</div>
+</div>
+<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/talkinghead-2.mp4">
+					<img src="/images/talking-2-thumb.jpg" class="w-full h-28 object-cover rounded" alt="Talking Head 2" />
+					<div class="text-sm text-textMuted mt-2">Talking Head 02</div>
+</div>
+									</div>
+
+									<div data-category-panel="property" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/property-1.mp4">
+					<img src="/images/property1-thumb.jpg" class="w-full h-40 object-cover rounded" alt="Property 1" />
+					<div class="text-sm text-textMuted mt-2">Property 01</div>
+</div>
+									</div>
+
+									<div data-category-panel="advertising" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/ads-1.mp4">
+					<img src="/images/ads1-thumb.jpg" class="w-full h-40 object-cover rounded" alt="Ads 1" />
+					<div class="text-sm text-textMuted mt-2">Ads 01</div>
+</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- NEW: Design & Publication Sidebar Layout -->
+					<h3 class="text-xl font-bold mb-4 mt-12">Design Graphics</h3>
+					<div id="design-studio" class="mt-4 mb-8">
+						<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+							<aside class="md:col-span-1">
+								<div class="sticky top-28 p-4 bg-transparent">
+									<h3 class="text-sm text-textMuted uppercase tracking-widest">Design Studio</h3>
+									<nav class="mt-4 flex flex-col gap-2">
+										<button type="button" class="sidebar-item text-left px-4 py-3 rounded-md bg-transparent hover:bg-zinc-800 text-sm" data-panel="motion">Motion Design</button>
+										<button type="button" class="sidebar-item text-left px-4 py-3 rounded-md bg-transparent hover:bg-zinc-800 text-sm" data-panel="marketing">Marketing Design</button>
+										<button type="button" class="sidebar-item text-left px-4 py-3 rounded-md bg-transparent hover:bg-zinc-800 text-sm" data-panel="publication">Publication Design</button>
+									</nav>
+								</div>
+							</aside>
+							<div class="md:col-span-3 p-4 bg-transparent">
+								<div data-panel-content="motion" class="panel-content">
+									<h3 class="text-xl font-bold mb-4">Motion Design</h3>
+									<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="https://www.youtube.com/embed/diFIM1j26GA" data-preview-src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&modestbranding=1">
+											<div class="aspect-video w-full bg-transparent rounded overflow-hidden">
+												<iframe src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&modestbranding=1" title="Motion 01 preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+											</div>
+											<div class="p-2 text-sm text-textMuted">Motion 01</div>
+										</div>
+										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="https://www.youtube.com/embed/Sz6F-q_fq9I" data-preview-src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&modestbranding=1">
+											<div class="aspect-video w-full bg-transparent rounded overflow-hidden">
+												<iframe src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&modestbranding=1" title="Motion 02 preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+											</div>
+											<div class="p-2 text-sm text-textMuted">Motion 02</div>
+										</div>
+										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="/videos/motion-3.mp4">
+											<video autoplay muted loop playsinline class="w-full h-full object-cover aspect-video bg-black">
+												<source src="/videos/motion-3.mp4" type="video/mp4" />
+											</video>
+											<div class="p-2 text-sm text-textMuted">Motion 03</div>
+										</div>
+										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="/videos/motion-4.mp4">
+											<video autoplay muted loop playsinline class="w-full h-full object-cover aspect-video bg-black">
+												<source src="/videos/motion-4.mp4" type="video/mp4" />
+											</video>
+											<div class="p-2 text-sm text-textMuted">Motion 04</div>
+										</div>
+									</div>
+								</div>
+								<div data-panel-content="marketing" class="panel-content hidden">
+									<h3 class="text-xl font-bold mb-4">Marketing Design</h3>
+									<div class="mb-3 flex gap-2">
+										<button type="button" class="marketing-tab px-3 py-1 rounded-md bg-zinc-800 text-sm active" data-marketing="feeds">Social Media Feeds</button>
+										<button type="button" class="marketing-tab px-3 py-1 rounded-md text-sm text-textMuted" data-marketing="poster">Poster</button>
+										<button type="button" class="marketing-tab px-3 py-1 rounded-md text-sm text-textMuted" data-marketing="carousel">Carousel</button>
+									</div>
+									<div class="marketing-panels">
+										<div data-marketing-panel="feeds" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+											<div class="rounded-md overflow-hidden"><img src="/images/feeds1-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 1"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/feeds2-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 2"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/feeds3-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 3"/></div>
+										</div>
+										<div data-marketing-panel="poster" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+											<div class="rounded-md overflow-hidden"><img src="/images/poster1-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 1"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/poster2-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 2"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/poster3-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 3"/></div>
+										</div>
+										<div data-marketing-panel="carousel" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+											<div class="rounded-md overflow-hidden"><img src="/images/carousel1-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 1"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/carousel2-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 2"/></div>
+											<div class="rounded-md overflow-hidden"><img src="/images/carousel3-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 3"/></div>
+										</div>
+									</div>
+								</div>
+								<div data-panel-content="publication" class="panel-content hidden">
+									<h3 class="text-xl font-bold mb-4">Publication Design</h3>
+									<div class="mb-3 flex gap-2">
+										<button type="button" class="publication-tab px-3 py-1 rounded-md bg-zinc-800 text-sm active" data-publication="magazine">Magazine</button>
+									</div>
+									<div class="publication-panels">
+										<div data-publication-panel="magazine" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+											<div class="rounded-lg bg-zinc-900/60 p-6 flex flex-col justify-between border border-white/5 hover:border-cyan-500/20 transition-all duration-300">
+												<div>
+													<h4 class="font-bold text-xl text-white">GTR EVOLUTION</h4>
+													<p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mt-1">Magazine Publication</p>
+													<p class="text-textMuted text-sm mt-3 leading-relaxed">Sebuah karya desain publikasi majalah otomotif 26 halaman bertema legendaris "Nissan GT-R". Didesain dengan layout yang dinamis, tipografi tebal, dan komposisi visual premium.</p>
+												</div>
+												<button type="button" data-open-magazine="https://heyzine.com/flip-book/c92d0ae149.html" class="w-full text-center inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-bold mt-6 shadow-lg shadow-cyan-500/10 transition-all duration-300">
+													<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+													</svg>
+													Baca Majalah Interaktif
+												</button>
+											</div>
+											<div class="md:col-span-2 magazine-feed overflow-y-auto no-scrollbar p-2 bg-black/20 rounded-xl border border-white/5 flex flex-col gap-3 h-[500px]">
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-1.webp">
+													<img src="/images/magazine/gtr-1.webp" alt="GTR Evolution Cover" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Cover</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-2.webp">
+													<img src="/images/magazine/gtr-2.webp" alt="GTR Evolution Page 2" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 2</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-3.webp">
+													<img src="/images/magazine/gtr-3.webp" alt="GTR Evolution Page 3" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 3</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-4.webp">
+													<img src="/images/magazine/gtr-4.webp" alt="GTR Evolution Page 4" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 4</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-5.webp">
+													<img src="/images/magazine/gtr-5.webp" alt="GTR Evolution Page 5" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 5</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-6.webp">
+													<img src="/images/magazine/gtr-6.webp" alt="GTR Evolution Page 6" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 6</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-7.webp">
+													<img src="/images/magazine/gtr-7.webp" alt="GTR Evolution Page 7" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 7</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-8.webp">
+													<img src="/images/magazine/gtr-8.webp" alt="GTR Evolution Page 8" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 8</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-9.webp">
+													<img src="/images/magazine/gtr-9.webp" alt="GTR Evolution Page 9" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 9</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-10.webp">
+													<img src="/images/magazine/gtr-10.webp" alt="GTR Evolution Page 10" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 10</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-11.webp">
+													<img src="/images/magazine/gtr-11.webp" alt="GTR Evolution Page 11" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 11</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-12.webp">
+													<img src="/images/magazine/gtr-12.webp" alt="GTR Evolution Page 12" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 12</span>
+													</div>
+												</div>
+												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-13.webp">
+													<img src="/images/magazine/gtr-13.webp" alt="GTR Evolution Page 13" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 13</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script>
+					(function(){
+// Category accordion behavior
+const categoryBar = document.getElementById('category-bar');
+const expanded = document.getElementById('category-expanded');
+const panels = document.querySelectorAll('[data-category-panel]');
+
+function collapseExpanded(){
+	expanded.style.maxHeight = '0px';
+	panels.forEach(p => p.classList.add('hidden'));
+	document.querySelectorAll('.category-card.active').forEach(b => b.classList.remove('active','bg-zinc-800','text-white'));
+}
+
+						if (categoryBar){
+	categoryBar.addEventListener('click', function(e){
+		const btn = e.target.closest('[data-category]');
+		if (!btn) return;
+		const cat = btn.getAttribute('data-category');
+		const panel = document.querySelector('[data-category-panel="'+cat+'"]');
+		if (!panel) return;
+		const isActive = btn.classList.contains('active');
+		if (isActive){
+									// toggle collapse
+			collapseExpanded();
+			return;
+		}
+		// activate selected card
+		document.querySelectorAll('.category-card').forEach(b => b.classList.remove('active','bg-zinc-800','text-white'));
+		btn.classList.add('active','bg-zinc-800','text-white');
+		// show corresponding panel
+		panels.forEach(p => p.classList.add('hidden'));
+		panel.classList.remove('hidden');
+		// compute and set smooth max-height
+		const desired = panel.scrollHeight + 32; // add buffer for padding
+		expanded.style.maxHeight = desired + 'px';
+		// ensure expanded is visible on small screens — scroll to center to avoid overscrolling past the panel
+		try { expanded.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) { /* fallback */ expanded.scrollIntoView({ behavior: 'smooth' }); }
+	});
+}
+
+						// Delegate clicks for video thumbnails (open modal) and load-into-player triggers
+document.addEventListener('click', function(e){
+							const thumb = e.target.closest('[data-video-src]');
+	if (thumb){
+								e.preventDefault();
+								openGalleryVideoModal(thumb.getAttribute('data-video-src'));
+								return;
+							}
+	const load = e.target.closest('[data-load-video]');
+	if (load){
+								e.preventDefault();
+								const src = load.getAttribute('data-load-video');
+								const vid = document.querySelector('#company-player');
+								if (vid && src){
+									vid.pause(); const source = vid.querySelector('source'); if (source) source.src = src; else { const s = document.createElement('source'); s.src = src; s.type = 'video/mp4'; vid.appendChild(s); } vid.load(); vid.play().catch(()=>{});
+		}
+							}
+	// close modal button handled below (id=gallery-video-close)
+	if (e.target && e.target.id === 'gallery-video-close'){
+								e.preventDefault();
+								const modal = document.getElementById('gallery-video-modal');
+								if (!modal) return; const container = document.getElementById('gallery-video-container'); if (container) container.innerHTML = ''; modal.classList.remove('flex'); modal.classList.add('hidden');
+							}
+});
+
+						// Modal helper: supports mp4 (video) or embed (YouTube/Vimeo iframe)
+let galleryModal = null;
+function ensureGalleryModal(){
+							if (galleryModal) return galleryModal;
+							galleryModal = document.createElement('div');
+	galleryModal.id = 'gallery-video-modal';
+	galleryModal.className = 'fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm';
+	galleryModal.innerHTML = '\n\t\t<div class="w-full h-full flex items-center justify-center p-6">' + '<div class="w-full h-full max-w-[1200px] max-h-[90vh] bg-black rounded-xl overflow-hidden relative">' + '<button id="gallery-video-close" aria-label="Close video" class="absolute top-4 right-4 z-50 bg-white/10 hover:bg-white/20 text-sm px-3 py-1 rounded-full">✕</button>' + '<div id="gallery-video-container" class="w-full h-full flex items-center justify-center bg-black"></div>' + '</div>' + '</div>\n';
+	document.body.appendChild(galleryModal);
+	// Close when clicking outside the content area (overlay)
+	galleryModal.addEventListener('click', function(e){
+		if (e.target && e.target.id === 'gallery-video-modal'){
+			const container = document.getElementById('gallery-video-container'); if (container) container.innerHTML = ''; galleryModal.classList.add('hidden'); galleryModal.classList.remove('flex');
+		}
+	});
+	// ESC to close
+	document.addEventListener('keydown', function onEsc(e){ if (e.key === 'Escape'){ const m = document.getElementById('gallery-video-modal'); if (m && !m.classList.contains('hidden')){ const c = document.getElementById('gallery-video-container'); if (c) c.innerHTML = ''; m.classList.add('hidden'); m.classList.remove('flex'); } } });
+	return galleryModal;
+}
+
+						function openGalleryVideoModal(src){
+							const modal = ensureGalleryModal();
+							const container = document.getElementById('gallery-video-container');
+							if (!container) return;
+							container.innerHTML = '';
+							if (/youtube\.com|youtu\.be|vimeo\.com/.test(src)){
+								const iframe = document.createElement('iframe');
+								let modalSrc = src;
+							const ytMatch = src.match(/youtube\.com\/embed\/([A-Za-z0-9_-]+)/);
+							if (ytMatch && ytMatch[1]){
+								modalSrc = 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&controls=1&rel=0&modestbranding=1';
+							} else {
+								modalSrc = src + (src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1&controls=1&rel=0&modestbranding=1';
+							}
+							iframe.src = modalSrc;
+								iframe.className = 'w-full h-full';
+								iframe.setAttribute('frameborder','0');
+								iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media; picture-in-picture');
+							iframe.setAttribute('allowfullscreen','');
+								container.appendChild(iframe);
+							} else {
+								const video = document.createElement('video');
+								video.controls = true; video.playsInline = true; video.className = 'w-full h-full bg-black';
+								const s = document.createElement('source'); s.src = src; s.type = 'video/mp4';
+								video.appendChild(s);
+								container.appendChild(video);
+								video.play().catch(()=>{});
+							}
+							modal.classList.remove('hidden'); modal.classList.add('flex');
+						}
+					})();
+					</script>
+										<script>
+										(function(){
+											// Sidebar panel switching and marketing sub-tabs
+											document.querySelectorAll('.sidebar-item').forEach(btn => {
+												btn.addEventListener('click', function(){
+													document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('bg-zinc-800','text-white'));
+													this.classList.add('bg-zinc-800','text-white');
+													const target = this.getAttribute('data-panel');
+													document.querySelectorAll('[data-panel-content]').forEach(p => p.classList.add('hidden'));
+													document.querySelector('[data-panel-content="'+target+'"]')?.classList.remove('hidden');
+												});
+											});
+											// Marketing tabs behavior
+											document.querySelectorAll('.marketing-tab').forEach(tab => {
+												tab.addEventListener('click', function(){
+													document.querySelectorAll('.marketing-tab').forEach(t => t.classList.remove('bg-zinc-800','text-white'));
+													this.classList.add('bg-zinc-800','text-white');
+													const mk = this.getAttribute('data-marketing');
+													document.querySelectorAll('[data-marketing-panel]').forEach(p => p.classList.add('hidden'));
+													document.querySelector('[data-marketing-panel="'+mk+'"]')?.classList.remove('hidden');
+												});
+											});
+											// Publication tabs behavior
+											document.querySelectorAll('.publication-tab').forEach(tab => {
+												tab.addEventListener('click', function(){
+													document.querySelectorAll('.publication-tab').forEach(t => t.classList.remove('bg-zinc-800','text-white'));
+													this.classList.add('bg-zinc-800','text-white');
+													const pub = this.getAttribute('data-publication');
+													document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
+													document.querySelector('[data-publication-panel="'+pub+'"]')?.classList.remove('hidden');
+												});
+											});
+											// Initialize defaults
+											document.querySelectorAll('[data-panel-content]').forEach(p => p.classList.add('hidden'));
+											document.querySelector('[data-panel-content="motion"]')?.classList.remove('hidden');
+											document.querySelectorAll('[data-marketing-panel]').forEach(p => p.classList.add('hidden'));
+											document.querySelector('[data-marketing-panel="feeds"]')?.classList.remove('hidden');
+											document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
+											document.querySelector('[data-publication-panel="magazine"]')?.classList.remove('hidden');
+											const defaultSide = document.querySelector('.sidebar-item[data-panel="motion"]'); if (defaultSide) defaultSide.classList.add('bg-zinc-800','text-white');
+										})();
+										</script>
+										<!-- END: Gallery main content replaced -->
 				</div>
 
-				<!-- Bento Grid Graphic Design (3 columns) -->
-				<div class="mb-6">
-					<h3 class="text-lg font-bold mb-3">Selected Graphics</h3>			</div>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-					<!-- Card 1 -->
-					<div class="rounded-2xl overflow-hidden bg-black/40 border border-white/10 cursor-pointer">
-						<div class="aspect-[4/3] w-full h-auto">
-							<img data-lightbox data-full="/images/graphic-1.jpg" src="/images/graphic-1-thumb.jpg" alt="Graphic 1" class="object-cover w-full h-full" />
-						</div>
-						<div class="p-3 text-sm text-textMuted">Project: Branding â€¢ Tools: Illustrator</div>
-					</div>
-					<!-- Card 2 -->
-					<div class="rounded-2xl overflow-hidden bg-black/40 border border-white/10 cursor-pointer">
-						<div class="aspect-[4/3] w-full h-auto">
-							<img data-lightbox data-full="/images/graphic-2.jpg" src="/images/graphic-2-thumb.jpg" alt="Graphic 2" class="object-cover w-full h-full" />
-						</div>
-						<div class="p-3 text-sm text-textMuted">Project: Poster â€¢ Tools: Photoshop</div>
-					</div>
-					<!-- Card 3 -->
-					<div class="rounded-2xl overflow-hidden bg-black/40 border border-white/10 cursor-pointer">
-						<div class="aspect-[4/3] w-full h-auto">
-							<img data-lightbox data-full="/images/graphic-3.jpg" src="/images/graphic-3-thumb.jpg" alt="Graphic 3" class="object-cover w-full h-full" />
-						</div>
-						<div class="p-3 text-sm text-textMuted">Project: Illustration â€¢ Tools: Procreate</div>
-					</div>
-				</div>
+
 			</section>
 
 			<!-- PAGE 5: Certificates -->
@@ -175,7 +566,8 @@ import SplashScreen from '../components/SplashScreen.jsx';
 					</div>
 				</div>
 			</section>
-			<!-- Isolated script for lightbox and cert modal (keeps scope local, non-intrusive) -->
+	
+		<!-- Isolated script for lightbox and cert modal (keeps scope local, non-intrusive) -->
 			<script>
 			(function(){
 				// Utility: create lightbox element once
@@ -185,25 +577,122 @@ import SplashScreen from '../components/SplashScreen.jsx';
 					lightboxEl = document.createElement('div');
 					lightboxEl.id = 'lightbox-modal';
 					lightboxEl.className = 'fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 p-6';
-					lightboxEl.innerHTML = '<div class="max-w-[90vw] max-h-[90vh] overflow-auto rounded">'<
+					lightboxEl.innerHTML = '<div class="max-w-[90vw] max-h-[90vh] overflow-auto rounded">'
 						+ '<img id="lightbox-img" src="" alt="Preview" class="object-contain w-full h-auto rounded" />'
 						+ '<button id="lightbox-close" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Close</button>';
 					document.body.appendChild(lightboxEl);
 					return lightboxEl;
 				}
-				function openLightbox(src){
+	
+			function openLightbox(src){
 					createLightbox();
 					const el = document.getElementById('lightbox-modal');
-					if (!el) return;				const img = document.getElementById('lightbox-img');
-					img.src = src;				el.classList.remove('hidden');				el.classList.add('flex');			}
-				function closeLightbox(){				const el = document.getElementById('lightbox-modal');				if (!el) return;				sel.classList.remove('flex');				el.classList.add('hidden');				const img = document.getElementById('lightbox-img');				if (img) img.src = '';			}
-				// Certificate modal handlers			function openCertModal(){				const m = document.getElementById('cert-modal');				if (!m) return; m.classList.remove('hidden'); m.classList.add('flex');			}
-				function closeCertModal(){				const m = document.getElementById('cert-modal');				if (!m) return; m.classList.remove('flex'); m.classList.add('hidden');			}
-				// Global event listeners (scoped, non-destructive)			document.addEventListener('click', function(e){				const lb = e.target.closest('[data-lightbox]');				if (lb){					e.preventDefault();					const src = lb.dataset.full || lb.src || lb.getAttribute('src');					if (src) openLightbox(src);					return;				}				if (e.target && e.target.id === 'lightbox-close') { closeLightbox(); return; }				if (e.target && e.target.id === 'open-cert-vault'){ e.preventDefault(); openCertModal(); return; }				if (e.target && e.target.id === 'close-cert-modal') { e.preventDefault(); closeCertModal(); return; }				// click on backdrop to close modal if clicked directly on overlay				if (e.target && e.target.id === 'cert-modal') { closeCertModal(); }			});
-				document.addEventListener('keydown', function(e){				if (e.key === 'Escape') { closeLightbox(); closeCertModal(); }			});
-			})();
+					if (!el) return;
+				const img = document.getElementById('lightbox-img');
+					img.src = src;
+				el.classList.remove('hidden');
+				el.classList.add('flex');
+			}
+	
+			function closeLightbox(){
+				const el = document.getElementById('lightbox-modal');
+				if (!el) return;
+				el.classList.remove('flex');
+				el.classList.add('hidden');
+				const img = document.getElementById('lightbox-img');
+				if (img) img.src = '';
+			}
+	
+			// Certificate modal handlers
+			function openCertModal(){
+				const m = document.getElementById('cert-modal');
+				if (!m) return; m.classList.remove('hidden'); m.classList.add('flex');
+			}
+	
+			function closeCertModal(){
+				const m = document.getElementById('cert-modal');
+				if (!m) return; m.classList.remove('flex'); m.classList.add('hidden');
+			}
+	
+			// Helper to create and manage dynamic flipbook modal
+			let magModalEl = null;
+			function ensureMagModal() {
+				if (magModalEl) return magModalEl;
+				magModalEl = document.createElement('div');
+				magModalEl.id = 'mag-lightbox-modal';
+				magModalEl.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8';
+				magModalEl.innerHTML = `
+					<div class="relative w-full h-full max-w-6xl max-h-[90vh] bg-zinc-950 rounded-2xl overflow-hidden border border-white/10 flex flex-col">
+						<div class="p-4 bg-zinc-900 border-b border-white/5 flex justify-between items-center">
+							<h3 class="font-bold text-white tracking-wide">GTR EVOLUTION - Interactive Magazine Showcase</h3>
+							<button id="mag-lightbox-close" class="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full w-8 h-8 flex items-center justify-center font-bold transition-colors">✕</button>
+						</div>
+						<div id="mag-iframe-container" class="w-full flex-1 bg-black">
+							<!-- iframe dynamically inserted on demand -->
+						</div>
+					</div>
+				`;
+				document.body.appendChild(magModalEl);
+
+				// Close handlers
+				const closeBtn = magModalEl.querySelector('#mag-lightbox-close');
+				closeBtn?.addEventListener('click', closeMagModal);
+				magModalEl.addEventListener('click', (e) => {
+					if (e.target === magModalEl) closeMagModal();
+				});
+
+				return magModalEl;
+			}
+
+			function openMagModal(url) {
+				const modal = ensureMagModal();
+				const container = modal.querySelector('#mag-iframe-container');
+				if (container) {
+					container.innerHTML = `
+						<iframe src="${url}" class="w-full h-full border-0" allow="fullscreen" allowfullscreen></iframe>
+					`;
+				}
+				modal.classList.remove('hidden');
+				modal.classList.add('flex');
+			}
+
+			function closeMagModal() {
+				const modal = document.getElementById('mag-lightbox-modal');
+				if (!modal) return;
+				const container = modal.querySelector('#mag-iframe-container');
+				if (container) container.innerHTML = ''; // Destroy iframe immediately to release RAM
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+			}
+
+			// Global event listeners (scoped, non-destructive)
+			document.addEventListener('click', function(e){
+				const lb = e.target.closest('[data-lightbox]');
+				if (lb){
+					e.preventDefault();
+					const src = lb.dataset.lightbox || lb.dataset.full || lb.src || lb.getAttribute('src');
+					if (src) openLightbox(src);
+					return;
+				}
+				const magBtn = e.target.closest('[data-open-magazine]');
+				if (magBtn) {
+					e.preventDefault();
+					const url = magBtn.getAttribute('data-open-magazine');
+					if (url) openMagModal(url);
+					return;
+				}
+				if (e.target && e.target.id === 'lightbox-close') { closeLightbox(); return; }
+				if (e.target && e.target.id === 'open-cert-vault'){ e.preventDefault(); openCertModal(); return; }
+				if (e.target && e.target.id === 'close-cert-modal') { e.preventDefault(); closeCertModal(); return; }
+				// click on backdrop to close modal if clicked directly on overlay
+				if (e.target && e.target.id === 'cert-modal') { closeCertModal(); }
+			});
+	
+			document.addEventListener('keydown', function(e){
+				if (e.key === 'Escape') { closeLightbox(); closeCertModal(); closeMagModal(); }
+			});
+	
+		})();
 			</script>
 	</main>
 </Layout>
-
-

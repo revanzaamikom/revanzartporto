@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar.astro';
+import ScrollRevealComponent from '../components/ScrollReveal.astro';
 
 interface Props {
 	title: string;
@@ -21,15 +22,71 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 		<title>{title}</title>
+		<script>
+		  if ('scrollRestoration' in history) {
+		    history.scrollRestoration = 'manual';
+		  }
+		  // Ensure viewport starts at top as early as possible
+		  try { window.scrollTo(0, 0); } catch (e) {}
+		  document.addEventListener('DOMContentLoaded', function () {
+		    try { window.scrollTo(0, 0); } catch (e) {}
+		  });
+		</script>
 	</head>
 	<body class="bg-background text-textMain font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
 		<Navbar />
 		<slot />
+		<ScrollRevealComponent />
+		<script>
+		(function () {
+		  function finalizeStart() {
+		    try { window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); } catch (e) {}
+		    document.body.classList.add('splash-done');
+		  }
+
+		  function onSplash() {
+		    finalizeStart();
+		    window.removeEventListener('splash-complete', onSplash);
+		    clearTimeout(fallback);
+		  }
+
+		  window.addEventListener('splash-complete', onSplash);
+
+		  var fallback = setTimeout(function () { finalizeStart(); }, 3000);
+
+		  document.addEventListener('DOMContentLoaded', function () {
+		    var splashEl = document.querySelector('.fixed.inset-0.z-\\[9999\\]') || document.querySelector('[data-splash]') || document.getElementById('splash');
+		    if (!splashEl) {
+		      clearTimeout(fallback);
+		      finalizeStart();
+		    }
+		  });
+		})();
+		</script>
 	</body>
 </html>
 
 <style is:global>
 	html {
 		scroll-behavior: smooth;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE / Edge lama */
+	}
+
+	/* Chrome / Edge / Safari */
+	html::-webkit-scrollbar {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	body {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	body::-webkit-scrollbar {
+		display: none;
+		width: 0;
+		height: 0;
 	}
 </style>
