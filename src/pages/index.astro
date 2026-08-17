@@ -492,7 +492,7 @@ function ensureGalleryModal(){
 													document.querySelector('[data-panel-content="'+target+'"]')?.classList.remove('hidden');
 												});
 											});
-											// Marketing tabs behavior
+											// Marketing tabs behavior (enhanced: pause videos in hidden panels)
 											document.querySelectorAll('.marketing-tab').forEach(tab => {
 												tab.addEventListener('click', function(){
 													document.querySelectorAll('.marketing-tab').forEach(t => t.classList.remove('bg-zinc-800','text-white'));
@@ -500,9 +500,11 @@ function ensureGalleryModal(){
 													const mk = this.getAttribute('data-marketing');
 													document.querySelectorAll('[data-marketing-panel]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-marketing-panel="'+mk+'"]')?.classList.remove('hidden');
+													// ensure videos in hidden panels are paused
+													pauseVideosInHiddenPanels();
 												});
 											});
-											// Publication tabs behavior
+											// Publication tabs behavior (enhanced)
 											document.querySelectorAll('.publication-tab').forEach(tab => {
 												tab.addEventListener('click', function(){
 													document.querySelectorAll('.publication-tab').forEach(t => t.classList.remove('bg-zinc-800','text-white'));
@@ -510,6 +512,7 @@ function ensureGalleryModal(){
 													const pub = this.getAttribute('data-publication');
 													document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-publication-panel="'+pub+'"]')?.classList.remove('hidden');
+													pauseVideosInHiddenPanels();
 												});
 											});
 											// Initialize defaults
@@ -520,6 +523,22 @@ function ensureGalleryModal(){
 											document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
 											document.querySelector('[data-publication-panel="magazine"]')?.classList.remove('hidden');
 											const defaultSide = document.querySelector('.sidebar-item[data-panel="motion"]'); if (defaultSide) defaultSide.classList.add('bg-zinc-800','text-white');
+
+											// helper: pause videos/iframes inside panels that are currently hidden
+											function pauseVideosInHiddenPanels(){
+												document.querySelectorAll('video').forEach(v => {
+													const panel = v.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
+													const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none');
+													if (!visible) { try { v.pause(); } catch(e) {} }
+												});
+												document.querySelectorAll('iframe').forEach(iframe => {
+													const panel = iframe.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
+													const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none');
+													if (!visible) { try { if (iframe.dataset.origSrc) { iframe.dataset.currentSrc = iframe.src || ''; iframe.src = ''; } } catch(e) {} }
+												});
+											}
+											// run once on init to ensure hidden panels have paused media
+											pauseVideosInHiddenPanels();
 										})();
 										</script>
 										<!-- END: Gallery main content replaced -->

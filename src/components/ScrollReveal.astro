@@ -5,40 +5,91 @@
 ---
 
 <script type="module">
-	// Robust Scroll reveal initializer: prefer the scrollreveal package, fallback to IntersectionObserver
+	// Robust Scroll reveal initializer with media control: prefers IntersectionObserver
 	const initScrollReveal = async () => {
-			// Wider set of selectors to cover main sections and common list/grid items
-			const targetSelector = '.reveal-heading, .reveal-card, .hero-text, .reveal-section, .reveal-list-item';
-			const targets = Array.from(document.querySelectorAll(targetSelector));
-			if (!targets.length) return;
+		// Wider set of selectors to cover main sections and common list/grid items
+		const targetSelector = '.reveal-heading, .reveal-card, .hero-text, .reveal-section, .reveal-list-item';
+		const targets = Array.from(document.querySelectorAll(targetSelector));
+		if (!targets.length) return;
 
-			// Apply initial CSS state so fallback animations have something to work with
-			targets.forEach(el => el.classList.add('sr-init'));
+		// Apply initial CSS state so fallback animations have something to work with
+		targets.forEach(el => el.classList.add('sr-init'));
 
-			// Prepare staggered delays for known group selectors (fallback)
-			const staggerGroups = ['.reveal-card', '.reveal-list-item'];
-			staggerGroups.forEach(sel => {
-				const nodes = Array.from(document.querySelectorAll(sel));
-				nodes.forEach((n, i) => {
-					// only set if not explicitly set already
-					if (!n.style.transitionDelay) n.style.transitionDelay = `${(i * 0.12).toFixed(2)}s`;
-				});
+		// Prepare staggered delays for known group selectors (fallback)
+		const staggerGroups = ['.reveal-card', '.reveal-list-item'];
+		staggerGroups.forEach(sel => {
+			const nodes = Array.from(document.querySelectorAll(sel));
+			nodes.forEach((n, i) => {
+				// only set if not explicitly set already
+				if (!n.style.transitionDelay) n.style.transitionDelay = `${(i * 0.12).toFixed(2)}s`;
+			});
+		});
+
+		// Helpers for panel visibility and media control
+		function isPanelVisible(el) {
+			if (!el) return true;
+			const panel = el.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
+			if (!panel) return true;
+			if (panel.classList && panel.classList.contains('hidden')) return false;
+			const cs = getComputedStyle(panel);
+			return cs && cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0';
+		}
+
+		function prepareMediaStopping(scope) {
+			// stop any iframe autoplay by clearing src until revealed
+			scope.querySelectorAll('iframe').forEach(iframe => {
+				try {
+					if (!iframe.dataset.origSrc) iframe.dataset.origSrc = iframe.src || '';
+					// blank it to prevent autoplay until reveal
+					iframe.src = '';
+				} catch (e) {}
 			});
 
-			// Use IntersectionObserver-based reveal for all environments (no dependency on scrollreveal lib)
+			// pause native videos until reveal
+			scope.querySelectorAll('video').forEach(video => {
+				try { video.pause(); } catch (e) {}
+			});
+		}
 
-			// Fallback: IntersectionObserver reveal that toggles on enter/exit so effects reset
-			const io = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('sr-revealed');
-					} else {
-						entry.target.classList.remove('sr-revealed');
-					}
-				});
-			}, { threshold: 0.05 });
+		function playMediaIn(el) {
+			if (!el) return;
+			el.querySelectorAll('video').forEach(video => {
+				if (isPanelVisible(video)) { try { video.play().catch(()=>{}); } catch(e){} }
+			});
+			el.querySelectorAll('iframe').forEach(iframe => {
+				if (isPanelVisible(iframe) && iframe.dataset.origSrc) {
+					try { iframe.src = iframe.dataset.origSrc; } catch (e) {}
+				}
+			});
+		}
 
-			targets.forEach(el => io.observe(el));
+		function pauseMediaIn(el) {
+			if (!el) return;
+			el.querySelectorAll('video').forEach(video => {
+				try { video.pause(); } catch (e) {}
+			});
+			el.querySelectorAll('iframe').forEach(iframe => {
+				try { iframe.src = ''; } catch (e) {}
+			});
+		}
+
+		// Initialize media stop for entire document targets so nothing auto-plays before reveal
+		targets.forEach(t => prepareMediaStopping(t));
+
+		// IntersectionObserver reveal that toggles on enter/exit and controls media
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('sr-revealed');
+					playMediaIn(entry.target);
+				} else {
+					entry.target.classList.remove('sr-revealed');
+					pauseMediaIn(entry.target);
+				}
+			});
+		}, { threshold: 0.05 });
+
+		targets.forEach(el => io.observe(el));
 	};
 
 	if (document.readyState === 'loading') {
