@@ -20,3 +20,11 @@ dist
 
 # Coverage
 coverage
+
+# Local tooling scripts
+compress-videos.cjs
+convert-images.cjs
+convert-magazine.cjs
+find_unused_imports.js
+find_unused_imports.cjs
+find-large-files.cjs

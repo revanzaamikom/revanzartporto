@@ -21,7 +21,6 @@
     "framer-motion": "^13.1.0",
     "meshline": "^3.3.1",
     "ogl": "^1.0.11",
-    "pdf-to-img": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "scrollreveal": "^4.0.9",
@@ -30,6 +29,7 @@
   },
   "devDependencies": {
     "ffmpeg-static": "^5.3.0",
+    "pdf-to-img": "^6.2.0",
     "sharp": "^0.35.3"
   }
 }
