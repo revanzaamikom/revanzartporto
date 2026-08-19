@@ -64,7 +64,7 @@ export default function Lanyard3D({
     <div className={`${className} touch-none select-none`}>
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={[1, isMobile ? 1 : 1.5]}
         gl={{ alpha: transparent }}
         style={{ background: 'transparent', width: '100%', height: '100%', touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}

@@ -6,6 +6,7 @@ const projects = [
 		id: "project-1",
 		title: "Nutriverse Motion",
 		videoUrl: "/video/nutriverse.mp4",
+		posterUrl: "/images/posters/nutriverse.jpg",
 		youtubeId: "l5vtRq2WJJw",
 		spanSize: "md:col-span-2 h-[350px] md:h-[600px]"
 	},
@@ -14,6 +15,7 @@ const projects = [
 		id: "project-2",
 		title: "Nutriverse - UX GEMASTIK 2026",
 		videoUrl: "/video/nutriverse2.mp4",
+		posterUrl: "/images/posters/nutriverse2.jpg",
 		youtubeId: "2IsCiFwq0dg",
 		spanSize: "md:col-span-1 h-[288px] md:h-[600px] flex flex-col justify-end"
 	},
@@ -22,6 +24,7 @@ const projects = [
 		id: "project-3",
 		title: "Company Profile Andi Media Digital",
 		videoUrl: "/video/andimedia.mp4",
+		posterUrl: "/images/posters/andimedia.jpg",
 		youtubeId: "R6RIeHzSA1E",
 		spanSize: "md:col-span-1 h-[288px]"
 	},
@@ -30,6 +33,7 @@ const projects = [
 		id: "project-4",
 		title: "Nexum VFX Short Movie",
 		videoUrl: "/video/nexum.mp4",
+		posterUrl: "/images/posters/nexum.jpg",
 		youtubeId: "3EPe6pvqqCM",
 		spanSize: "md:col-span-1 h-[288px]"
 	},
@@ -38,6 +42,7 @@ const projects = [
 		id: "project-5",
 		title: "Indie Short Movie - pelunasan sunyi",
 		videoUrl: "/video/pelunasansunyi.mp4",
+		posterUrl: "/images/posters/pelunasansunyi.jpg",
 		youtubeId: "lsFE3Kv7wmw",
 		spanSize: "md:col-span-1 h-[288px]"
 	}
@@ -79,7 +84,8 @@ const projects = [
 					<div class="absolute inset-0 w-full h-full overflow-hidden">
 						<video 
 							src={project.videoUrl} 
-							autoPlay 
+							poster={project.posterUrl}
+							preload="none"
 							muted 
 							loop 
 							playsInline 
@@ -167,4 +173,67 @@ const projects = [
 			closeLightbox();
 		}
 	});
+
+	// Sequential video loading: download videos one-by-one when the work section approaches
+	(function () {
+		const workSection = document.getElementById('work');
+		const videos = Array.from(document.querySelectorAll('#work video'));
+		if (!workSection || videos.length === 0) return;
+
+		let started = false;
+		let currentIndex = 0;
+
+		const loadNextVideo = () => {
+			if (currentIndex >= videos.length) return;
+			const video = videos[currentIndex];
+			currentIndex++;
+
+			// Set preload to auto so the browser starts downloading
+			video.preload = 'auto';
+			// Force the browser to start fetching the video
+			video.load();
+
+			// When this video has enough data, start loading the next one
+			const onCanPlay = () => {
+				video.removeEventListener('canplay', onCanPlay);
+				// Start playback now that data is available
+				video.play().catch(() => {});
+				// Small delay before starting the next download to avoid burst
+				setTimeout(loadNextVideo, 300);
+			};
+
+			// If the video is already loaded (cached), move on quickly
+			if (video.readyState >= 3) {
+				onCanPlay();
+			} else {
+				video.addEventListener('canplay', onCanPlay);
+			}
+
+			// Safety: if the video fails to load, skip to the next
+			video.addEventListener('error', () => {
+				video.removeEventListener('canplay', onCanPlay);
+				setTimeout(loadNextVideo, 100);
+			}, { once: true });
+		};
+
+		const startLoading = () => {
+			if (started) return;
+			started = true;
+			loadNextVideo();
+		};
+
+		// Start loading when the work section is 600px away from the viewport
+		const observer = new IntersectionObserver((entries) => {
+			const entry = entries[0];
+			if (entry && entry.isIntersecting) {
+				startLoading();
+				observer.disconnect();
+			}
+		}, { rootMargin: '600px 0px' });
+
+		observer.observe(workSection);
+
+		// Fallback: start loading after 5 seconds regardless of scroll position
+		setTimeout(startLoading, 5000);
+	})();
 </script>
