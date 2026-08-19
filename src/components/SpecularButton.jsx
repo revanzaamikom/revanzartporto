@@ -87,7 +87,8 @@ const SpecularButton = ({
   disabled = false,
   onClick,
   className = '',
-  type = 'button'
+  type = 'button',
+  id
 }) => {
   const btnRef = useRef(null);
   const fxRef = useRef(null);
@@ -225,6 +226,7 @@ const SpecularButton = ({
 
   return (
     <button
+      id={id}
       ref={btnRef}
       type={type}
       disabled={disabled}

@@ -7,21 +7,40 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL || '').replace(/\/$/, '');
+const canonicalUrl = siteUrl || null;
+const pageTitle = title || 'REVANZART';
+const pageDescription = 'Portfolio resmi REVANZART - VFX, Motion Design, UI/UX, dan karya digital kreatif.';
+const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang="id" style="overflow-x: hidden;">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Muhamad Revanza Rafif Hamdani - Portfolio" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content={pageDescription} />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+		<link rel="shortcut icon" href="/favicon.svg?v=3" />
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+		<meta name="robots" content="index,follow,max-image-preview:large" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="REVANZART" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:alt" content="REVANZART Portfolio Preview" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={pageDescription} />
+		<meta name="twitter:image" content={ogImage} />
 		<meta name="generator" content={Astro.generator} />
 		<!-- Google Fonts: Inter -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-		<title>{title}</title>
+		<title>{pageTitle}</title>
 		<script>
 		  if ('scrollRestoration' in history) {
 		    history.scrollRestoration = 'manual';
@@ -30,6 +49,43 @@ const { title } = Astro.props;
 		  try { window.scrollTo(0, 0); } catch (e) {}
 		  document.addEventListener('DOMContentLoaded', function () {
 		    try { window.scrollTo(0, 0); } catch (e) {}
+		    var fallbackTitle = 'REVANZART';
+		    var phrases = ['REVANZART', 'PORTOFOLIO'];
+		    var phraseIndex = 0;
+		    var charIndex = 0;
+		    var isDeleting = false;
+		    var typingDelay = 95;
+		    var deletingDelay = 65;
+		    var holdDelay = 950;
+		    var pauseBetweenWords = 280;
+
+		    function loopTypingTitle() {
+		      var active = phrases[phraseIndex];
+		      if (!active) return;
+		      var visibleText = active.slice(0, charIndex);
+		      document.title = visibleText || fallbackTitle;
+
+		      if (!isDeleting) {
+		        if (charIndex < active.length) {
+		          charIndex += 1;
+		          setTimeout(loopTypingTitle, typingDelay);
+		        } else {
+		          isDeleting = true;
+		          setTimeout(loopTypingTitle, holdDelay);
+		        }
+		      } else {
+		        if (charIndex > 0) {
+		          charIndex -= 1;
+		          setTimeout(loopTypingTitle, deletingDelay);
+		        } else {
+		          isDeleting = false;
+		          phraseIndex = (phraseIndex + 1) % phrases.length;
+		          setTimeout(loopTypingTitle, pauseBetweenWords);
+		        }
+		      }
+		    }
+
+		    loopTypingTitle();
 		  });
 		</script>
 	</head>
@@ -69,6 +125,7 @@ const { title } = Astro.props;
 <style is:global>
 	html {
 		scroll-behavior: smooth;
+		scrollbar-gutter: stable;
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* IE / Edge lama */
 	}
@@ -83,10 +140,29 @@ const { title } = Astro.props;
 	body {
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+		padding-bottom: env(safe-area-inset-bottom);
 	}
 	body::-webkit-scrollbar {
 		display: none;
 		width: 0;
 		height: 0;
+	}
+
+	#floating-contact {
+		bottom: calc(1.5rem + env(safe-area-inset-bottom));
+	}
+
+	button,
+	a,
+	input,
+	textarea,
+	select {
+		min-height: 44px;
+	}
+
+	input,
+	textarea,
+	select {
+		font-size: 16px;
 	}
 </style>

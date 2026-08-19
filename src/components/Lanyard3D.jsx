@@ -61,12 +61,12 @@ export default function Lanyard3D({
   }, []);
 
   return (
-    <div className={className}>
+    <div className={`${className} touch-none select-none`}>
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
-        style={{ background: 'transparent', width: '100%', height: '100%' }}
+        style={{ background: 'transparent', width: '100%', height: '100%', touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
@@ -376,9 +376,10 @@ function Band({
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
+            onPointerUp={e => (e.nativeEvent.target.releasePointerCapture(e.pointerId), drag(false))}
             onPointerDown={e => (
-              e.target.setPointerCapture(e.pointerId),
+              e.stopPropagation(),
+              e.nativeEvent.target.setPointerCapture(e.pointerId),
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
             )}
           >

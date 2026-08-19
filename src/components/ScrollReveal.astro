@@ -1,12 +1,7 @@
----
-// Komponen ini hanya berisi <script> client-side.
-// ScrollReveal diimpor di dalam <script> sehingga hanya dieksekusi di browser,
-// menghindari error "window is not defined" saat build/SSR.
----
-
 <script type="module">
 	// Robust Scroll reveal initializer with media control: prefers IntersectionObserver and postMessage for YouTube
 	const initScrollReveal = async () => {
+		const shouldUseViewportMediaControl = window.matchMedia('(max-width: 1023px), (pointer: coarse)').matches;
 		// Wider set of selectors to cover main sections, gallery, panels and common list/grid items
 			const targetSelector = [
 				'.reveal-heading',
@@ -151,8 +146,11 @@
 		const playMediaIn = (el) => { try{ playMediaInFn && playMediaInFn(el); } catch(e){} };
 		const pauseMediaIn = (el) => { try{ pauseMediaInFn && pauseMediaInFn(el); } catch(e){} };
 
-		// Initialize media stop for entire document targets so nothing auto-plays before reveal
-		targets.forEach(t => prepareMediaStopping(t));
+		// Mobile/tablet only: stop media until visible to reduce CPU/data usage.
+		// Desktop keeps current autoplay behavior (requested for Recent Work).
+		if (shouldUseViewportMediaControl) {
+			targets.forEach(t => prepareMediaStopping(t));
+		}
 
 		// IntersectionObserver reveal that toggles on enter/exit and controls media
 		let io = null;
@@ -161,10 +159,14 @@
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					entry.target.classList.add('sr-revealed');
-					playMediaIn(entry.target);
+					if (shouldUseViewportMediaControl) {
+						playMediaIn(entry.target);
+					}
 				} else {
 					entry.target.classList.remove('sr-revealed');
-					pauseMediaIn(entry.target);
+					if (shouldUseViewportMediaControl) {
+						pauseMediaIn(entry.target);
+					}
 				}
 			});
 		}, observerOptions);
@@ -187,12 +189,16 @@
 				try {
 					if (isElementVisibleInViewport(el)) {
 						el.classList.add('sr-revealed');
-						playMediaIn(el);
+						if (shouldUseViewportMediaControl) {
+							playMediaIn(el);
+						}
 					} else {
 						// If it's not currently visible, let IO handle it; but remove only if it's truly out
 						if (!isElementVisibleInViewport(el)) {
 							el.classList.remove('sr-revealed');
-							pauseMediaIn(el);
+							if (shouldUseViewportMediaControl) {
+								pauseMediaIn(el);
+							}
 						}
 					}
 				} catch (e) {}

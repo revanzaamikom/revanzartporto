@@ -1,28 +1,33 @@
 ---
 ---
-<nav class="fixed top-5 left-1/2 -translate-x-1/2 z-50">
-	<div class="bg-neutral-900/70 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 rounded-full px-6 py-2.5 md:px-8 md:py-3 flex items-center gap-8 md:gap-12">
-		<!-- Left: Logo -->
-		<a href="/" class="text-lg font-bold tracking-wider hover:opacity-80 transition-opacity">
-			REVANZART
-		</a>
+<nav class="site-navbar fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
+  <div class="w-full flex justify-center">
+    <div class="bg-neutral-900/70 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 rounded-full px-4 py-1.5 md:px-6 md:py-2 flex items-center justify-center gap-4 md:gap-6">
+      <a href="/#what-i-do" class="hidden md:inline-flex items-center leading-none text-sm font-medium text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
+        About
+        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+      </a>
 
-		<!-- Right: Nav links -->
-		<div class="flex items-center gap-6 md:gap-8 text-sm font-medium">
-			<a href="/#work" class="text-textMuted hover:text-white transition-all relative group">
-				Work
-				<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
-			</a>
-			<a href="/#gallery" class="text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
-				Gallery
-				<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
-			</a>
-			<a href="mailto:contact@example.com" class="text-textMuted hover:text-white transition-all relative group">
-				Contact
-				<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
-			</a>
-		</div>
-	</div>
+      <a href="/#work" class="inline-flex items-center leading-none text-sm font-medium text-textMuted hover:text-white transition-all relative group">
+        Work
+        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+      </a>
+
+      <a href="/" class="inline-flex items-center leading-none text-sm md:text-base font-bold tracking-wider hover:opacity-80 transition-opacity px-4 md:px-6 border-x border-white/10">
+        REVANZART
+      </a>
+
+      <a href="/#gallery" class="inline-flex items-center leading-none text-sm font-medium text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
+        Gallery
+        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+      </a>
+
+      <a href="/#certificates" class="hidden md:inline-flex items-center leading-none text-sm font-medium text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
+        Certificate
+        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
+      </a>
+    </div>
+  </div>
 </nav>
 <script>
 // Smooth scroll for nav links that target anchors on the same page
@@ -35,3 +40,9 @@ document.addEventListener('click', function(e){
 	else { location.href = hash; }
 });
 </script>
+
+<style>
+  .site-navbar a {
+    min-height: 0;
+  }
+</style>

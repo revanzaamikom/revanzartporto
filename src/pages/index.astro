@@ -52,10 +52,12 @@ import SplashScreen from '../components/SplashScreen.jsx';
 
 	<main>
 		<Hero />
-		<ProjectGrid />
+		<div class="relative z-20">
+			<ProjectGrid />
+		</div>
 		<WhatIDo />
 
-							<section id="software-skills" class="py-10 bg-black/80 border-y border-white/5 overflow-hidden relative">
+							<section id="software-skills" class="py-10 bg-black/80 border-y border-white/5 overflow-hidden relative max-w-full">
 			<div class="max-w-7xl mx-auto px-6 md:px-24">
 				<div class="mb-4">
 					<h3 class="text-sm text-textMuted uppercase tracking-widest">Software & Tools</h3>
@@ -127,13 +129,16 @@ import SplashScreen from '../components/SplashScreen.jsx';
 						</div>
 					</div>
 				<style>
-					#software-skills .marquee-mask { overflow: hidden; }
-					#software-skills .marquee-track { display:flex; gap:1.5rem; align-items:center; white-space:nowrap; animation: marquee-logos 32s linear infinite; }
+					#software-skills { max-width: 100%; overflow-x: clip; }
+					#software-skills .marquee-mask { overflow: hidden; max-width: 100%; min-width: 0; }
+					#software-skills .marquee-track { display:flex; gap:1.5rem; align-items:center; white-space:nowrap; min-width:max-content; animation: marquee-logos 32s linear infinite; }
 					#software-skills .marquee-track { will-change: transform; }
 					#software-skills .marquee-track img { display:inline-block; }
 					@keyframes marquee-logos { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
 					#software-skills .marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); }
 					#software-skills .marquee-mask:hover .marquee-track { animation-play-state: paused; }
+					#category-bar { max-width: 100%; min-width: 0; }
+					#category-expanded { max-width: 100%; }
 				</style><!-- PAGE 4: Gallery -->
 			<section id="gallery" class="pt-24 pb-16 max-w-7xl mx-auto px-6 md:px-24">
 				<div class="mb-8">
@@ -203,27 +208,31 @@ import SplashScreen from '../components/SplashScreen.jsx';
 									</div>
 
 									<div data-category-panel="talking-head" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/talkinghead-1.mp4">
-					<img src="/images/talking-1-thumb.jpg" class="w-full h-28 object-cover rounded" alt="Talking Head 1" />
-					<div class="text-sm text-textMuted mt-2">Talking Head 01</div>
+<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-32">
+	<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+	<div class="text-sm font-medium text-zinc-400">Talking Head</div>
+	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
 </div>
-<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/talkinghead-2.mp4">
-					<img src="/images/talking-2-thumb.jpg" class="w-full h-28 object-cover rounded" alt="Talking Head 2" />
-					<div class="text-sm text-textMuted mt-2">Talking Head 02</div>
+<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-32">
+	<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+	<div class="text-sm font-medium text-zinc-400">Talking Head</div>
+	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
 </div>
 									</div>
 
 									<div data-category-panel="property" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/property-1.mp4">
-					<img src="/images/property1-thumb.jpg" class="w-full h-40 object-cover rounded" alt="Property 1" />
-					<div class="text-sm text-textMuted mt-2">Property 01</div>
+<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-40">
+	<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+	<div class="text-sm font-medium text-zinc-400">Property</div>
+	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
 </div>
 									</div>
 
 									<div data-category-panel="advertising" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-<div class="rounded-lg bg-zinc-900/60 p-2 cursor-pointer" data-video-src="/videos/ads-1.mp4">
-					<img src="/images/ads1-thumb.jpg" class="w-full h-40 object-cover rounded" alt="Ads 1" />
-					<div class="text-sm text-textMuted mt-2">Ads 01</div>
+<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-40">
+	<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+	<div class="text-sm font-medium text-zinc-400">Advertising</div>
+	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
 </div>
 									</div>
 								</div>
@@ -250,32 +259,36 @@ import SplashScreen from '../components/SplashScreen.jsx';
 									<h3 class="text-xl font-bold mb-4">Motion Design</h3>
 									<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
 										<div class="rounded-lg overflow-hidden bg-transparent">
-											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&playsinline=1&enablejsapi=1" aria-label="Open Motion 01">
+											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/CPL9pZUawdA?autoplay=1&mute=1&controls=0&loop=1&playlist=CPL9pZUawdA&playsinline=1&enablejsapi=1" data-video-key="camp-plan-motion-graphics" aria-label="Open camp-plan-motion-graphics">
 												<div class="relative aspect-video overflow-hidden rounded-xl w-full">
-													<iframe src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&playsinline=1&enablejsapi=1" title="Motion 01 preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+													<iframe src="https://www.youtube.com/embed/CPL9pZUawdA?autoplay=1&mute=1&controls=0&loop=1&playlist=CPL9pZUawdA&playsinline=1&enablejsapi=1" title="camp-plan-motion-graphics-preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
 												</div>
 											</button>
-											<div class="p-2 text-sm text-textMuted">Motion 01</div>
+											<div class="p-2 text-sm text-textMuted">camp-plan-motion-graphics</div>
 										</div>
 										<div class="rounded-lg overflow-hidden bg-transparent">
-											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&playsinline=1&enablejsapi=1" aria-label="Open Motion 02">
+											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&playsinline=1&enablejsapi=1" data-video-key="intro-for-broadcast-show-infogeh" aria-label="Open intro-for-broadcast-show-infogeh">
 												<div class="relative aspect-video overflow-hidden rounded-xl w-full">
-													<iframe src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&playsinline=1&enablejsapi=1" title="Motion 02 preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+													<iframe src="https://www.youtube.com/embed/Sz6F-q_fq9I?autoplay=1&mute=1&controls=0&loop=1&playlist=Sz6F-q_fq9I&playsinline=1&enablejsapi=1" title="intro-for-broadcast-show-infogeh-preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
 												</div>
 											</button>
-											<div class="p-2 text-sm text-textMuted">Motion 02</div>
+											<div class="p-2 text-sm text-textMuted">intro-for-broadcast-show-infogeh</div>
 										</div>
-										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="/videos/motion-3.mp4">
-											<video autoplay muted loop playsinline class="w-full h-full object-cover aspect-video bg-black">
-												<source src="/videos/motion-3.mp4" type="video/mp4" />
-											</video>
-											<div class="p-2 text-sm text-textMuted">Motion 03</div>
+										<div class="rounded-lg overflow-hidden bg-transparent">
+											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&playsinline=1&enablejsapi=1" data-video-key="motion-graphics-amikom-one-apps" aria-label="Open motion-graphics-amikom-one-apps">
+												<div class="relative aspect-video overflow-hidden rounded-xl w-full">
+													<iframe src="https://www.youtube.com/embed/diFIM1j26GA?autoplay=1&mute=1&controls=0&loop=1&playlist=diFIM1j26GA&playsinline=1&enablejsapi=1" title="motion-graphics-amikom-one-apps-preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+												</div>
+											</button>
+											<div class="p-2 text-sm text-textMuted">motion-graphics-amikom-one-apps</div>
 										</div>
-										<div class="rounded-lg overflow-hidden bg-transparent cursor-pointer" data-video-src="/videos/motion-4.mp4">
-											<video autoplay muted loop playsinline class="w-full h-full object-cover aspect-video bg-black">
-												<source src="/videos/motion-4.mp4" type="video/mp4" />
-											</video>
-											<div class="p-2 text-sm text-textMuted">Motion 04</div>
+										<div class="rounded-lg overflow-hidden bg-transparent">
+											<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/xpx3JPR0bgc?autoplay=1&mute=1&controls=0&loop=1&playlist=xpx3JPR0bgc&playsinline=1&enablejsapi=1" data-video-key="langkah-mandiri-ads-motion-graphics" aria-label="Open langkah-mandiri-ads-motion-graphics">
+												<div class="relative aspect-video overflow-hidden rounded-xl w-full">
+													<iframe src="https://www.youtube.com/embed/xpx3JPR0bgc?autoplay=1&mute=1&controls=0&loop=1&playlist=xpx3JPR0bgc&playsinline=1&enablejsapi=1" title="langkah-mandiri-ads-motion-graphics-preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+												</div>
+											</button>
+											<div class="p-2 text-sm text-textMuted">langkah-mandiri-ads-motion-graphics</div>
 										</div>
 									</div>
 								</div>
@@ -288,19 +301,55 @@ import SplashScreen from '../components/SplashScreen.jsx';
 									</div>
 									<div class="marketing-panels">
 										<div data-marketing-panel="feeds" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-											<div class="rounded-md overflow-hidden"><img src="/images/feeds1-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 1"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/feeds2-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 2"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/feeds3-thumb.jpg" class="w-full h-40 object-cover" alt="Feeds 3"/></div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Social Design Feeds</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Social Design Feeds</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Social Design Feeds</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
 										</div>
 										<div data-marketing-panel="poster" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
-											<div class="rounded-md overflow-hidden"><img src="/images/poster1-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 1"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/poster2-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 2"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/poster3-thumb.jpg" class="w-full h-40 object-cover" alt="Poster 3"/></div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Poster</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Poster</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Poster</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
 										</div>
 										<div data-marketing-panel="carousel" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
-											<div class="rounded-md overflow-hidden"><img src="/images/carousel1-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 1"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/carousel2-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 2"/></div>
-											<div class="rounded-md overflow-hidden"><img src="/images/carousel3-thumb.jpg" class="w-full h-40 object-cover" alt="Carousel 3"/></div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Carousel</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Carousel</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
+											<div class="rounded-md bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center h-44">
+												<svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+												<div class="text-sm font-medium text-zinc-400">Carousel</div>
+												<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -314,94 +363,54 @@ import SplashScreen from '../components/SplashScreen.jsx';
 											<div class="rounded-lg bg-zinc-900/60 p-6 flex flex-col justify-between border border-white/5 hover:border-cyan-500/20 transition-all duration-300">
 												<div>
 													<h4 class="font-bold text-xl text-white">GTR EVOLUTION</h4>
-													<p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mt-1">Magazine Publication</p>
 													<p class="text-textMuted text-sm mt-3 leading-relaxed">Sebuah karya desain publikasi majalah otomotif 26 halaman bertema legendaris "Nissan GT-R". Didesain dengan layout yang dinamis, tipografi tebal, dan komposisi visual premium.</p>
 												</div>
-												<button type="button" data-open-magazine="https://heyzine.com/flip-book/c92d0ae149.html" class="w-full text-center inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-bold mt-6 shadow-lg shadow-cyan-500/10 transition-all duration-300">
+												<button type="button" data-open-magazine="https://heyzine.com/flip-book/c92d0ae149.html" class="w-full whitespace-nowrap inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-full tracking-wide bg-[#00d2ee] text-black hover:bg-[#00b8d4] transition-all duration-200 shadow-lg shadow-[#00d2ee]/20 mt-6">
 													<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 														<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
 													</svg>
-													Baca Majalah Interaktif
+													<span class="whitespace-nowrap">Lihat Flip Book</span>
 												</button>
 											</div>
 											<div class="md:col-span-2 magazine-feed overflow-y-auto no-scrollbar p-2 bg-black/20 rounded-xl border border-white/5 flex flex-col gap-3 h-[500px]">
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-1.webp">
 													<img src="/images/magazine/gtr-1.webp" alt="GTR Evolution Cover" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Cover</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-2.webp">
 													<img src="/images/magazine/gtr-2.webp" alt="GTR Evolution Page 2" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 2</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-3.webp">
 													<img src="/images/magazine/gtr-3.webp" alt="GTR Evolution Page 3" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 3</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-4.webp">
 													<img src="/images/magazine/gtr-4.webp" alt="GTR Evolution Page 4" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 4</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-5.webp">
 													<img src="/images/magazine/gtr-5.webp" alt="GTR Evolution Page 5" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 5</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-6.webp">
 													<img src="/images/magazine/gtr-6.webp" alt="GTR Evolution Page 6" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 6</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-7.webp">
 													<img src="/images/magazine/gtr-7.webp" alt="GTR Evolution Page 7" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 7</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-8.webp">
 													<img src="/images/magazine/gtr-8.webp" alt="GTR Evolution Page 8" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 8</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-9.webp">
 													<img src="/images/magazine/gtr-9.webp" alt="GTR Evolution Page 9" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 9</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-10.webp">
 													<img src="/images/magazine/gtr-10.webp" alt="GTR Evolution Page 10" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 10</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-11.webp">
 													<img src="/images/magazine/gtr-11.webp" alt="GTR Evolution Page 11" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 11</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-12.webp">
 													<img src="/images/magazine/gtr-12.webp" alt="GTR Evolution Page 12" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 12</span>
-													</div>
 												</div>
 												<div class="relative group cursor-pointer overflow-hidden rounded-lg flex-none border border-white/10" data-lightbox="/images/magazine/gtr-13.webp">
 													<img src="/images/magazine/gtr-13.webp" alt="GTR Evolution Page 13" class="w-full h-auto object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
-													<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-														<span class="px-3 py-1 bg-cyan-500 text-black font-bold text-xs rounded-full">Page 13</span>
-													</div>
 												</div>
 											</div>
 										</div>
@@ -412,7 +421,7 @@ import SplashScreen from '../components/SplashScreen.jsx';
 					</div>
 					<script>
 					(function(){
-// Category accordion behavior
+// Category accordion behavior, nah 
 const categoryBar = document.getElementById('category-bar');
 const expanded = document.getElementById('category-expanded');
 const panels = document.querySelectorAll('[data-category-panel]');
@@ -531,6 +540,21 @@ function ensureGalleryModal(){
 					</script>
 										<script>
 										(function(){
+											let refreshRevealRafId = 0;
+											function scheduleRefreshReveal() {
+												if (refreshRevealRafId) return;
+												refreshRevealRafId = window.requestAnimationFrame(() => {
+													refreshRevealRafId = 0;
+													if (window.refreshScrollReveal) window.refreshScrollReveal();
+												});
+											}
+
+											function pauseHiddenPanelMedia() {
+												if (window.mediaHelpers && window.mediaHelpers.pauseVideosInHiddenPanels) {
+													window.mediaHelpers.pauseVideosInHiddenPanels();
+												}
+											}
+
 											// Sidebar panel switching and marketing sub-tabs
 											document.querySelectorAll('.sidebar-item').forEach(btn => {
 												btn.addEventListener('click', function(){
@@ -539,8 +563,9 @@ function ensureGalleryModal(){
 													const target = this.getAttribute('data-panel');
 													document.querySelectorAll('[data-panel-content]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-panel-content="'+target+'"]')?.classList.remove('hidden');
-													// Refresh scroll reveal for newly-visible content
-													if (window.refreshScrollReveal) window.refreshScrollReveal();
+													pauseHiddenPanelMedia();
+													// Refresh scroll reveal for newly-visible content (scheduled to avoid jitter)
+													scheduleRefreshReveal();
 												});
 											});
 											// Marketing tabs behavior (enhanced: pause videos in hidden panels)
@@ -552,9 +577,9 @@ function ensureGalleryModal(){
 													document.querySelectorAll('[data-marketing-panel]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-marketing-panel="'+mk+'"]')?.classList.remove('hidden');
 													// ensure videos in hidden panels are paused
-													pauseVideosInHiddenPanels();
+													pauseHiddenPanelMedia();
 													// refresh reveal for any newly visible elements
-													if (window.refreshScrollReveal) window.refreshScrollReveal();
+													scheduleRefreshReveal();
 												});
 											});
 											// Publication tabs behavior (enhanced)
@@ -565,8 +590,8 @@ function ensureGalleryModal(){
 													const pub = this.getAttribute('data-publication');
 													document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
 													document.querySelector('[data-publication-panel="'+pub+'"]')?.classList.remove('hidden');
-													pauseVideosInHiddenPanels();
-													if (window.refreshScrollReveal) window.refreshScrollReveal();
+													pauseHiddenPanelMedia();
+													scheduleRefreshReveal();
 												});
 											});
 											// Initialize defaults
@@ -577,32 +602,8 @@ function ensureGalleryModal(){
 											document.querySelectorAll('[data-publication-panel]').forEach(p => p.classList.add('hidden'));
 											document.querySelector('[data-publication-panel="magazine"]')?.classList.remove('hidden');
 											const defaultSide = document.querySelector('.sidebar-item[data-panel="motion"]'); if (defaultSide) defaultSide.classList.add('bg-zinc-800','text-white');
-
-											// helper: pause videos/iframes inside panels that are currently hidden
-											function pauseVideosInHiddenPanels(){
-												document.querySelectorAll('video').forEach(v => {
-													const panel = v.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
-													const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none');
-													if (!visible) { try { v.pause(); } catch(e) {} }
-												});
-												document.querySelectorAll('iframe').forEach(iframe => {
-													const panel = iframe.closest('[data-panel-content], [data-marketing-panel], [data-publication-panel]');
-													const visible = !panel || (panel.classList && !panel.classList.contains('hidden') && getComputedStyle(panel).display !== 'none');
-													if (!visible) {
-														try {
-															const src = iframe.dataset.origSrc || iframe.src || '';
-															if (/youtube\.com|youtu\.be/.test(src)) {
-																// pause via postMessage API
-																try { iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*'); } catch(e) {}
-															} else {
-																if (iframe.dataset.origSrc) { iframe.dataset.currentSrc = iframe.src || ''; iframe.src = ''; }
-															}
-														} catch(e) {}
-													}
-												});
-											}
 											// run once on init to ensure hidden panels have paused media
-											pauseVideosInHiddenPanels();
+											pauseHiddenPanelMedia();
 										})();
 										</script>
 										<!-- END: Gallery main content replaced -->
@@ -618,32 +619,79 @@ function ensureGalleryModal(){
 					<p class="text-textMuted mt-2">Vault of e-certificates and achievements.</p>
 				</div>
 
-				<button id="open-cert-vault" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500 text-black font-semibold">Buka Vault E-Certificate</button>
+				<button id="open-cert-vault" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500 text-black font-semibold">Open Vault e-Certificate</button>
 
 				<!-- Fullscreen Modal (hidden by default) -->
-				<div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 py-8 px-6">
-					<div class="bg-zinc-950 w-full max-w-5xl mx-auto rounded-xl overflow-hidden shadow-2xl relative">
-						<button id="close-cert-modal" class="absolute top-4 right-4 z-40 bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Close</button>
-						<div class="p-6">
-							<h3 class="text-lg font-bold mb-4">E-Certificates Vault</h3>
-							<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[70vh] overflow-auto">
-								<!-- Certificate item 1 -->
-								<div class="rounded-lg bg-black/40 p-3 flex gap-3 items-start">
-									<img src="/images/cert-1-thumb.jpg" alt="Cert 1" class="w-32 h-20 object-cover rounded-md" />
-									<div>
-										<div class="font-medium">Workshop VFX 2025</div>
-										<div class="text-xs text-textMuted">Issuer: VFX Academy</div>
+				<div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-3 sm:p-6 md:p-10">
+					<div class="bg-[#111111] w-full max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 flex flex-col h-[92vh] md:h-[85vh]">
+						<!-- Header (Stretches fully, matching grid under it perfectly) -->
+						<div class="w-full px-6 py-5 bg-zinc-900/80 border-b border-white/5 flex justify-between items-center flex-none">
+							<h3 class="text-xl font-bold text-white tracking-tight">E-Certificates Vault</h3>
+							<button id="close-cert-modal" class="bg-white/5 hover:bg-white/10 hover:text-cyan-400 text-white p-2 rounded-full w-9 h-9 flex items-center justify-center font-bold transition-all" aria-label="Close vault">✕</button>
+						</div>
+						
+						<!-- Split Layout Container (Flex column on mobile, Row on desktop) -->
+						<div class="flex flex-col md:flex-row flex-1 min-h-0 bg-[#050505]">
+							<!-- Left Column (List) with no scrollbar -->
+							<div class="w-full md:w-[35%] bg-[#080808] border-b md:border-b-0 md:border-r border-white/5 p-4 overflow-y-auto no-scrollbar max-h-[30%] md:max-h-full flex-none md:flex-1">
+								<div class="flex flex-col gap-2" id="cert-list-container">
+									<!-- Certificate Item 1 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300 active-cert" data-img="/images/e-certificate/cert-1.webp" data-title="Asisten Praktikum Screenwriting 2026">
+										<img src="/images/e-certificate/cert-1.webp" alt="Asisten Praktikum Screenwriting 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-white line-clamp-2 leading-tight">Asisten Praktikum Screenwriting 2026</div>
+									</button>
+									<!-- Certificate Item 2 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-2.webp" data-title="Juara Kategori Best Editing Company Profile BOIM 2026">
+										<img src="/images/e-certificate/cert-2.webp" alt="Juara Kategori Best Editing Company Profile BOIM 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Juara Kategori Best Editing Company Profile BOIM 2026</div>
+									</button>
+									<!-- Certificate Item 3 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-3.webp" data-title="Peserta Lomba Concept Art and Digital Painting BOIM 2026">
+										<img src="/images/e-certificate/cert-3.webp" alt="Peserta Lomba Concept Art and Digital Painting BOIM 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Peserta Lomba Concept Art and Digital Painting BOIM 2026</div>
+									</button>
+									<!-- Certificate Item 4 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-4.webp" data-title="Course Digital Marketing">
+										<img src="/images/e-certificate/cert-4.webp" alt="Course Digital Marketing" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Course Digital Marketing</div>
+									</button>
+									<!-- Certificate Item 5 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-5.webp" data-title="Introduction To Computer - Graphic Design">
+										<img src="/images/e-certificate/cert-5.webp" alt="Introduction To Computer - Graphic Design" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Introduction To Computer - Graphic Design</div>
+									</button>
+									<!-- Certificate Item 6 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-6.webp" data-title="Peserta Lomba Music Video BOIM 2026">
+										<img src="/images/e-certificate/cert-6.webp" alt="Peserta Lomba Music Video BOIM 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Peserta Lomba Music Video BOIM 2026</div>
+									</button>
+									<!-- Certificate Item 7 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-7.webp" data-title="Workshop Film Bolong 2026">
+										<img src="/images/e-certificate/cert-7.webp" alt="Workshop Film Bolong 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Workshop Film Bolong 2026</div>
+									</button>
+									<!-- Certificate Item 8 -->
+									<button type="button" class="cert-item text-left w-full rounded-2xl bg-transparent border border-white/5 hover:border-cyan-500/30 hover:bg-white/10 p-3.5 flex gap-4 items-center transition-all duration-300" data-img="/images/e-certificate/cert-8.webp" data-title="Juara Kategori Best Editing Company Profile BOIM 2026">
+										<img src="/images/e-certificate/cert-8.webp" alt="Juara Kategori Best Editing Company Profile BOIM 2026" class="w-16 h-10 object-cover rounded-lg flex-none" loading="lazy" />
+										<div class="text-sm font-semibold text-zinc-400 hover:text-white line-clamp-2 leading-tight">Juara Kategori Best Editing Company Profile BOIM 2026</div>
+									</button>
+								</div>
+							</div>
+							
+							<!-- Right Column (Preview Area - maximised and fits full right side) -->
+							<div class="w-full md:w-[65%] flex flex-col justify-center items-center bg-black relative overflow-hidden flex-1 min-h-0">
+								<div class="w-full h-full flex flex-col justify-between items-center min-h-0 relative">
+									<!-- Visual Workspace (Zoomable and Pannable) -->
+									<div class="relative w-full flex-1 min-h-0 overflow-hidden flex items-center justify-center p-1 bg-[#050505] cursor-grab active:cursor-grabbing" id="cert-zoom-workspace">
+										<!-- Main Large Image Preview with absolute positioning for free pan/zoom -->
+										<img id="cert-main-preview" src="/images/e-certificate/cert-1.webp" alt="Asisten Praktikum Screenwriting 2026" class="max-w-[95%] max-h-[95%] object-contain rounded-lg transition-transform duration-200 ease-out select-none pointer-events-none origin-center" style="transform: translate(0px, 0px) scale(1);" />
+									</div>
+									
+									<!-- Modern Minimalist Overlay Title Bar -->
+									<div class="absolute bottom-4 left-4 right-4 z-10 px-5 py-3 rounded-2xl bg-[#111111]/80 backdrop-blur-md border border-white/5 text-center flex-none">
+										<h4 id="cert-main-title" class="text-sm sm:text-base font-bold text-white tracking-wide leading-snug">Asisten Praktikum Screenwriting 2026</h4>
 									</div>
 								</div>
-								<!-- Certificate item 2 -->
-								<div class="rounded-lg bg-black/40 p-3 flex gap-3 items-start">
-									<img src="/images/cert-2-thumb.jpg" alt="Cert 2" class="w-32 h-20 object-cover rounded-md" />
-									<div>
-										<div class="font-medium">UI Design Bootcamp</div>
-										<div class="text-xs text-textMuted">Issuer: Design Institute</div>
-									</div>
-								</div>
-								<!-- Add more certificate frames as needed -->
 							</div>
 						</div>
 					</div>
@@ -689,13 +737,307 @@ function ensureGalleryModal(){
 			// Certificate modal handlers
 			function openCertModal(){
 				const m = document.getElementById('cert-modal');
-				if (!m) return; m.classList.remove('hidden'); m.classList.add('flex');
+				if (!m) return; 
+				m.classList.remove('hidden'); 
+				m.classList.add('flex');
+				
+				// Set default state when opening vault
+				const firstCert = document.querySelector('.cert-item');
+				if (firstCert) {
+					selectCertificate(firstCert);
+				}
 			}
 	
 			function closeCertModal(){
 				const m = document.getElementById('cert-modal');
 				if (!m) return; m.classList.remove('flex'); m.classList.add('hidden');
 			}
+
+			// Interactive Zoom & Pan Logic State
+			let zoomScale = 1;
+			let panX = 0;
+			let panY = 0;
+			let isPanning = false;
+			let startX = 0;
+			let startY = 0;
+			let transformRafId = 0;
+			
+			// Touch events pinch gesture memory
+			let touchStartDist = 0;
+			let touchStartScale = 1;
+			let isPinching = false;
+
+			function resetZoomAndPan() {
+				zoomScale = 1;
+				panX = 0;
+				panY = 0;
+				applyZoomTransform();
+			}
+
+			function clampPanToBounds(workspace, previewImg) {
+				if (!workspace || !previewImg || zoomScale <= 1) {
+					panX = 0;
+					panY = 0;
+					return;
+				}
+
+				const workspaceRect = workspace.getBoundingClientRect();
+				const baseWidth = previewImg.clientWidth;
+				const baseHeight = previewImg.clientHeight;
+				if (!baseWidth || !baseHeight) return;
+
+				const scaledWidth = baseWidth * zoomScale;
+				const scaledHeight = baseHeight * zoomScale;
+				const maxPanX = Math.max(0, (scaledWidth - workspaceRect.width) / 2);
+				const maxPanY = Math.max(0, (scaledHeight - workspaceRect.height) / 2);
+
+				panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+				panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+			}
+
+			function applyZoomTransform() {
+				const workspace = document.getElementById('cert-zoom-workspace');
+				const previewImg = document.getElementById('cert-main-preview');
+				if (!previewImg) return;
+
+				clampPanToBounds(workspace, previewImg);
+
+				if (transformRafId) {
+					window.cancelAnimationFrame(transformRafId);
+				}
+
+				// Use requestAnimationFrame for ultra-smooth 60fps mobile transitions
+				transformRafId = window.requestAnimationFrame(() => {
+					previewImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+					transformRafId = 0;
+				});
+			}
+
+			// Helper to get distance between two touch points for pinching
+			function getTouchDistance(e) {
+				if (e.touches.length < 2) return 0;
+				const x = e.touches[0].clientX - e.touches[1].clientX;
+				const y = e.touches[0].clientY - e.touches[1].clientY;
+				return Math.hypot(x, y);
+			}
+
+			// Setup Zoom & Pan Event Listeners (Mouse + Touch Screen / Touchpad)
+			function setupZoomAndPan() {
+				const workspace = document.getElementById('cert-zoom-workspace');
+				const previewImg = document.getElementById('cert-main-preview');
+				if (!workspace || !previewImg) return;
+				if (workspace.dataset.zoomPanBound === '1') return;
+				workspace.dataset.zoomPanBound = '1';
+				workspace.style.touchAction = 'none';
+
+				// Prevent default browser image drag behaviors
+				workspace.addEventListener('dragstart', (e) => e.preventDefault());
+
+				// 1. Wheel-to-Zoom (Desktop Mouse Wheel or Trackpad scrolls)
+				workspace.addEventListener('wheel', (e) => {
+					e.preventDefault();
+					
+					const zoomFactor = 0.15;
+					let newScale = zoomScale;
+
+					if (e.deltaY < 0) {
+						// Zoom In
+						newScale = Math.min(zoomScale + zoomFactor, 5);
+					} else {
+						// Zoom Out
+						newScale = Math.max(zoomScale - zoomFactor, 1);
+					}
+
+					if (newScale === 1) {
+						panX = 0;
+						panY = 0;
+					} else {
+						// Zoom centering relative to mouse cursor
+						const rect = workspace.getBoundingClientRect();
+						const mouseX = e.clientX - rect.left - rect.width / 2;
+						const mouseY = e.clientY - rect.top - rect.height / 2;
+						
+						const ratio = (newScale - zoomScale) / zoomScale;
+						panX -= mouseX * ratio;
+						panY -= mouseY * ratio;
+					}
+
+					zoomScale = newScale;
+					applyZoomTransform();
+				}, { passive: false });
+
+				// 2. Desktop Mouse Click-to-Drag Pan (Pointer Events)
+				workspace.addEventListener('pointerdown', (e) => {
+					if (e.pointerType === 'touch') return; // Handled separately by TouchEvents below
+					if (zoomScale <= 1) return; // Only pan when zoomed in
+					e.preventDefault();
+					isPanning = true;
+					startX = e.clientX - panX;
+					startY = e.clientY - panY;
+					workspace.setPointerCapture(e.pointerId);
+				});
+
+				workspace.addEventListener('pointermove', (e) => {
+					if (e.pointerType === 'touch') return;
+					if (!isPanning) return;
+					e.preventDefault();
+					panX = e.clientX - startX;
+					panY = e.clientY - startY;
+					applyZoomTransform();
+				});
+
+				const stopPanning = (e) => {
+					if (e.pointerType === 'touch') return;
+					if (!isPanning) return;
+					isPanning = false;
+					try { workspace.releasePointerCapture(e.pointerId); } catch(err) {}
+				};
+
+				workspace.addEventListener('pointerup', stopPanning);
+				workspace.addEventListener('pointercancel', stopPanning);
+				workspace.addEventListener('pointerleave', stopPanning);
+
+				// 3. Touch Screen Pinch-to-Zoom & Swipe-to-Pan (Mobile / Tablet / Touch laptops)
+				workspace.addEventListener('touchstart', (e) => {
+					if (e.touches.length === 1) {
+						// Single finger Touch Pan init
+						if (zoomScale > 1) {
+							// Prevent parent page scrolling when zooming & dragging inside modal
+							e.preventDefault();
+							e.stopPropagation();
+							isPanning = true;
+							startX = e.touches[0].clientX - panX;
+							startY = e.touches[0].clientY - panY;
+						}
+					} else if (e.touches.length === 2) {
+						// Double finger Pinch Zoom init
+						e.preventDefault();
+						e.stopPropagation();
+						isPinching = true;
+						isPanning = false; // Disable panning during zoom
+						touchStartDist = getTouchDistance(e);
+						touchStartScale = zoomScale;
+					}
+				}, { passive: false });
+
+				workspace.addEventListener('touchmove', (e) => {
+					if (isPinching && e.touches.length === 2) {
+						e.preventDefault(); // Stop entire page from zooming or bouncing
+						e.stopPropagation();
+
+						const dist = getTouchDistance(e);
+						if (dist === 0 || touchStartDist === 0) return;
+
+						const factor = dist / touchStartDist;
+						let newScale = touchStartScale * factor;
+						
+						// Restrain zoom limits
+						newScale = Math.max(1, Math.min(newScale, 5));
+
+						if (newScale === 1) {
+							panX = 0;
+							panY = 0;
+						} else {
+							// Pinch center focal calculation
+							const rect = workspace.getBoundingClientRect();
+							const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left - rect.width / 2;
+							const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top - rect.height / 2;
+							
+							const ratio = (newScale - zoomScale) / zoomScale;
+							panX -= midX * ratio;
+							panY -= midY * ratio;
+						}
+
+						zoomScale = newScale;
+						applyZoomTransform();
+					} else if (isPanning && e.touches.length === 1) {
+						// Single finger Swipe to Pan
+						e.preventDefault();
+						e.stopPropagation();
+						
+						panX = e.touches[0].clientX - startX;
+						panY = e.touches[0].clientY - startY;
+						applyZoomTransform();
+					}
+				}, { passive: false });
+
+				const stopTouchGestures = (e) => {
+					if (e.touches.length === 1 && zoomScale > 1) {
+						// Seamless transition from two-finger pinch to one-finger pan
+						isPinching = false;
+						isPanning = true;
+						startX = e.touches[0].clientX - panX;
+						startY = e.touches[0].clientY - panY;
+						return;
+					}
+
+					if (e.touches.length < 2) isPinching = false;
+					if (e.touches.length === 0) isPanning = false;
+				};
+
+				workspace.addEventListener('touchend', stopTouchGestures);
+				workspace.addEventListener('touchcancel', stopTouchGestures);
+			}
+
+			// Helper to select and display a certificate in the vault
+			function selectCertificate(element) {
+				const imgPath = element.getAttribute('data-img');
+				const titleText = element.getAttribute('data-title');
+				
+				const previewImg = document.getElementById('cert-main-preview');
+				const previewTitle = document.getElementById('cert-main-title');
+				
+				if (previewImg && previewTitle && imgPath && titleText) {
+					// Reset zoom before loading new image
+					resetZoomAndPan();
+
+					// Apply quick transition effect
+					previewImg.style.opacity = '0';
+					setTimeout(() => {
+						previewImg.src = imgPath;
+						previewImg.alt = titleText;
+						previewTitle.textContent = titleText;
+						previewImg.style.opacity = '1';
+					}, 150);
+				}
+				
+				// Toggle active classes on items
+				document.querySelectorAll('.cert-item').forEach(item => {
+					item.classList.remove('bg-white/5', 'active-cert');
+					item.classList.add('bg-transparent');
+					const textDiv = item.querySelector('div');
+					if (textDiv) {
+						textDiv.classList.remove('text-white');
+						textDiv.classList.add('text-zinc-400');
+					}
+				});
+				
+				element.classList.remove('bg-transparent');
+				element.classList.add('bg-white/5', 'active-cert');
+				const textDiv = element.querySelector('div');
+				if (textDiv) {
+					textDiv.classList.remove('text-zinc-400');
+					textDiv.classList.add('text-white');
+				}
+			}
+
+			// Listen to certificate selection clicks
+			document.addEventListener('click', function(e) {
+				const certBtn = e.target.closest('.cert-item');
+				if (certBtn) {
+					e.preventDefault();
+					selectCertificate(certBtn);
+				}
+			});
+			
+			// Setup zoom interactions once DOM loads or modal opens
+			document.addEventListener('DOMContentLoaded', () => {
+				setupZoomAndPan();
+			});
+			
+			// Backup hook inside page load/completes
+			setTimeout(setupZoomAndPan, 500);
+			window.addEventListener('load', setupZoomAndPan);
 	
 			// Helper to create and manage dynamic flipbook modal
 			let magModalEl = null;
@@ -703,14 +1045,14 @@ function ensureGalleryModal(){
 				if (magModalEl) return magModalEl;
 				magModalEl = document.createElement('div');
 				magModalEl.id = 'mag-lightbox-modal';
-				magModalEl.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8';
+				magModalEl.className = 'fixed inset-0 z-[100] w-full h-[100dvh] md:h-screen hidden items-center justify-center bg-black/90';
 				magModalEl.innerHTML = `
 					<div class="relative w-full h-full max-w-6xl max-h-[90vh] bg-zinc-950 rounded-2xl overflow-hidden border border-white/10 flex flex-col">
 						<div class="p-4 bg-zinc-900 border-b border-white/5 flex justify-between items-center">
 							<h3 class="font-bold text-white tracking-wide">GTR EVOLUTION - Interactive Magazine Showcase</h3>
 							<button id="mag-lightbox-close" class="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full w-8 h-8 flex items-center justify-center font-bold transition-colors">✕</button>
 						</div>
-						<div id="mag-iframe-container" class="w-full flex-1 bg-black">
+						<div id="mag-iframe-container" class="w-full h-full max-h-[85vh] md:max-h-[90vh] relative overflow-hidden rounded-xl bg-black">
 							<!-- iframe dynamically inserted on demand -->
 						</div>
 					</div>
@@ -728,12 +1070,28 @@ function ensureGalleryModal(){
 			}
 
 			function openMagModal(url) {
+				let safeUrl = '';
+				try {
+					const parsed = new URL(url, window.location.origin);
+					const allowedHost = /(^|\.)heyzine\.com$/i.test(parsed.hostname);
+					if (parsed.protocol === 'https:' && allowedHost) {
+						safeUrl = parsed.toString();
+					}
+				} catch (e) {}
+				if (!safeUrl) return;
+
 				const modal = ensureMagModal();
 				const container = modal.querySelector('#mag-iframe-container');
 				if (container) {
-					container.innerHTML = `
-						<iframe src="${url}" class="w-full h-full border-0" allow="fullscreen" allowfullscreen></iframe>
-					`;
+					container.innerHTML = '';
+					const iframe = document.createElement('iframe');
+					iframe.src = safeUrl;
+					iframe.className = 'w-full h-full border-0';
+					iframe.style.minHeight = '500px';
+					iframe.setAttribute('allowfullscreen', 'true');
+					iframe.setAttribute('allow', 'autoplay; fullscreen');
+					iframe.setAttribute('loading', 'lazy');
+					container.appendChild(iframe);
 				}
 				modal.classList.remove('hidden');
 				modal.classList.add('flex');

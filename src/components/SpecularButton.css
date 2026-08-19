@@ -61,6 +61,21 @@
   padding: 18px 40px;
 }
 
+@media (max-width: 767px) {
+  .specular-button--lg {
+    font-size: 0.875rem;
+    padding: 14px 16px;
+  }
+
+  /* Layar sangat kecil (mis. 320px): kurangi lagi agar dua tombol tetap muat 1 baris */
+  @media (max-width: 360px) {
+    .specular-button--lg {
+      font-size: 0.8125rem;
+      padding: 14px 10px;
+    }
+  }
+}
+
 /* Canvas extends past the button so the rim glow can bleed outside the edge */
 .specular-button__fx {
   position: absolute;

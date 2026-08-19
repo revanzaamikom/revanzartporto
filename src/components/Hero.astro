@@ -3,7 +3,7 @@ import Lanyard3D from './Lanyard3D.jsx';
 import LightRays from './LightRays.jsx';
 import SpecularButton from './SpecularButton.jsx';
 ---
-<section id="hero-section" class="min-h-screen flex flex-col justify-center px-6 md:px-24 relative overflow-hidden pt-20 md:pt-0 reveal-section">
+<section id="hero-section" class="min-h-[100svh] md:min-h-screen w-full relative overflow-hidden flex flex-col justify-between md:justify-center px-6 md:px-24 reveal-section">
 	<!-- LightRays WebGL background -->
 	<div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 		<LightRays
@@ -18,33 +18,44 @@ import SpecularButton from './SpecularButton.jsx';
 			distortion={0.03}
 			fadeDistance={0.8}
 			saturation={0.7}
-			client:only="react"
+			client:visible
 		/>
 	</div>
 
 	<!-- Background glow effect -->
 	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] z-0 pointer-events-none"></div>
 
-	<!-- Interactive Lanyard: Canvas occupies full screen to avoid clipping, card hangs vertically on the right side -->
-	<Lanyard3D 
-		client:visible
-		className="absolute inset-0 z-10 w-full h-full flex items-center justify-center overflow-hidden pointer-events-auto" 
-		anchorPosition={[3.5, 4.5, 0]}
-	/>
+	<!-- Mobile Lanyard: centered and hanging above the navbar -->
+	<div id="hero-3d" class="touch-none block md:hidden relative z-10 w-full h-[350px] md:h-[600px] mt-16 md:-mt-12 overflow-visible">
+		<Lanyard3D
+			client:visible
+			className="w-full h-full flex items-center justify-center overflow-visible pointer-events-auto"
+			anchorPosition={[0, 3.5, 0]}
+		/>
+	</div>
 
-	<div class="max-w-7xl mx-auto relative z-20 pointer-events-none w-full">
+	<!-- Desktop Lanyard: full-bleed and anchored on the right -->
+	<div class="hidden md:block md:absolute md:inset-0 md:z-10 md:w-full md:h-full md:overflow-visible">
+		<Lanyard3D
+			client:visible
+			className="absolute inset-0 w-full h-full flex items-center justify-center overflow-visible pointer-events-auto"
+			anchorPosition={[3.5, 4.5, 0]}
+		/>
+	</div>
+
+	<div class="max-w-7xl mx-auto relative z-20 pointer-events-none w-full px-4 md:px-0 mt-0 pb-8 md:pb-0 text-left">
 		<div class="max-w-4xl">
 			<h2 class="text-textMuted tracking-widest uppercase text-sm mb-4 font-semibold hero-text" style="transition-delay: 100ms;">Portofolio</h2>
-			<h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-6 leading-tight hero-text" style="transition-delay: 300ms;">
+			<h1 class="text-4xl md:text-9xl font-extrabold tracking-tighter mb-6 leading-tight hero-text" style="transition-delay: 300ms;">
 				MUHAMAD REVANZA <br/> RAFIF HAMDANI
 			</h1>
 			<p class="text-2xl md:text-4xl text-textMuted font-medium max-w-2xl leading-relaxed mb-10 hero-text select-none min-h-[48px]" style="transition-delay: 500ms;">
 				I'm a <span id="typewriter-role" class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff] to-white font-extrabold drop-shadow-[0_0_12px_rgba(0,255,255,0.6)]"></span><span id="typewriter-cursor" class="inline-block w-[3px] h-[1.15em] bg-[#00ffff] ml-1 opacity-0 align-middle drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]"></span>
 			</p>
 			
-			<div class="flex gap-4 pointer-events-auto hero-text" style="transition-delay: 700ms;">
+			<div class="flex w-full max-w-sm md:w-auto md:max-w-none flex-nowrap gap-3 md:gap-4 pointer-events-auto hero-text" style="transition-delay: 700ms;">
 				<SpecularButton
-					client:load
+					client:visible
 					size="lg"
 					radius={30}
 					tint="#111111"
@@ -53,31 +64,66 @@ import SpecularButton from './SpecularButton.jsx';
 					lineColor="#ffffff"
 					baseColor="#333333"
 					intensity={1.0}
-					className="font-bold"
+					className="font-bold whitespace-nowrap flex-1 md:flex-none w-full md:w-auto"
 					onClick={() => { window.location.href = '#work'; }}
 				>
 					Lihat Karya
 				</SpecularButton>
-				<SpecularButton
-					client:load
-					size="lg"
-					radius={30}
-					tint="#111111"
-					tintOpacity={0.8}
-					textColor="#ffffff"
-					lineColor="#ffffff"
-					baseColor="#333333"
-					intensity={1.0}
-					className="font-bold"
-					onClick={() => { window.location.href = 'mailto:contact@example.com'; }}
-				>
-					Hubungi Saya
-				</SpecularButton>
+
+				<div id="contact-action" class="contact-action inline-flex items-center relative flex-[1.3] md:flex-none min-w-0 md:whitespace-nowrap">
+					<SpecularButton
+						client:visible
+						size="lg"
+						radius={30}
+						tint="#111111"
+						tintOpacity={0.8}
+						textColor="#ffffff"
+						lineColor="#ffffff"
+						baseColor="#333333"
+						intensity={1.0}
+						className="font-bold whitespace-nowrap contact-trigger-button flex-auto md:flex-none w-full md:w-auto"
+						id="contact-trigger-button"
+						onClick={(event) => {
+							event.stopPropagation();
+							const container = document.getElementById('contact-action');
+							if (container) {
+								container.classList.toggle('is-expanded');
+							}
+						}}
+					>
+						Hubungi Saya
+					</SpecularButton>
+
+					<!-- SOCIAL LINKS SET 1/2: Hero inline drawer (#contact-action) -->
+					<div class="icon-drawer flex items-center gap-1 max-w-0 opacity-0 overflow-hidden pointer-events-none transition-all duration-300 ease-out">
+						<a href="https://instagram.com/revanzarh" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
+							<img src="https://api.iconify.design/simple-icons:instagram.svg?color=white" alt="Instagram" class="w-4 h-4" />
+						</a>
+						<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
+							<img src="https://api.iconify.design/simple-icons:linkedin.svg?color=white" alt="LinkedIn" class="w-4 h-4" />
+						</a>
+						<a href="mailto:importantrevanza@gmail.com" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Email">
+							<img src="https://api.iconify.design/lucide:mail.svg?color=white" alt="Email" class="w-4 h-4" />
+						</a>
+						<a href="#" class="whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
+							<img src="https://api.iconify.design/simple-icons:whatsapp.svg?color=white" alt="WhatsApp" class="w-4 h-4" />
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="w-full flex justify-center md:justify-start md:hidden items-center gap-2 mt-4 pointer-events-auto hero-text" style="transition-delay: 850ms;">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-white/10">
+					<span class="text-[11px] tracking-tight text-zinc-400">
+						Active Student at <span class="text-zinc-200 font-medium">Universitas Amikom Yogyakarta</span>
+					</span>
+					<img src="/images/amikom.svg" alt="Amikom" class="w-3 h-3 object-contain opacity-80" />
+				</div>
 			</div>
 		</div>
 
 		<!-- Amikom badge (Anti-UI-Slop: clean, minimal) -->
-		<div class="absolute bottom-8 right-8 z-30 pointer-events-auto">
+		<div class="hidden md:flex absolute bottom-8 right-8 z-30 pointer-events-auto">
 			<div class="group relative inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-white/10 transition-colors duration-200 hover:border-white/25 cursor-default">
 				<!-- Container Teks -->
 				<span class="text-[12px] tracking-tight text-zinc-400">
@@ -94,6 +140,29 @@ import SpecularButton from './SpecularButton.jsx';
 		</div>
 	</div>
 </section>
+
+<div id="floating-contact" class="floating-contact fixed bottom-6 right-6 z-[100] opacity-0 pointer-events-none translate-y-4">
+<div class="floating-contact-shell relative inline-flex items-end">
+	<!-- SOCIAL LINKS SET 2/2: Floating drawer (#floating-contact) -->
+	<div class="floating-icon-drawer absolute right-0 bottom-full mb-3 flex flex-col-reverse items-center gap-1 p-1 rounded-full border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.08)] opacity-0 pointer-events-none invisible transition-all duration-250 ease-out">
+			<a href="https://instagram.com/revanzarh" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
+				<img src="https://api.iconify.design/simple-icons:instagram.svg?color=white" alt="Instagram" class="w-4 h-4" />
+			</a>
+			<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
+				<img src="https://api.iconify.design/simple-icons:linkedin.svg?color=white" alt="LinkedIn" class="w-4 h-4" />
+			</a>
+			<a href="mailto:importantrevanza@gmail.com" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Email">
+				<img src="https://api.iconify.design/lucide:mail.svg?color=white" alt="Email" class="w-4 h-4" />
+			</a>
+			<a href="#" class="floating-whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
+				<img src="https://api.iconify.design/simple-icons:whatsapp.svg?color=white" alt="WhatsApp" class="w-4 h-4" />
+			</a>
+		</div>
+		<button type="button" class="floating-contact-toggle inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-bold text-white backdrop-blur-xl shadow-[0_0_20px_rgba(0,255,255,0.08)] transition-all duration-300 ease-out hover:border-cyan-400/30 hover:shadow-[0_0_20px_rgba(0,255,255,0.08)]">
+			Hubungi Saya
+		</button>
+	</div>
+</div>
 
 <script>
 	const roles = [
@@ -161,6 +230,86 @@ import SpecularButton from './SpecularButton.jsx';
 		startTypewriter();
 	};
 
+	const contactAction = document.getElementById('contact-action');
+	if (contactAction) {
+		const contactTrigger = document.getElementById('contact-trigger-button');
+		const collapseContactAction = () => contactAction.classList.remove('is-expanded');
+
+		if (contactTrigger) {
+			contactTrigger.addEventListener('click', (event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				contactAction.classList.toggle('is-expanded');
+			});
+		}
+
+		document.addEventListener('click', (event) => {
+			if (contactAction && !contactAction.contains(event.target)) {
+				collapseContactAction();
+			}
+		});
+
+		const whatsappLink = contactAction.querySelector('.whatsapp-trigger');
+		if (whatsappLink) {
+			whatsappLink.addEventListener('click', (event) => {
+				event.preventDefault();
+			});
+		}
+	}
+
+	const floatingContact = document.getElementById('floating-contact');
+	const floatingToggle = floatingContact?.querySelector('.floating-contact-toggle');
+	if (floatingContact && floatingToggle) {
+		const collapseFloatingContact = () => {
+			floatingContact.classList.remove('is-expanded');
+		};
+
+		floatingToggle.addEventListener('click', (event) => {
+			event.preventDefault();
+			event.stopPropagation();
+			floatingContact.classList.toggle('is-expanded');
+		});
+
+		document.addEventListener('click', (event) => {
+			if (!floatingContact.contains(event.target)) {
+				collapseFloatingContact();
+			}
+		});
+
+		const floatingWhatsapp = floatingContact.querySelector('.floating-whatsapp-trigger');
+		if (floatingWhatsapp) {
+			floatingWhatsapp.addEventListener('click', (event) => {
+				event.preventDefault();
+			});
+		}
+	}
+
+	const heroTrigger = document.getElementById('contact-trigger-button');
+	if (heroTrigger && floatingContact) {
+		const observer = new IntersectionObserver((entries) => {
+			const entry = entries[0];
+			if (!entry) return;
+
+			if (!entry.isIntersecting) {
+				floatingContact.classList.add('is-visible');
+				floatingContact.classList.remove('hidden-floating');
+				if (floatingContact.classList.contains('is-expanded')) {
+					floatingContact.classList.remove('is-expanded');
+				}
+			} else {
+				if (floatingContact.classList.contains('is-expanded')) {
+					floatingContact.classList.remove('is-expanded');
+				}
+				setTimeout(() => {
+					floatingContact.classList.remove('is-visible');
+					floatingContact.classList.add('hidden-floating');
+				}, 200);
+			}
+		}, { threshold: 0.01 });
+
+		observer.observe(heroTrigger);
+	}
+
 	// Listen to splash-complete event
 	window.addEventListener('splash-complete', activateHeroAnimation);
 
@@ -201,7 +350,140 @@ import SpecularButton from './SpecularButton.jsx';
 		transform: translateY(0);
 	}
 
-	@keyframes blink {
+.contact-action {
+		overflow: visible;
+}
+
+.contact-action .icon-drawer {
+		max-width: 0;
+		opacity: 0;
+		overflow: hidden;
+		pointer-events: none;
+		transition: max-width 0.3s ease-out, opacity 0.3s ease-out, margin-left 0.3s ease-out;
+}
+
+.contact-action.is-expanded .icon-drawer {
+		max-width: 200px;
+		opacity: 1;
+		pointer-events: auto;
+		margin-left: 0.5rem;
+}
+
+@media (max-width: 767px) {
+	.contact-action .icon-drawer {
+		position: absolute;
+		bottom: calc(100% + 0.5rem);
+		left: 50%;
+		transform: translateX(-50%);
+		flex-direction: column-reverse;
+		max-width: none !important;
+		max-height: 0;
+		overflow: hidden;
+		opacity: 0;
+		width: auto;
+		padding: 0;
+		transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+	}
+
+	.contact-action.is-expanded .icon-drawer {
+		max-height: 200px;
+		opacity: 1;
+		pointer-events: auto;
+		padding: 0.25rem;
+		margin-left: 0 !important;
+	}
+}
+
+.floating-contact {
+	/* Removed max-width and overflow:hidden to prevent clipping and horizontal scrolling */
+	overflow: visible;
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-contact.hidden-floating {
+	opacity: 0;
+	transform: translateY(16px);
+	pointer-events: none;
+	visibility: hidden;
+}
+
+.floating-contact.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+	visibility: visible;
+}
+
+.floating-contact-shell {
+	position: relative;
+	max-width: 100%;
+	overflow: visible;
+}
+
+.floating-contact-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 0.75rem 1.25rem;
+	border-radius: 9999px;
+	border: 1px solid rgba(34, 211, 238, 0.25);
+	background: linear-gradient(135deg, rgba(8, 20, 40, 0.85) 0%, rgba(6, 40, 80, 0.75) 50%, rgba(14, 116, 144, 0.4) 100%);
+	backdrop-filter: blur(16px) saturate(1.4);
+	-webkit-backdrop-filter: blur(16px) saturate(1.4);
+	color: #e0f2fe;
+	font-size: 0.875rem;
+	font-weight: 600;
+	white-space: nowrap;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 0 0 0 rgba(34, 211, 238, 0);
+}
+
+.floating-contact-toggle:hover {
+	border-color: rgba(34, 211, 238, 0.5);
+	background: linear-gradient(135deg, rgba(8, 20, 40, 0.9) 0%, rgba(8, 50, 90, 0.8) 45%, rgba(14, 116, 144, 0.55) 100%);
+	box-shadow: 0 4px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 20px rgba(34, 211, 238, 0.12);
+}
+
+.floating-contact-toggle:active {
+	transform: scale(0.98);
+}
+
+.floating-icon-drawer {
+	position: absolute;
+	right: 0;
+	bottom: calc(100% + 0.75rem);
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.25rem;
+	border-radius: 9999px;
+	background: rgba(17, 17, 17, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	opacity: 0;
+	transform: translateY(8px);
+	pointer-events: none;
+	visibility: hidden;
+	transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.floating-icon-drawer a,
+.icon-drawer a {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+.floating-contact.is-expanded .floating-icon-drawer {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+	visibility: visible;
+}
+
+@keyframes blink {
 		0%, 100% { opacity: 1; }
 		50% { opacity: 0; }
 	}
