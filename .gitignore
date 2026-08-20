@@ -30,3 +30,6 @@ find_unused_imports.js
 find_unused_imports.cjs
 find-large-files.cjs
 generate-posters.cjs
+
+# Unused duplicate lanyard assets (runtime assets live in public/lanyard/)
+src/components/lanyard/
