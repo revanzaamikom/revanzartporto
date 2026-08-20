@@ -4,23 +4,26 @@ import OptionWheel from './ui/OptionWheel.jsx';
 const translations = {
 	EN: {
 		title: "What I do",
-		description1: "I bridge technical execution, visual creative, and strategic leadership. Spanning across Visual Effects (VFX), Video Editing, and Interactive UI/UX Design, I craft immersive digital experiences transforming bold concepts into compelling visual stories.",
-		description2: "As a creative lead, I thrive on guiding the process from ideation to execution. I dynamic-brainstorm concepts, map out visual directions, and align teams to ensure every design and frame is not just visually engaging, but deeply understood by the audience."
+		description1: "I craft visual stories that transform simple briefs into memorable content. By placing myself in the viewer's shoes, I ensure every visual element feels intentional and easy for the audience to grasp.",
+		description2: "Leading projects means taking care of both strategy and execution. I align the team through active brainstorming, set up the project framework, and keep us focused on the ultimate goal."
 	},
 	ID: {
-		title: "Yang Saya Lakukan",
-		description1: "Saya menjembatani eksekusi teknis, kreativitas visual, dan kepemimpinan strategis. Mengintegrasikan Visual Effects (VFX), Video Editing, dan Desain UI/UX Interaktif, saya menciptakan pengalaman digital yang imersif—mengubah konsep berani menjadi kisah visual yang memikat.",
-		description2: "Sebagai creative lead, saya berfokus mengarahkan proses dari ideasi hingga eksekusi. Saya melakukan pemikiran ide secara dinamis, merancang arah visual, dan mengarahkan tim untuk memastikan setiap desain dan frame tidak hanya menarik secara visual, tetapi juga dipahami secara mendalam oleh audiens."
+		title: "What I do",
+		description1: "Fokus saya adalah merancang storytelling dan mengolah brief menjadi bentuk visual yang memikat. Saya terbiasa melihat dari sudut pandang audiens awam untuk memastikan pesan visual yang dibuat relevan dan mudah dipahami.",
+		description2: "Memegang peran sebagai team lead, saya bertanggung jawab merencanakan keseluruhan proyek dari persiapan hingga eksekusi. Lewat sesi brainstorming bareng tim, saya menjaga agar setiap ide yang dieksekusi tetap terarah dan tepat sasaran."
 	}
 };
 
 const wheelItems = [
-	'VFX & Post-Production',
+	'VFX',
 	'Video Editing',
 	'UI/UX Design',
 	'Creative Direction',
 	'Motion Graphics',
-	'Scriptwriting'
+	'Scriptwriting',
+	'Design Graphics',
+	'Videography',
+	'Animation'
 ];
 
 export default function WhatIDo() {

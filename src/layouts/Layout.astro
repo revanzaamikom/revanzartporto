@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import ScrollRevealComponent from '../components/ScrollReveal.astro';
 
 interface Props {
@@ -92,6 +93,7 @@ const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 	<body class="bg-background text-textMain font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
 		<Navbar />
 		<slot />
+		<Footer />
 		<ScrollRevealComponent />
 		<script>
 		(function () {

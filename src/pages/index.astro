@@ -234,18 +234,33 @@ import SplashScreen from '../components/SplashScreen.jsx';
 </div>
 									</div>
 
-									<div data-category-panel="talking-head" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-32">
-	<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-	<div class="text-sm font-medium text-zinc-400">Talking Head</div>
-	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+								<div data-category-panel="talking-head" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+									<!-- ===== Talking Head Reels (vertical 9:16 / YouTube Shorts) ===== -->
+									<!-- Note: belum ada link reels, placeholder "Coming Soon" ditampilkan. -->
+									<!-- Saat sudah ada videoId, ganti div.placeholder di bawah dengan kartu vertikal aktif. -->
+<div class="rounded-lg p-0 overflow-hidden">
+	<div class="relative aspect-[9/16] overflow-hidden rounded-xl w-full bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center">
+		<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+		<div class="text-sm font-medium text-zinc-400 mt-2">Talking Head</div>
+		<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+	</div>
+	<!-- ACTIVE reels card template (ganti __VIDEO_ID__ & judul, lalu hapus div.placeholder di atas):
+	<button type="button" class="w-full p-0" data-video-src="https://www.youtube.com/embed/__VIDEO_ID__?autoplay=1&mute=1&controls=0&loop=1&playlist=__VIDEO_ID__&playsinline=1&enablejsapi=1" aria-label="Open Talking Head Reel">
+		<div class="relative aspect-[9/16] overflow-hidden rounded-xl w-full">
+			<iframe src="https://www.youtube.com/embed/__VIDEO_ID__?autoplay=1&mute=1&controls=0&loop=1&playlist=__VIDEO_ID__&playsinline=1&enablejsapi=1" title="Talking Head Reel preview" class="w-full h-full pointer-events-none border-0" frameborder="0" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	</button>
+	<div class="text-sm text-textMuted mt-2">Judul Reel</div>
+	-->
 </div>
-<div class="rounded-lg bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center p-4 h-32">
-	<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-	<div class="text-sm font-medium text-zinc-400">Talking Head</div>
-	<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+<div class="rounded-lg p-0 overflow-hidden">
+	<div class="relative aspect-[9/16] overflow-hidden rounded-xl w-full bg-zinc-900/40 border border-dashed border-white/10 flex flex-col items-center justify-center">
+		<svg class="w-6 h-6 text-zinc-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+		<div class="text-sm font-medium text-zinc-400 mt-2">Talking Head</div>
+		<div class="text-sm text-zinc-500">Coming Soon Hehehe</div>
+	</div>
 </div>
-									</div>
+								</div>
 
 									<div data-category-panel="music-video" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 <div class="rounded-lg p-0 overflow-hidden">
