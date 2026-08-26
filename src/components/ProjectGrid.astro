@@ -98,7 +98,7 @@ const projects = [
 					<!-- Content Info -->
 					<div class="relative z-10 p-8 flex flex-col justify-end h-full">
 						<div>
-							<h3 class="text-xl md:text-3xl font-bold text-white mt-3 group-hover:text-cyan-350 transition-colors duration-300">
+							<h3 class="text-xl md:text-3xl font-bold text-white mt-3 group-hover:text-cyan-300 transition-colors duration-300">
 								{project.title}
 							</h3>
 						</div>
@@ -111,7 +111,7 @@ const projects = [
 
 <!-- Beautiful Cinematic Lightbox Modal -->
 <div id="video-lightbox" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-300 px-4">
-	<button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-cyan-400 transition-colors p-3 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 z-50 shadow-2xl">
+	<button id="video-lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-cyan-400 transition-colors p-3 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 z-50 shadow-2xl">
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 		</svg>
@@ -130,7 +130,7 @@ const projects = [
 	const cards = document.querySelectorAll('.project-card');
 	const lightbox = document.getElementById('video-lightbox');
 	const lightboxIframe = document.getElementById('lightbox-youtube') as HTMLIFrameElement | null;
-	const lightboxClose = document.getElementById('lightbox-close');
+	const lightboxClose = document.getElementById('video-lightbox-close');
 	const lightboxTitle = document.getElementById('lightbox-title');
 
 	cards.forEach(card => {

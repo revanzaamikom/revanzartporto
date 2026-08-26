@@ -7,13 +7,6 @@
    - 🛠️ **Steps:** (3-5 langkah simpel eksekusi)
 4. Minta konfirmasi/approval dari saya sebelum menulis atau mengubah banyak file sekaligus.
 5. Gunakan bahasa Indonesia yang santai, kasual, direct, dan to-the-point.
-
----
-
----
-name: anti-ui-slop
-source: https://raw.githubusercontent.com/github/awesome-copilot/main/skills/anti-ui-slop/SKILL.md
-
 # Anti UI Slop — Copilot Instructions (persisted)
 
 The following guidance is copied from the Anti UI Slop skill and should be used as a permanent reference for UI decisions in this repository. It provides a short workflow and finish-gate checklist to avoid generic/oversimplified "UI slop" and ensure product-specific, robust interfaces.
@@ -26,4 +19,4 @@ The following guidance is copied from the Anti UI Slop skill and should be used 
 - Build in the product's language: reuse tokens and components, prefer concrete decisions over vague adjectives, implement required states and accessible behavior.
 - Run the finish gate: verify product specificity, interaction completeness, responsive & accessible behavior, and design-system integrity.
 
-Refer to the original full guidance in .github/copilot-instructions.md for the detailed workflow when making UI changes.
+Refer to the original full guidance at https://github.com/github/awesome-copilot/tree/main/skills/anti-ui-slop for the detailed workflow when making UI changes.
