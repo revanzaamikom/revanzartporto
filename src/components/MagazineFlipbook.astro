@@ -1,0 +1,199 @@
+---
+---
+
+<div
+  id="magazine-flipbook"
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-3 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-label="GTR EVOLUTION Flipbook"
+>
+  <div class="relative w-full max-w-6xl mx-auto rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0a] shadow-2xl flex flex-col" style="height: min(94dvh, 760px);">
+    <div class="flex-none flex items-center justify-between px-5 py-3 bg-[#111]/90 border-b border-white/5">
+      <div class="flex items-center gap-3 min-w-0">
+        <h3 class="font-bold text-white tracking-wide text-sm sm:text-base truncate">GTR EVOLUTION</h3>
+        <span id="mag-fb-counter" class="text-xs text-zinc-400 font-medium tabular-nums whitespace-nowrap">1 / 26</span>
+      </div>
+      <button id="mag-fb-close" type="button" class="bg-white/5 hover:bg-white/10 hover:text-cyan-400 text-white p-2 rounded-full w-9 h-9 flex items-center justify-center font-bold transition-all" aria-label="Tutup flipbook">✕</button>
+    </div>
+
+    <div id="mag-fb-stage" class="flex-1 min-h-0 relative bg-[#050505] overflow-hidden flex items-center justify-center">
+      <div id="mag-fb-book"></div>
+
+      <button id="mag-fb-prev" type="button" class="mag-fb-nav mag-fb-nav-prev" aria-label="Halaman sebelumnya">‹</button>
+      <button id="mag-fb-next" type="button" class="mag-fb-nav mag-fb-nav-next" aria-label="Halaman berikutnya">›</button>
+
+      <div class="absolute bottom-3 inset-x-0 text-center text-[11px] text-zinc-600 pointer-events-none px-4">
+        Geser halaman untuk membalik, atau pakai tombol / panah
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+	#mag-fb-book {
+		width: 100%;
+		height: 100%;
+	}
+
+	.mag-fb-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 40;
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 9999px;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: rgba(255, 255, 255, 0.75);
+		font-size: 1.6rem;
+		line-height: 1;
+		transition: all 0.2s ease;
+	}
+
+	.mag-fb-nav:hover {
+		background: rgba(255, 255, 255, 0.14);
+		color: #fff;
+		border-color: rgba(34, 211, 238, 0.4);
+	}
+
+	.mag-fb-nav-prev {
+		left: 12px;
+	}
+
+	.mag-fb-nav-next {
+		right: 12px;
+	}
+
+	@media (max-width: 640px) {
+		.mag-fb-nav-prev {
+			left: 4px;
+		}
+		.mag-fb-nav-next {
+			right: 4px;
+		}
+	}
+</style>
+
+<script>
+	import { PageFlip } from 'page-flip/dist/js/page-flip.module.js';
+
+	const modal = document.getElementById('magazine-flipbook');
+	const bookEl = document.getElementById('mag-fb-book');
+	const counter = document.getElementById('mag-fb-counter');
+	const closeBtn = document.getElementById('mag-fb-close');
+	const prevBtn = document.getElementById('mag-fb-prev');
+	const nextBtn = document.getElementById('mag-fb-next');
+
+	const PAGES = Array.from({ length: 26 }, (_, i) => `/images/magazine/a4/p${String(i + 1).padStart(2, '0')}.webp`);
+
+	let pageFlip = null;
+	let isFirstFlip = true;
+
+	function applyOffset(animate) {
+		if (!pageFlip) return;
+		try {
+			const r = pageFlip.getBoundsRect();
+			if (!r) return;
+			let off = 0;
+			if (pageFlip.getOrientation() === 'landscape') {
+				const idx = pageFlip.getCurrentPageIndex();
+				const last = pageFlip.getPageCount() - 1;
+				if (idx === 0) off = -r.pageWidth / 2;
+				else if (idx === last) off = r.pageWidth / 2;
+			}
+			bookEl.style.transition = animate ? 'transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1)' : 'none';
+			bookEl.style.transform = off ? `translateX(${off}px)` : '';
+		} catch (err) {}
+	}
+
+	function initBook() {
+		pageFlip = new PageFlip(bookEl, {
+			width: 894,
+			height: 1265,
+			size: 'stretch',
+			minWidth: 250,
+			maxWidth: 900,
+			minHeight: 350,
+			maxHeight: 700,
+			drawShadow: true,
+			flippingTime: 900,
+			usePortrait: true,
+			startZIndex: 0,
+			autoSize: true,
+			maxShadowOpacity: 0.5,
+			showCover: true,
+			mobileScrollSupport: true,
+			swipeDistance: 30,
+			clickEventForward: true,
+			useMouseEvents: true,
+			showPageCorners: true,
+			disableFlipByClick: false,
+		});
+		pageFlip.on('flip', (e) => {
+			counter.textContent = `${e.data + 1} / 26`;
+			applyOffset(!isFirstFlip);
+			isFirstFlip = false;
+		});
+		pageFlip.on('changeOrientation', () => applyOffset(true));
+		pageFlip.loadFromImages(PAGES);
+	}
+
+	function openMagazineFlipbook() {
+		modal.classList.remove('hidden');
+		modal.classList.add('flex');
+		document.body.style.overflow = 'hidden';
+		requestAnimationFrame(() => {
+			if (pageFlip) {
+				pageFlip.update();
+				applyOffset(false);
+			} else {
+				initBook();
+			}
+		});
+	}
+
+	function closeMagazineFlipbook() {
+		modal.classList.remove('flex');
+		modal.classList.add('hidden');
+		document.body.style.overflow = '';
+	}
+
+	nextBtn.addEventListener('click', () => {
+		if (pageFlip) pageFlip.flipNext('top');
+	});
+	prevBtn.addEventListener('click', () => {
+		if (pageFlip) pageFlip.flipPrev('top');
+	});
+
+	closeBtn.addEventListener('click', closeMagazineFlipbook);
+	modal.addEventListener('click', (e) => {
+		if (e.target === modal) closeMagazineFlipbook();
+	});
+
+	window.addEventListener('resize', () => {
+		if (!modal.classList.contains('hidden') && pageFlip) {
+			applyOffset(false);
+		}
+	});
+
+	window.addEventListener('keydown', (e) => {
+		if (modal.classList.contains('hidden')) return;
+		if (e.key === 'ArrowRight' || e.key === ' ') {
+			e.preventDefault();
+			if (pageFlip) pageFlip.flipNext('top');
+		} else if (e.key === 'ArrowLeft') {
+			e.preventDefault();
+			if (pageFlip) pageFlip.flipPrev('top');
+		} else if (e.key === 'Escape') {
+			closeMagazineFlipbook();
+		}
+	});
+
+	window.openMagazineFlipbook = openMagazineFlipbook;
+	window.closeMagazineFlipbook = closeMagazineFlipbook;
+</script>
