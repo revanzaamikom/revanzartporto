@@ -177,17 +177,24 @@ const OptionWheel = ({
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
-    const onWheel = e => {
-      e.preventDefault();
-      const cfg = cfgRef.current;
-      const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
-      // Cap each event at one step so notchy mouse wheels move exactly one
-      // option per click, while touchpads still scroll continuously.
-      const step = Math.max(-1, Math.min(1, delta / cfg.rowH));
-      applyTarget(targetRef.current + step, false);
-      if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
-      wheelTimerRef.current = setTimeout(() => applyTarget(targetRef.current, true), 140);
-    };
+		const onWheel = e => {
+			const cfg = cfgRef.current;
+			let raw = e.deltaY;
+			if (e.deltaMode === 1) raw *= 24; // line-based (Firefox)
+			else if (e.deltaMode === 2) raw *= 100; // page-based
+			if (Math.abs(raw) < 1) return; // ignore noise / horizontal-only gestures
+			// Cap each event at one step so notchy mouse wheels move exactly one
+			// option per click, while touchpads still scroll continuously.
+			const step = Math.max(-1, Math.min(1, raw / cfg.rowH));
+			const cur = targetRef.current;
+			let next = cur + step;
+			if (!cfg.loop) next = Math.min(Math.max(next, 0), cfg.count - 1);
+			if (next === cur) return; // at a boundary — let the page scroll normally
+			e.preventDefault(); // only hijack when the wheel actually moves
+			applyTarget(next, false);
+			if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
+			wheelTimerRef.current = setTimeout(() => applyTarget(targetRef.current, true), 140);
+		};
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => {
       el.removeEventListener('wheel', onWheel);
