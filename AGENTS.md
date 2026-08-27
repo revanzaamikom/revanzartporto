@@ -28,7 +28,7 @@ Arah desain: **dark mode, cinematic, gaya motion designer profesional** (referen
 ## 3. Identitas Profesional
 
 Roles yang ditampilkan (typewriter di Hero):
-`Video Editor`, `Motion Designer`, `Graphics Designer`, `Scriptwriter`, `Videographer`
+`Video Editor`, `Motion Designer`, `Graphics Designer`, `Scriptwriter`, `Videographer`, `Photography`
 
 Skill wheel (WhatIDo):
 `VFX`, `Video Editing`, `UI/UX Design`, `Creative Direction`, `Motion Graphics`, `Scriptwriting`, `Design Graphics`, `Videography`, `Animation`
@@ -59,6 +59,12 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
   - Motion Design: `CPL9pZUawdA` (camp-plan), `Sz6F-q_fq9I` (intro infogeh), `diFIM1j26GA` (amikom one apps), `xpx3JPR0bgc` (langkah mandiri ads)
   - Marketing Design: tab Social Media Feeds / Poster / Carousel (placeholder)
   - Publication Design: majalah **GTR EVOLUTION**
+- **Photography** (section di bawah Design Graphics, id anchor **`#Photography`** — dipakai buat kirim link langsung ke dosen):
+  - 3 kategori tab (pill, `.photo-tab`): **Ande-Ande Lumut** (11 foto, grid aspect-[4/3]), **Photo Story** (1 poster, foto full `h-auto`), **Shutterstock** (7 foto, grid aspect-square)
+  - Layout per kategori: foto di kiri (`md:col-span-2`), kartu keterangan sticky di kanan (`md:sticky md:top-28`, `bg-[#111111] border-white/10 rounded-2xl p-6`)
+  - Aset: `public/images/photography/{kategori}/*.webp` — auto-listing via `fs.readdirSync` di frontmatter `index.astro` (tinggal drop foto → rebuild)
+  - Keterangan tiap kategori: AL = "Event Karya Seni Ande-Ande Lumut di Museum Sonobudoyo", PS = "A Day in the Life of a Street Barista" (+paragraf story), SS = "Implementasi ujian fotografi yang diunggah ke Shutterstock"
+  - Foto: `loading="lazy"` + `data-lightbox` (reuse lightbox existing), tab switch + `refreshScrollReveal`
 
 ### Majalah "GTR EVOLUTION"
 - Desain publikasi majalah otomotif **26 halaman** bertema legendaris **Nissan GT-R**.
@@ -90,7 +96,7 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
 3. `ProjectGrid.astro` (Recent Work) — GradientWaves + video cards + lightbox
 4. `WhatIDo.astro` → `WhatIDo.jsx` → `ui/OptionWheel.jsx` (EN/ID + wheel)
 5. Software marquee
-6. Gallery (kategori video + Design Studio + modal)
+6. Gallery (kategori video + Design Studio + Photography + modal)
 7. Certificates vault (zoom/pan/pinch)
 8. `Footer.astro`
 - `MagazineFlipbook.astro` dipasang di luar `<main>` (modal flipbook)

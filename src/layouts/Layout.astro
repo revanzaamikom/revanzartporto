@@ -99,6 +99,17 @@ const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 		<script>
 		(function () {
 		  function finalizeStart() {
+		    try {
+		      const id = (location.hash || '').replace(/^#/, '');
+		      if (id) {
+		        const el = document.getElementById(id);
+		        if (el) {
+		          el.scrollIntoView({ behavior: 'auto', block: 'start' });
+		          document.body.classList.add('splash-done');
+		          return;
+		        }
+		      }
+		    } catch (e) {}
 		    try { window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); } catch (e) {}
 		    document.body.classList.add('splash-done');
 		  }
