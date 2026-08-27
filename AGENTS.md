@@ -140,8 +140,8 @@ npm audit        # cek security
 
 - **Deploy**: GitHub `revanzaamikom/revanzartporto.git`, default branch `main`. Vercel = `revanzart.vercel.app`, Production Branch harus `main` (sudah diubah dari `master`). Branch `master` lama masih ada & stale — boleh dihapus.
 - **Astro sudah di-upgrade** 4 → 7, Tailwind 3 → 4. Jangan downgrade.
-- **Console noise yang diketahui** (dev-only / third-party, bukan bug kode kita):
-  - YouTube embed CORS (`static.doubleclick.net`, `fonts.gstatic.com`) — muncul cuma di `localhost`, hilang di production HTTPS.
+- **Console noise yang diketahui** (third-party, bukan bug kode kita):
+  - YouTube embed CORS (`static.doubleclick.net/instream/ad_status.js`, `fonts.gstatic.com`) — dari dalam player YouTube (script tracking iklan + font), muncul di Chrome DevTools **baik localhost maupun production** untuk SEMUA website yang embed YouTube. Harmless, tidak pengaruhi playback/visitor, tidak bisa dihilangkan selama pakai iframe YouTube embed (opsi hilangkan = preview mp4 lokal, tapi autoplay preview YouTube itu keputusan owner).
   - `THREE.Clock` deprecated — dari Three.js internal via `@react-three/fiber` v8; fix butuh upgrade React 19 + fiber 9 (belum dilakukan).
 - **Autoplay preview video** itu keputusan desain owner (portfolio) — jangan diubah ke thumbnail statis tanpa konfirmasi.
 - **Agent bantu**: subagent global `image-reader` (gemini flash-lite) tersedia untuk analisis gambar — panggil via `@image-reader` saat butuh cek visual.
