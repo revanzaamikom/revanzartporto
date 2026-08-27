@@ -1,5 +1,5 @@
 ---
-import Lanyard3D from './Lanyard3D.jsx';
+import LazyLanyard from './LazyLanyard.jsx';
 import LightRays from './LightRays.jsx';
 import SpecularButton from './SpecularButton.jsx';
 ---
@@ -27,7 +27,7 @@ import SpecularButton from './SpecularButton.jsx';
 
 	<!-- Mobile Lanyard: centered and hanging above the navbar -->
 	<div id="hero-3d" class="block md:hidden relative z-10 w-full h-[300px] mt-16 overflow-visible">
-		<Lanyard3D
+		<LazyLanyard
 			client:visible
 			className="w-full h-full flex items-center justify-center overflow-visible pointer-events-auto"
 			anchorPosition={[0, 3.5, 0]}
@@ -36,7 +36,7 @@ import SpecularButton from './SpecularButton.jsx';
 
 	<!-- Desktop Lanyard: full-bleed and anchored on the right -->
 	<div class="hidden md:block md:absolute md:inset-0 md:z-10 md:w-full md:h-full md:overflow-visible">
-		<Lanyard3D
+		<LazyLanyard
 			client:visible
 			className="absolute inset-0 w-full h-full flex items-center justify-center overflow-visible pointer-events-auto"
 			anchorPosition={[3.5, 4.5, 0]}

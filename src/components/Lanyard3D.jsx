@@ -61,7 +61,7 @@ export default function Lanyard3D({
   }, []);
 
   return (
-    <div className={`${className} touch-none select-none`}>
+    <div className={`${className} select-none`}>
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1 : 1.5]}
