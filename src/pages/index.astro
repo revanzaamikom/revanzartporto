@@ -519,18 +519,20 @@ const photoSS = listPhotos('shutterstock');
 							</aside>
 						</div>
 
-						<div data-photo-panel="photostory" class="hidden">
-							<div class="max-w-3xl mx-auto">
+						<div data-photo-panel="photostory" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+							<div class="md:col-span-2">
 								{photoPS.map((f) => (
-									<div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10 mb-6" data-lightbox={`/images/photography/photostory/${f}`}>
-										<img src={`/images/photography/photostory/${f}`} alt="Photo Story — A Day in the Life of a Street Barista" class="w-full aspect-[16/9] object-cover transition-all duration-500 group-hover:scale-[1.02]" loading="lazy" />
+									<div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10" data-lightbox={`/images/photography/photostory/${f}`}>
+										<img src={`/images/photography/photostory/${f}`} alt="Photo Story — A Day in the Life of a Street Barista" class="w-full h-auto object-contain transition-all duration-500" loading="lazy" />
 									</div>
 								))}
+							</div>
+							<aside class="md:sticky md:top-28 self-start">
 								<div class="bg-[#111111] border border-white/10 rounded-2xl p-6">
 									<h4 class="text-lg font-bold text-white">&quot;A Day in the Life of a Street Barista&quot;</h4>
 									<p class="mt-3 text-sm md:text-base text-textMuted leading-relaxed">Photo story ini merangkum perjalanan visual seorang pelaku UMKM Kopi Keliling (Kopling), merekam dinamika usahanya sejak matahari mulai terbenam hingga riuk malam perlahan surut. Dimulai dari sudut kiri atas yang memperlihatkan kesibukan persiapan armada dan perlengkapan di sore hari, deretan foto ini bergerak mengikuti alur waktu. Melalui pendekatan teknik angle, pemanfaatan cahaya alami hingga low-light, serta komposisi visual yang presisi, narasi ini berfokus pada detail proses menyeduh dan kehangatan interaksi di jalanan. Dokumentasi ini ditutup di sisi kanan bawah dengan suasana malam hari saat lapak diselesaikan, menampilkan sisi autentik, ketangguhan, dan warna dari industri kreatif lokal secara visual.</p>
 								</div>
-							</div>
+							</aside>
 						</div>
 
 						<div data-photo-panel="shutterstock" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
