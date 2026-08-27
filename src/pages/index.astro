@@ -765,7 +765,7 @@ function ensureGalleryModal(){
 					lightboxEl.className = 'fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 p-6';
 					lightboxEl.innerHTML = '<div class="max-w-[90vw] max-h-[90vh] overflow-auto rounded">'
 						+ '<img id="lightbox-img" src="" alt="Preview" class="object-contain w-full h-auto rounded" />'
-						+ '<button id="lightbox-close" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Close</button>';
+						+ '<button id="lightbox-close" aria-label="Close" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Close</button>';
 					document.body.appendChild(lightboxEl);
 					return lightboxEl;
 				}

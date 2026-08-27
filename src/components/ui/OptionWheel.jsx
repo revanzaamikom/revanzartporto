@@ -204,6 +204,7 @@ const OptionWheel = ({
 
   const handlePointerDown = useCallback(e => {
     if (!cfgRef.current.draggable) return;
+    if (e.pointerType === 'touch') return; // touch: keep page scroll, tap-to-select only
     dragRef.current = { y: e.clientY, start: targetRef.current, id: e.pointerId };
     dragMovedRef.current = false;
     setIsDragging(true);

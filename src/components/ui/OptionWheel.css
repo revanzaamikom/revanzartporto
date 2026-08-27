@@ -10,7 +10,7 @@
   overflow: hidden;
   cursor: grab;
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
   outline: none;
 }
 

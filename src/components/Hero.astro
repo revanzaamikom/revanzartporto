@@ -26,7 +26,7 @@ import SpecularButton from './SpecularButton.jsx';
 	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] z-0 pointer-events-none"></div>
 
 	<!-- Mobile Lanyard: centered and hanging above the navbar -->
-	<div id="hero-3d" class="touch-none block md:hidden relative z-10 w-full h-[350px] md:h-[600px] mt-16 md:-mt-12 overflow-visible">
+	<div id="hero-3d" class="block md:hidden relative z-10 w-full h-[300px] mt-16 overflow-visible">
 		<Lanyard3D
 			client:visible
 			className="w-full h-full flex items-center justify-center overflow-visible pointer-events-auto"
@@ -46,8 +46,8 @@ import SpecularButton from './SpecularButton.jsx';
 	<div class="max-w-7xl mx-auto relative z-20 pointer-events-none w-full px-4 md:px-0 mt-0 pb-8 md:pb-0 text-left">
 		<div class="max-w-4xl">
 			<h2 class="text-textMuted tracking-widest uppercase text-sm mb-4 font-semibold hero-text" style="transition-delay: 100ms;">Portofolio</h2>
-			<h1 class="text-4xl md:text-9xl font-extrabold tracking-tighter mb-6 leading-tight hero-text" style="transition-delay: 300ms;">
-				MUHAMAD REVANZA <br/> RAFIF HAMDANI
+			<h1 class="text-2xl sm:text-3xl md:text-9xl font-extrabold tracking-tighter mb-6 leading-tight text-balance hero-text" style="transition-delay: 300ms;">
+				MUHAMAD REVANZA <br class="hidden md:block" /> RAFIF HAMDANI
 			</h1>
 			<p class="text-2xl md:text-4xl text-textMuted font-medium max-w-2xl leading-relaxed mb-10 hero-text select-none min-h-[48px]" style="transition-delay: 500ms;">
 				I'm a <span id="typewriter-role" class="text-cyan-500 font-extrabold drop-shadow-[0_0_12px_rgba(0,255,255,0.6)]"></span><span id="typewriter-cursor" class="inline-block w-[3px] h-[1.15em] bg-[#00ffff] ml-1 opacity-0 align-middle drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]"></span>
@@ -96,16 +96,16 @@ import SpecularButton from './SpecularButton.jsx';
 
 					<!-- SOCIAL LINKS SET 1/2: Hero inline drawer (#contact-action) -->
 					<div class="icon-drawer flex items-center gap-1 max-w-0 opacity-0 overflow-hidden pointer-events-none transition-all duration-300 ease-out">
-						<a href="https://instagram.com/revanzarh" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
+						<a href="https://instagram.com/revanzarh" target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
 							<img src="https://api.iconify.design/simple-icons:instagram.svg?color=white" alt="Instagram" class="w-4 h-4" />
 						</a>
-						<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
+						<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
 							<img src="https://api.iconify.design/simple-icons:linkedin.svg?color=white" alt="LinkedIn" class="w-4 h-4" />
 						</a>
 						<a href="mailto:importantrevanza@gmail.com" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Email">
 							<img src="https://api.iconify.design/lucide:mail.svg?color=white" alt="Email" class="w-4 h-4" />
 						</a>
-						<a href="https://wa.me/6281229834548" target="_blank" rel="noreferrer" class="whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
+						<a href="https://wa.me/6281229834548" target="_blank" rel="noopener noreferrer" class="whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
 							<img src="https://api.iconify.design/simple-icons:whatsapp.svg?color=white" alt="WhatsApp" class="w-4 h-4" />
 						</a>
 					</div>
@@ -145,16 +145,16 @@ import SpecularButton from './SpecularButton.jsx';
 <div class="floating-contact-shell relative inline-flex items-end">
 	<!-- SOCIAL LINKS SET 2/2: Floating drawer (#floating-contact) -->
 	<div class="floating-icon-drawer absolute right-0 bottom-full mb-3 flex flex-col-reverse items-center gap-1 p-1 rounded-full border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.08)] opacity-0 pointer-events-none invisible transition-all duration-250 ease-out">
-			<a href="https://instagram.com/revanzarh" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
+			<a href="https://instagram.com/revanzarh" target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Instagram">
 				<img src="https://api.iconify.design/simple-icons:instagram.svg?color=white" alt="Instagram" class="w-4 h-4" />
 			</a>
-			<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
+			<a href="https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/" target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="LinkedIn">
 				<img src="https://api.iconify.design/simple-icons:linkedin.svg?color=white" alt="LinkedIn" class="w-4 h-4" />
 			</a>
 			<a href="mailto:importantrevanza@gmail.com" class="p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="Email">
 				<img src="https://api.iconify.design/lucide:mail.svg?color=white" alt="Email" class="w-4 h-4" />
 			</a>
-			<a href="https://wa.me/6281229834548" target="_blank" rel="noreferrer" class="floating-whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
+			<a href="https://wa.me/6281229834548" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-trigger p-2 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95 inline-flex items-center justify-center" aria-label="WhatsApp">
 				<img src="https://api.iconify.design/simple-icons:whatsapp.svg?color=white" alt="WhatsApp" class="w-4 h-4" />
 			</a>
 		</div>
