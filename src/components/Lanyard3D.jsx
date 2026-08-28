@@ -29,6 +29,8 @@ export default function Lanyard3D({
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [splashComplete, setSplashComplete] = useState(false);
+  const containerRef = useRef(null);
+  const [inView, setInView] = useState(true);
 
   const [strapXOffset, setStrapXOffset] = useState(() => {
     if (typeof window === 'undefined') return 0;
@@ -60,10 +62,19 @@ export default function Lanyard3D({
     };
   }, []);
 
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.1 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className={`${className} select-none`}>
+    <div ref={containerRef} className={`${className} select-none`}>
       <Canvas
         camera={{ position: position, fov: fov }}
+        frameloop={inView ? 'always' : 'never'}
         dpr={[1, isMobile ? 1 : 1.5]}
         gl={{ alpha: transparent }}
         style={{ background: 'transparent', width: '100%', height: '100%', touchAction: 'pan-y', userSelect: 'none', WebkitUserSelect: 'none' }}

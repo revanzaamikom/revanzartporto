@@ -7,10 +7,15 @@ export default function LazyLanyard(props) {
 
 	useEffect(() => {
 		const start = () => setReady(true);
-		window.addEventListener('splash-complete', start);
-		const fallback = setTimeout(start, 3200);
+		const onSplash = () => {
+			window.removeEventListener('splash-complete', onSplash);
+			const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 300));
+			schedule(start);
+		};
+		window.addEventListener('splash-complete', onSplash);
+		const fallback = setTimeout(start, 4500);
 		return () => {
-			window.removeEventListener('splash-complete', start);
+			window.removeEventListener('splash-complete', onSplash);
 			clearTimeout(fallback);
 		};
 	}, []);

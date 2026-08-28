@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
 import './SpecularButton.css';
 
@@ -93,10 +93,15 @@ const SpecularButton = ({
   const btnRef = useRef(null);
   const fxRef = useRef(null);
   const propsRef = useRef({});
+  const [isCssFallback, setIsCssFallback] = useState(false);
 
   propsRef.current = { radius, lineColor, baseColor, intensity, shineSize, shineFade, thickness, speed, followMouse, proximity, autoAnimate };
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) {
+      setIsCssFallback(true);
+      return; // skip WebGL render loop on mobile — pakai CSS fallback
+    }
     const btn = btnRef.current;
     const fx = fxRef.current;
     if (!btn || !fx) return;
@@ -231,7 +236,7 @@ const SpecularButton = ({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`specular-button specular-button--${size}${className ? ` ${className}` : ''}`}
+      className={`specular-button specular-button--${size}${isCssFallback ? ' specular-button--css' : ''}${className ? ` ${className}` : ''}`}
       style={{
         '--sb-radius': `${radius}px`,
         '--sb-tint': tint,

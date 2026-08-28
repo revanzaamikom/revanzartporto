@@ -79,6 +79,7 @@ const LightRays = ({
   }, []);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) return; // skip WebGL di mobile
     if (!isVisible || !containerRef.current) return;
 
     if (cleanupFunctionRef.current) {
