@@ -523,7 +523,7 @@ const photoSS = listPhotos('shutterstock');
 							<div class="md:col-span-2">
 								{photoPS.map((f) => (
 									<div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10" data-lightbox={`/images/photography/photostory/${f}`}>
-										<img src={`/images/photography/photostory/${f}`} alt="Photo Story — A Day in the Life of a Street Barista" class="w-full h-auto object-contain transition-all duration-500" loading="lazy" />
+										<img src={`/images/photography/photostory/${f}`} alt="Photo Story — A Day in the Life of a Street Barista" class="w-full h-auto object-contain transition-all duration-500" />
 									</div>
 								))}
 							</div>
@@ -562,8 +562,13 @@ const photoSS = listPhotos('shutterstock');
 							const key = this.getAttribute('data-photo');
 							document.querySelectorAll('[data-photo-panel]').forEach(p => p.classList.add('hidden'));
 							const panel = document.querySelector(`[data-photo-panel="${key}"]`);
-							if (panel) panel.classList.remove('hidden');
-							if (window.refreshScrollReveal) window.refreshScrollReveal();
+							if (panel) {
+								panel.classList.remove('hidden');
+								const imgs = panel.querySelectorAll('img');
+								Promise.all([...imgs].map(i => i.decode().catch(() => {}))).then(() => {
+									if (window.refreshScrollReveal) window.refreshScrollReveal();
+								});
+							}
 						}));
 					})();
 					</script>
