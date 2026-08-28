@@ -64,7 +64,7 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
   - Layout per kategori: foto di kiri (`md:col-span-2`), kartu keterangan sticky di kanan (`md:sticky md:top-28`, `bg-[#111111] border-white/10 rounded-2xl p-6`)
   - Aset: `public/images/photography/{kategori}/*.webp` — auto-listing via `fs.readdirSync` di frontmatter `index.astro` (tinggal drop foto → rebuild)
   - Keterangan tiap kategori: AL = "Event Karya Seni Ande-Ande Lumut di Museum Sonobudoyo", PS = "A Day in the Life of a Street Barista" (+paragraf story), SS = "Implementasi ujian fotografi yang diunggah ke Shutterstock"
-  - Foto: `loading="lazy"` + `data-lightbox` (reuse lightbox existing), tab switch + `refreshScrollReveal`
+  - Foto: grid AL/SS `loading="lazy"`, **photostory eager** (fix biar muncul di mobile); `data-lightbox` (reuse lightbox existing); tab switch pakai `img.decode()` + `refreshScrollReveal`
 
 ### Majalah "GTR EVOLUTION"
 - Desain publikasi majalah otomotif **26 halaman** bertema legendaris **Nissan GT-R**.
@@ -101,7 +101,12 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
 8. `Footer.astro`
 - `MagazineFlipbook.astro` dipasang di luar `<main>` (modal flipbook)
 
-**Komponen lain:** `Navbar.astro`, `ScrollReveal.astro`, `GradientWaves.jsx`, `LightRays.jsx`, `Lanyard3D.jsx`, `SpecularButton.jsx`.
+**Komponen lain:** `Navbar.astro`, `ScrollReveal.astro`, `GradientWaves.jsx`, `LightRays.jsx`, `Lanyard3D.jsx`, `LazyLanyard.jsx`, `SpecularButton.jsx`.
+
+**WebGL/perf (penting):**
+- LightRays & SpecularButton **skip WebGL di mobile** (≤767px, via `matchMedia`) — Specular pakai CSS fallback `.specular-button--css` (border halus). Hero mobile jadi cuma 1 canvas (Lanyard).
+- Lanyard3D `frameloop='never'` saat di luar viewport (IntersectionObserver) — pause render, hemat GPU.
+- `LazyLanyard.jsx` lazy-load Lanyard3D: mount saat `splash-complete`, preload chunk JS + glb selama splash.
 
 **Media helpers:** `window.mediaHelpers` (play/pause media, YouTube postMessage) + `window.refreshScrollReveal` dipakai lintas script. **Jangan duplikasi** logika media — pakai yang sudah ada.
 
@@ -146,6 +151,9 @@ npm audit        # cek security
 
 - **Deploy**: GitHub `revanzaamikom/revanzartporto.git`, default branch `main`. Vercel = `revanzart.vercel.app`, Production Branch harus `main` (sudah diubah dari `master`). Branch `master` lama masih ada & stale — boleh dihapus.
 - **Astro sudah di-upgrade** 4 → 7, Tailwind 3 → 4. Jangan downgrade.
+- **Vercel Analytics**: pernah di-install agent (ubah ke `output: server` + `@astrojs/vercel`) lalu **di-revert** — sekarang `output: static` murni. Jangan install `@astrojs/vercel`/server mode tanpa konfirmasi.
+- **Perf (sudah dioptimasi)**: video Recent Work **360p** (~4MB, load hanya saat `#work` mendekat — 5s fallback dihapus); `card.glb` dikompres **2.34MB → 1.08MB** (tekstur 1678→1024px); Lanyard render pause di luar viewport; LightRays/Specular skip WebGL di mobile; LazyLanyard preload saat splash.
+- **Flipbook mobile**: `usePortrait: false` + `minWidth: 140` → selalu **2 halaman A4 sejajar** di semua layar (mobile ga mode 1 halaman).
 - **Console noise yang diketahui** (third-party, bukan bug kode kita):
   - YouTube embed CORS (`static.doubleclick.net/instream/ad_status.js`, `fonts.gstatic.com`) — dari dalam player YouTube (script tracking iklan + font), muncul di Chrome DevTools **baik localhost maupun production** untuk SEMUA website yang embed YouTube. Harmless, tidak pengaruhi playback/visitor, tidak bisa dihilangkan selama pakai iframe YouTube embed (opsi hilangkan = preview mp4 lokal, tapi autoplay preview YouTube itu keputusan owner).
   - `THREE.Clock` deprecated — dari Three.js internal via `@react-three/fiber` v8; fix butuh upgrade React 19 + fiber 9 (belum dilakukan).

@@ -6,16 +6,15 @@ export default function LazyLanyard(props) {
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
+		// Mulai download chunk 3MB + glb SELAMA splash, biar muncul cepat setelahnya
+		import('./Lanyard3D.jsx').catch(() => {});
+		fetch('/lanyard/card.glb', { mode: 'cors' }).catch(() => {});
+
 		const start = () => setReady(true);
-		const onSplash = () => {
-			window.removeEventListener('splash-complete', onSplash);
-			const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 300));
-			schedule(start);
-		};
-		window.addEventListener('splash-complete', onSplash);
-		const fallback = setTimeout(start, 4500);
+		window.addEventListener('splash-complete', start);
+		const fallback = setTimeout(start, 3000);
 		return () => {
-			window.removeEventListener('splash-complete', onSplash);
+			window.removeEventListener('splash-complete', start);
 			clearTimeout(fallback);
 		};
 	}, []);
