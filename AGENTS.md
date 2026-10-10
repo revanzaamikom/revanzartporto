@@ -1,4 +1,4 @@
-# AGENTS.md — REVANZART Portfolio
+﻿# AGENTS.md  -  REVANZART Portfolio
 
 Instruksi permanen untuk semua agent (opencode, Copilot, Cursor, Claude Code) yang bekerja di project ini.
 
@@ -6,7 +6,7 @@ Instruksi permanen untuk semua agent (opencode, Copilot, Cursor, Claude Code) ya
 
 ## 1. Tentang Pemilik (Owner)
 
-**Muhamad Revanza Rafif Hamdani** — Video Editor & Motion Designer.
+**Muhamad Revanza Rafif Hamdani**  -  Video Editor & Motion Designer.
 
 - Mahasiswa **Teknologi Informasi** di **Universitas Amikom Yogyakarta** (jangan pernah pakai kata "IT" untuk program studi ini).
 - Portfolio live: `https://revanzart.vercel.app`
@@ -15,7 +15,7 @@ Instruksi permanen untuk semua agent (opencode, Copilot, Cursor, Claude Code) ya
   - Instagram: `https://instagram.com/revanzarh`
   - YouTube: `https://www.youtube.com/@Revanzarh/videos`
   - LinkedIn: `https://www.linkedin.com/in/muhamad-revanza-rafif-hamdani-650962401/`
-  - WhatsApp: `https://wa.me/6281229834548`
+  - WhatsApp: `https://wa.me/628559992302`
 
 ## 2. Hak Desain & Keputusan (WAJIB)
 
@@ -43,11 +43,11 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
 ## 4. Karya & Pencapaian
 
 ### Recent Work (5 projek)
-1. **Nutriverse Motion** — youtubeId `l5vtRq2WJJw`, video `/video/nutriverse.mp4`
-2. **Nutriverse - UX GEMASTIK 2026** — youtubeId `2IsCiFwq0dg`, video `/video/nutriverse2.mp4`
-3. **Company Profile Andi Media Digital** — youtubeId `R6RIeHzSA1E`, video `/video/andimedia.mp4`
-4. **"Nexum" VFX Short Movie** — youtubeId `3EPe6pvqqCM`, video `/video/nexum.mp4`
-5. **Indie Short Movie - pelunasan sunyi** — youtubeId `lsFE3Kv7wmw`, video `/video/pelunasansunyi.mp4`
+1. **Nutriverse Motion**  -  youtubeId `l5vtRq2WJJw`, video `/video/nutriverse.mp4`
+2. **Nutriverse - UX GEMASTIK 2026**  -  youtubeId `2IsCiFwq0dg`, video `/video/nutriverse2.mp4`
+3. **Company Profile Andi Media Digital**  -  youtubeId `R6RIeHzSA1E`, video `/video/andimedia.mp4`
+4. **"Nexum" VFX Short Movie**  -  youtubeId `3EPe6pvqqCM`, video `/video/nexum.mp4`
+5. **Indie Short Movie - pelunasan sunyi**  -  youtubeId `lsFE3Kv7wmw`, video `/video/pelunasansunyi.mp4`
 
 ### Gallery
 - **Video Editing** (accordion kategori):
@@ -59,17 +59,17 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
   - Motion Design: `CPL9pZUawdA` (camp-plan), `Sz6F-q_fq9I` (intro infogeh), `diFIM1j26GA` (amikom one apps), `xpx3JPR0bgc` (langkah mandiri ads)
   - Marketing Design: tab Social Media Feeds / Poster / Carousel (placeholder)
   - Publication Design: majalah **GTR EVOLUTION**
-- **Photography** (section di bawah Design Graphics, id anchor **`#Photography`** — dipakai buat kirim link langsung ke dosen):
+- **Photography** (section di bawah Design Graphics, id anchor **`#Photography`**  -  dipakai buat kirim link langsung ke dosen):
   - 3 kategori tab (pill, `.photo-tab`): **Ande-Ande Lumut** (11 foto, grid aspect-[4/3]), **Photo Story** (1 poster, foto full `h-auto`), **Shutterstock** (7 foto, grid aspect-square)
   - Layout per kategori: foto di kiri (`md:col-span-2`), kartu keterangan sticky di kanan (`md:sticky md:top-28`, `bg-[#111111] border-white/10 rounded-2xl p-6`)
-  - Aset: `public/images/photography/{kategori}/*.webp` — auto-listing via `fs.readdirSync` di frontmatter `index.astro` (tinggal drop foto → rebuild)
+  - Aset: `public/images/photography/{kategori}/*.webp`  -  auto-listing via `fs.readdirSync` di frontmatter `index.astro` (tinggal drop foto → rebuild)
   - Keterangan tiap kategori: AL = "Event Karya Seni Ande-Ande Lumut di Museum Sonobudoyo", PS = "A Day in the Life of a Street Barista" (+paragraf story), SS = "Implementasi ujian fotografi yang diunggah ke Shutterstock"
   - Foto: grid AL/SS `loading="lazy"`, **photostory eager** (fix biar muncul di mobile); `data-lightbox` (reuse lightbox existing); tab switch pakai `img.decode()` + `refreshScrollReveal`
 
 ### Majalah "GTR EVOLUTION"
 - Desain publikasi majalah otomotif **26 halaman** bertema legendaris **Nissan GT-R**.
 - Dulu pakai Heyzine (ifame eksternal, lambat) → **sekarang flipbook self-hosted**.
-- Aset: `public/images/magazine/a4/p01.webp` … `p26.webp` (894×1265, A4 portrait, ~1.85MB total) — hasil convert dari PDF 31MB.
+- Aset: `public/images/magazine/a4/p01.webp` … `p26.webp` (894×1265, A4 portrait, ~1.85MB total)  -  hasil convert dari PDF 31MB.
 - Komponen: `src/components/MagazineFlipbook.astro` pakai library `page-flip` (StPageFlip). Cover depan/belakang otomatis di-tengah + pergeseran smooth.
 
 ### Sertifikat (Vault)
@@ -92,8 +92,8 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
 
 **Struktur single-page** (`src/pages/index.astro`):
 1. `SplashScreen.jsx` (overlay 2.6s, event `splash-complete`)
-2. `Hero.astro` — lanyard 3D, LightRays, SpecularButton, typewriter, floating contact
-3. `ProjectGrid.astro` (Recent Work) — GradientWaves + video cards + lightbox
+2. `Hero.astro`  -  lanyard 3D, LightRays, SpecularButton, typewriter, floating contact
+3. `ProjectGrid.astro` (Recent Work)  -  GradientWaves + video cards + lightbox
 4. `WhatIDo.astro` → `WhatIDo.jsx` → `ui/OptionWheel.jsx` (EN/ID + wheel)
 5. Software marquee
 6. Gallery (kategori video + Design Studio + Photography + modal)
@@ -104,11 +104,11 @@ After Effects, Premiere Pro, Illustrator, Photoshop, CorelDraw, Figma, XAMPP, Ce
 **Komponen lain:** `Navbar.astro`, `ScrollReveal.astro`, `GradientWaves.jsx`, `LightRays.jsx`, `Lanyard3D.jsx`, `LazyLanyard.jsx`, `SpecularButton.jsx`.
 
 **WebGL/perf (penting):**
-- LightRays & SpecularButton **skip WebGL di mobile** (≤767px, via `matchMedia`) — Specular pakai CSS fallback `.specular-button--css` (border halus). Hero mobile jadi cuma 1 canvas (Lanyard).
-- Lanyard3D `frameloop='never'` saat di luar viewport (IntersectionObserver) — pause render, hemat GPU.
+- LightRays & SpecularButton **skip WebGL di mobile** (≤767px, via `matchMedia`)  -  Specular pakai CSS fallback `.specular-button--css` (border halus). Hero mobile jadi cuma 1 canvas (Lanyard).
+- Lanyard3D `frameloop='never'` saat di luar viewport (IntersectionObserver)  -  pause render, hemat GPU.
 - `LazyLanyard.jsx` lazy-load Lanyard3D: mount saat `splash-complete`, preload chunk JS + glb selama splash.
 
-**Media helpers:** `window.mediaHelpers` (play/pause media, YouTube postMessage) + `window.refreshScrollReveal` dipakai lintas script. **Jangan duplikasi** logika media — pakai yang sudah ada.
+**Media helpers:** `window.mediaHelpers` (play/pause media, YouTube postMessage) + `window.refreshScrollReveal` dipakai lintas script. **Jangan duplikasi** logika media  -  pakai yang sudah ada.
 
 **Env:** `.env` → `PUBLIC_SITE_URL=https://revanzart.vercel.app` (untuk sitemap, canonical, OG image).
 
@@ -120,7 +120,7 @@ npm run preview  # preview build
 npm audit        # cek security
 ```
 
-## 6. Komunikasi (dari Copilot Instructions — wajib)
+## 6. Komunikasi (dari Copilot Instructions  -  wajib)
 
 1. Bahasa Indonesia santai, kasual, direct, to-the-point.
 2. **DILARANG** penjelasan teori panjang, bertele-tele, atau wall of text.
@@ -136,26 +136,70 @@ npm audit        # cek security
 1. Utamakan komponen bawaan **Astro (.astro)** daripada React (.jsx/.tsx) untuk halaman statis. React hanya untuk yang butuh interaktivitas berat (WebGL, 3D, animasi).
 2. Gunakan **Tailwind CSS** utility-first. Warna `background: #050505`, `surface: #111111`.
 3. Desain harus menonjolkan visual/video/gambar karya dengan typography besar dan bold.
-4. **Jangan gunakan kata "IT"** — selalu "Teknologi Informasi" jika merujuk program studi.
+4. **Jangan gunakan kata "IT"**  -  selalu "Teknologi Informasi" jika merujuk program studi.
 5. Kode rapi, performan, mengikuti standar Astro terkini.
 6. Jangan tambahkan dependency baru kalau bisa diselesaikan dengan yang sudah ada (atau beberapa baris vanilla JS/CSS).
 
-## 8. Anti UI Slop
+## 8. Design System & Anti UI Slop
 
+**Panduan design resmi ada di dokumen terpisah  -  WAJIB dibaca sebelum kerja UI/visual:**
+
+- 📐 **`DESIGN.md`**  -  sistem visual (warna/token, tipografi, spacing, motion, komponen, aksesibilitas, dials ENERGY/RHYTHM/MOTION). §11 = dunia visual `/webportofolio`; §12 = provenance aset.
+- 🧭 **`PRODUCT.md`**  -  product truth (apa produk ini, audience, konten terverifikasi, batasan). Dibaca skill `impeccable`.
+- 📋 **`website-portfolio-brief.md`**  -  brief lengkap permukaan jasa web dev (sudah dibangun → `src/pages/webportofolio.astro`).
+- 📝 **`docs/TODO-session-next.md`**  -  catatan sesi `/webportofolio` (status terakhir + aturan kerja). Baca ini dulu sebelum lanjut kerja di halaman itu.
+
+**Halaman `/webportofolio`** (permukaan jasa web dev, route `/webportofolio`):
+- Punya **dunia visual SENDIRI** (bukan cyan/dark-cinematic home): near-black hangat `#090a0d` + aksen amber `#e4a339`, Archivo + IBM Plex Mono. Scoped di `.wp-page`, tidak nyentuh token global.
+- Konten: Hero, Proyek (pin track, urutan Camp Plan → KonveksiKampus → PAKTJIP), Layanan, Marquee, Teknologi, Proses, Tentang, Paket (badge "Mulai dari Rp500rb", tanpa harga per kartu), Kontak.
+- **Navbar varian sendiri** (prop opsional `navVariant="web"` di `Layout.astro` → `Navbar.astro`; default = navbar home, tidak berubah). Desktop **3-1-3** (Proyek·Layanan·Teknologi | REVANZART | Proses·Paket·Kontak), **mobile 2-1-2** (Teknologi & Kontak disembunyikan via `.nav-link--wide`). Aksen amber, link anchor lokal. Jangan ubah tanpa prop ini agar home tak tersentuh.
+- Motion: adaptasi mekanik rafaelkurosawa.com (vanilla JS, lihat `docs/motion-reference-kurosawa.md`).
+- `body:has(.wp-page) { overflow-x: clip }` **wajib** (sticky hidup; global `overflow-x-hidden` mematikan sticky).
+- **JANGAN** set `position` pada `.wp-track-stage`/`.wp-stack-stage` dari luar (mematikan scroll animation).
+- Image-reader (vision) pakai model `9router/cbai/deepseek-v4.1-flash` (aktif); lihat `~/.config/opencode/agent/image-reader.md`.
+
+**Skill anti-slop & UI/UX terpasang (global, `~/.agents/skills/`):**
+`antislop` (filter inti), `antislop-ui` (UI), `anti-ui-slop` (rujukan awesome-copilot), `design-taste-frontend`, `ui-ux-pro-max`. Plus `impeccable` (global, `~/.config/opencode/skills/`). Lihat pointer block antislop di akhir file ini.
+
+**Aturan inti:**
 - Inspect produk dulu sebelum mendesain ulang: pahami user, komponen, design token, dan semua state yang dibutuhkan.
 - Bangun dengan bahasa produk: reuse token & komponen, keputusan konkret, implementasikan state & behavior aksesibel.
+- Aksen resmi = **cyan (`#22D3EE`)**. Palet maksimal 2 core + 1 aksen.
+- **Jangan fabrikasi** konten: testimoni, statistik, logo partner, sertifikasi, status proyek (antislop R-17/R-18/R-36/R-38).
+- **Jangan ada kontrol mati**: tiap elemen interaktif punya perilaku nyata atau label "Coming soon" (+ `// TODO`) (R-24/R-26).
+- **Motion = tujuan, bukan hiasan loop** (R-19). Hormati `prefers-reduced-motion`.
+- Tiap keputusan visual besar perlu alasan 1 baris (R-31)  -  catat di `DESIGN.md`.
 - Finish gate: verifikasi specificity produk, kelengkapan interaksi, responsive & accessible, integritas design system.
-- Referensi lengkap: https://github.com/github/awesome-copilot/tree/main/skills/anti-ui-slop
 
 ## 9. Konteks Penting untuk Session Berikutnya
 
-- **Deploy**: GitHub `revanzaamikom/revanzartporto.git`, default branch `main`. Vercel = `revanzart.vercel.app`, Production Branch harus `main` (sudah diubah dari `master`). Branch `master` lama masih ada & stale — boleh dihapus.
+- **Deploy**: GitHub `revanzaamikom/revanzartporto.git`, default branch `main`. Vercel = `revanzart.vercel.app`, Production Branch harus `main` (sudah diubah dari `master`). Branch `master` lama masih ada & stale  -  boleh dihapus.
 - **Astro sudah di-upgrade** 4 → 7, Tailwind 3 → 4. Jangan downgrade.
-- **Vercel Analytics**: pernah di-install agent (ubah ke `output: server` + `@astrojs/vercel`) lalu **di-revert** — sekarang `output: static` murni. Jangan install `@astrojs/vercel`/server mode tanpa konfirmasi.
-- **Perf (sudah dioptimasi)**: video Recent Work **360p** (~4MB, load hanya saat `#work` mendekat — 5s fallback dihapus); `card.glb` dikompres **2.34MB → 1.08MB** (tekstur 1678→1024px); Lanyard render pause di luar viewport; LightRays/Specular skip WebGL di mobile; LazyLanyard preload saat splash.
+- **Vercel Analytics**: pernah di-install agent (ubah ke `output: server` + `@astrojs/vercel`) lalu **di-revert**  -  sekarang `output: static` murni. Jangan install `@astrojs/vercel`/server mode tanpa konfirmasi.
+- **Perf (sudah dioptimasi)**: video Recent Work **360p** (~4MB, load hanya saat `#work` mendekat  -  5s fallback dihapus); `card.glb` dikompres **2.34MB → 1.08MB** (tekstur 1678→1024px); Lanyard render pause di luar viewport; LightRays/Specular skip WebGL di mobile; LazyLanyard preload saat splash.
 - **Flipbook mobile**: `usePortrait: false` + `minWidth: 140` → selalu **2 halaman A4 sejajar** di semua layar (mobile ga mode 1 halaman).
 - **Console noise yang diketahui** (third-party, bukan bug kode kita):
-  - YouTube embed CORS (`static.doubleclick.net/instream/ad_status.js`, `fonts.gstatic.com`) — dari dalam player YouTube (script tracking iklan + font), muncul di Chrome DevTools **baik localhost maupun production** untuk SEMUA website yang embed YouTube. Harmless, tidak pengaruhi playback/visitor, tidak bisa dihilangkan selama pakai iframe YouTube embed (opsi hilangkan = preview mp4 lokal, tapi autoplay preview YouTube itu keputusan owner).
-  - `THREE.Clock` deprecated — dari Three.js internal via `@react-three/fiber` v8; fix butuh upgrade React 19 + fiber 9 (belum dilakukan).
-- **Autoplay preview video** itu keputusan desain owner (portfolio) — jangan diubah ke thumbnail statis tanpa konfirmasi.
-- **Agent bantu**: subagent global `image-reader` (gemini flash-lite) tersedia untuk analisis gambar — panggil via `@image-reader` saat butuh cek visual.
+  - YouTube embed CORS (`static.doubleclick.net/instream/ad_status.js`, `fonts.gstatic.com`)  -  dari dalam player YouTube (script tracking iklan + font), muncul di Chrome DevTools **baik localhost maupun production** untuk SEMUA website yang embed YouTube. Harmless, tidak pengaruhi playback/visitor, tidak bisa dihilangkan selama pakai iframe YouTube embed (opsi hilangkan = preview mp4 lokal, tapi autoplay preview YouTube itu keputusan owner).
+  - `THREE.Clock` deprecated  -  dari Three.js internal via `@react-three/fiber` v8; fix butuh upgrade React 19 + fiber 9 (belum dilakukan).
+- **Autoplay preview video** itu keputusan desain owner (portfolio)  -  jangan diubah ke thumbnail statis tanpa konfirmasi.
+- **Agent bantu**: subagent global `image-reader` (gemini flash-lite) tersedia untuk analisis gambar  -  panggil via `@image-reader` saat butuh cek visual.
+
+<!-- antislop:start -->
+## antislop
+Untuk pekerjaan UI, copywriting, people, mobile layout, atau komentar kode, baca `antislop` (core, global `~/.agents/skills/antislop/SKILL.md`) lalu skill untuk tugasnya:
+- UI / visual: `~/.agents/skills/antislop-ui/SKILL.md`
+- Copy & text: `skills/antislop-copywriting/SKILL.md`
+- People: `skills/antislop-human/SKILL.md`
+- Mobile / responsive: `skills/antislop-layoutmobile/SKILL.md`
+- Code comments: `skills/antislop-code/SKILL.md`
+
+Sebelum memulai, ikuti bagian "Two Usage Modes" pada core secara berurutan: instruksi sesi eksplisit dulu, lalu preferensi global, lalu tanya. Instruksi sesi selalu menang. Untuk mode yang sudah teresolusi, ucapkan `antislop active: <mode> (<sumber>).` sekali sebelum menyajikan temuan atau melakukan edit. Untuk tugas read-only, taruh notice mode hanya di awal jawaban final; untuk tugas editing, umumkan sebelum edit pertama.
+
+Hanya pilihan eksplisit antislop selama atau setelah sesi yang memilih mode sesi. Permintaan untuk mereview, audit, atau menghindari edit file tidak memilih mode.
+
+Jika mode belum teresolusi, tanya dan akhiri respons; tunggu jawaban sebelum review/planning/konsep UI apa pun.
+
+Untuk update antislop nanti: `npx skills update`, atau jalankan `npx antislop-ai --update`.
+
+Selain core antislop, skill UI/UX & design berikut juga terpasang global dan relevan untuk kerja visual di project ini: `antislop-ui`, `anti-ui-slop`, `design-taste-frontend`, `ui-ux-pro-max`, `impeccable`.
+<!-- antislop:end -->

@@ -5,12 +5,14 @@ const translations = {
 	EN: {
 		title: "What I do",
 		description1: "I craft visual stories that transform simple briefs into memorable content. By placing myself in the viewer's shoes, I ensure every visual element feels intentional and easy for the audience to grasp.",
-		description2: "Leading projects means taking care of both strategy and execution. I align the team through active brainstorming, set up the project framework, and keep us focused on the ultimate goal."
+		description2: "Leading projects means taking care of both strategy and execution. I align the team through active brainstorming, set up the project framework, and keep us focused on the ultimate goal.",
+		cta: "I do website development too"
 	},
 	ID: {
 		title: "What I do",
 		description1: "Fokus saya adalah merancang storytelling dan mengolah brief menjadi bentuk visual yang memikat. Saya terbiasa melihat dari sudut pandang audiens awam untuk memastikan pesan visual yang dibuat relevan dan mudah dipahami.",
-		description2: "Memegang peran sebagai team lead, saya bertanggung jawab merencanakan keseluruhan proyek dari persiapan hingga eksekusi. Lewat sesi brainstorming bareng tim, saya menjaga agar setiap ide yang dieksekusi tetap terarah dan tepat sasaran."
+		description2: "Memegang peran sebagai team lead, saya bertanggung jawab merencanakan keseluruhan proyek dari persiapan hingga eksekusi. Lewat sesi brainstorming bareng tim, saya menjaga agar setiap ide yang dieksekusi tetap terarah dan tepat sasaran.",
+		cta: "Saya juga mengerjakan pengembangan website"
 	}
 };
 
@@ -79,6 +81,24 @@ export default function WhatIDo() {
 							<p className="text-lg md:text-xl text-gray-400 leading-relaxed">
 								{t.description2}
 							</p>
+
+							{/* CTA to the website development surface */}
+							<a
+								href="/webportofolio"
+								className="group relative mt-8 inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold rounded-full tracking-wide bg-cyan-500 text-black transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.35)] hover:bg-cyan-400 hover:shadow-[0_0_30px_rgba(6,182,212,0.55)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+							>
+								{t.cta}
+								<svg
+									className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									strokeWidth="2"
+									aria-hidden="true"
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+								</svg>
+							</a>
 						</div>
 					</div>
 

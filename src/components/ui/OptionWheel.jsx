@@ -189,7 +189,7 @@ const OptionWheel = ({
 			const cur = targetRef.current;
 			let next = cur + step;
 			if (!cfg.loop) next = Math.min(Math.max(next, 0), cfg.count - 1);
-			if (next === cur) return; // at a boundary — let the page scroll normally
+			if (next === cur) return; // at a boundary, let the page scroll normally
 			e.preventDefault(); // only hijack when the wheel actually moves
 			applyTarget(next, false);
 			if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);

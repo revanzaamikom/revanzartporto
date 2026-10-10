@@ -33,3 +33,8 @@ generate-posters.cjs
 
 # Unused duplicate lanyard assets (runtime assets live in public/lanyard/)
 src/components/lanyard/
+
+# Local agent tooling (skills installed per-machine, not part of the product)
+.agents/
+skills-lock.json
+.opencode/

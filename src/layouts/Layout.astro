@@ -6,14 +6,27 @@ import '../styles/global.css';
 
 interface Props {
 	title: string;
+	/** Opsional: deskripsi meta. Default = deskripsi portfolio (home). */
+	description?: string;
+	/** Opsional: path kanonik untuk halaman non-home, mis. "/webportofolio". */
+	canonicalPath?: string;
+	/** Opsional: path absolut ke OG image (mis. "/images/.../og.jpg"). Default = lanyard.jpg. */
+	ogImage?: string;
+	/** Opsional: og:image:alt. */
+	ogImageAlt?: string;
+	/** Opsional: varian navbar. 'web' = navbar khusus /webportofolio (anchor lokal, aksen amber). Default = navbar home. */
+	navVariant?: 'web';
 }
 
-const { title } = Astro.props;
+const { title, description, canonicalPath, ogImage: ogImageProp, ogImageAlt, navVariant } = Astro.props;
 const siteUrl = (import.meta.env.PUBLIC_SITE_URL || '').replace(/\/$/, '');
-const canonicalUrl = siteUrl || null;
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const canonicalUrl = siteUrl ? (isHome ? siteUrl : siteUrl + (canonicalPath || Astro.url.pathname.replace(/\/$/, ''))) : null;
 const pageTitle = title || 'REVANZART';
-const pageDescription = 'Portofolio dari Muhamad Revanza Rafif Hamdani | Video Editing, VFX, Motion Design, Design Graphics, dan karya kreatif lain';
-const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
+const pageDescription = description || 'Portofolio dari Muhamad Revanza Rafif Hamdani | Video Editing, VFX, Motion Design, Design Graphics, dan karya kreatif lain';
+const ogImagePath = ogImageProp || '/lanyard.jpg';
+const ogImage = siteUrl ? `${siteUrl}${ogImagePath}` : ogImagePath;
+const ogAlt = ogImageAlt || 'REVANZART Portfolio Preview';
 ---
 
 <!doctype html>
@@ -32,7 +45,7 @@ const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 		<meta property="og:description" content={pageDescription} />
 		{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 		<meta property="og:image" content={ogImage} />
-		<meta property="og:image:alt" content="REVANZART Portfolio Preview" />
+		<meta property="og:image:alt" content={ogAlt} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={pageDescription} />
@@ -51,6 +64,7 @@ const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 		  try { window.scrollTo(0, 0); } catch (e) {}
 		  document.addEventListener('DOMContentLoaded', function () {
 		    try { window.scrollTo(0, 0); } catch (e) {}
+		    if (!document.body.classList.contains('typing-title')) return;
 		    var fallbackTitle = 'REVANZART';
 		    var phrases = ['REVANZART', 'PORTOFOLIO'];
 		    var phraseIndex = 0;
@@ -91,8 +105,8 @@ const ogImage = canonicalUrl ? `${canonicalUrl}/lanyard.jpg` : '/lanyard.jpg';
 		  });
 		</script>
 	</head>
-	<body class="bg-background text-textMain font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
-		<Navbar />
+	<body class:list={["bg-background text-textMain font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white", isHome && "typing-title"]}>
+		<Navbar navVariant={navVariant} />
 		<slot />
 		<Footer />
 		<ScrollRevealComponent />

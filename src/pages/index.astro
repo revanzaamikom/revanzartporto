@@ -523,7 +523,7 @@ const photoSS = listPhotos('shutterstock');
 							<div class="md:col-span-2">
 								{photoPS.map((f) => (
 									<div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10" data-lightbox={`/images/photography/photostory/${f}`}>
-										<img src={`/images/photography/photostory/${f}`} alt="Photo Story — A Day in the Life of a Street Barista" class="w-full h-auto object-contain transition-all duration-500" />
+										<img src={`/images/photography/photostory/${f}`} alt="Photo Story: A Day in the Life of a Street Barista" class="w-full h-auto object-contain transition-all duration-500" />
 									</div>
 								))}
 							</div>
@@ -608,7 +608,7 @@ function collapseExpanded(){
 		// compute and set smooth max-height
 		const desired = panel.scrollHeight + 32; // add buffer for padding
 		expanded.style.maxHeight = desired + 'px';
-		// ensure expanded is visible on small screens — scroll to center to avoid overscrolling past the panel
+				// ensure expanded is visible on small screens, scroll to center to avoid overscrolling past the panel
 		try { expanded.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) { /* fallback */ expanded.scrollIntoView({ behavior: 'smooth' }); }
 		// refresh reveal for content inside the expanded panel
 		if (window.refreshScrollReveal) window.refreshScrollReveal();

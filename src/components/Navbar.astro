@@ -1,6 +1,29 @@
 ---
+interface Props {
+	navVariant?: 'web';
+}
+const { navVariant } = Astro.props;
+const isWeb = navVariant === 'web';
 ---
-<nav class="site-navbar fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
+{isWeb ? (
+	<nav class="site-navbar site-navbar--web fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap" aria-label="Navigasi halaman web development">
+		<div class="w-full flex justify-center">
+			<div class="nav-pill flex items-center justify-center rounded-full">
+				{/* kiri: 3 di desktop, 2 di mobile (Teknologi disembunyikan) */}
+				<a href="#proyek" class="nav-link" data-web-scroll>Proyek</a>
+				<a href="#layanan" class="nav-link" data-web-scroll>Layanan</a>
+				<a href="#teknologi" class="nav-link nav-link--wide" data-web-scroll>Teknologi</a>
+				{/* 1 tengah */}
+				<a href="/" class="nav-brand" aria-label="Kembali ke portfolio visual">REVANZART</a>
+				{/* kanan: 3 di desktop, 2 di mobile (Kontak disembunyikan) */}
+				<a href="#proses" class="nav-link" data-web-scroll>Proses</a>
+				<a href="#paket" class="nav-link" data-web-scroll>Paket</a>
+				<a href="#kontak" class="nav-link nav-link--wide" data-web-scroll>Kontak</a>
+			</div>
+		</div>
+	</nav>
+) : (
+	<nav class="site-navbar fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
   <div class="w-full flex justify-center">
     <div class="bg-neutral-900/70 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 rounded-full px-4 py-1.5 md:px-6 md:py-2 flex items-center justify-center gap-4 md:gap-6">
       <a href="/#what-i-do" class="hidden md:inline-flex items-center leading-none text-sm font-medium text-textMuted hover:text-white transition-all relative group" data-smooth-scroll>
@@ -29,20 +52,111 @@
     </div>
   </div>
 </nav>
+)}
 <script>
-// Smooth scroll for nav links that target anchors on the same page
+// Smooth scroll untuk nav home (anchor di halaman yang sama)
 document.addEventListener('click', function(e){
 	const a = e.target.closest && e.target.closest('a[data-smooth-scroll]');
 	if (!a) return;
-	// Only handle same-origin same-path anchors; fall back to default behavior otherwise	if (a.pathname !== location.pathname || a.hostname !== location.hostname){ return; }
+	if (a.pathname !== location.pathname || a.hostname !== location.hostname){ return; }
 	e.preventDefault();
-	const hash = a.getAttribute('href') || '';	const id = hash.split('#')[1];	if (!id) return; const target = document.getElementById(id);	if (target){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+	const hash = a.getAttribute('href') || '';
+	const id = hash.split('#')[1];
+	if (!id) return; const target = document.getElementById(id);
+	if (target){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 	else { location.href = hash; }
 });
+
+// Smooth scroll untuk navbar /webportofolio (anchor lokal, offset navbar)
+document.addEventListener('click', function(e){
+	const a = e.target.closest && e.target.closest('a[data-web-scroll]');
+	if (!a) return;
+	const href = a.getAttribute('href') || '';
+	if (href.charAt(0) !== '#') return;
+	const target = document.querySelector(href);
+	if (!target) return;
+	e.preventDefault();
+	const top = target.getBoundingClientRect().top + window.pageYOffset - 118;
+	window.scrollTo({ top: top, behavior: 'smooth' });
+});
 </script>
+
 
 <style>
   .site-navbar a {
     min-height: 0;
+  }
+  /* Area tap minimal 44px (aksesibilitas mobile) tanpa memperbesar tampilan pill */
+  @media (max-width: 767px) {
+    .site-navbar a {
+      position: relative;
+      padding-block: 15px;
+    }
+    .site-navbar a::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  /* ---------- Varian /webportofolio (desktop 3 - 1 - 3, mobile 2 - 1 - 2, aksen amber) ----------
+     Scoped ke .site-navbar--web, jadi navbar home TIDAK terpengaruh. */
+  .site-navbar--web {
+    max-width: calc(100vw - 24px);
+  }
+  .site-navbar--web .nav-pill {
+    background: rgba(16, 19, 22, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid #2a2e34;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5);
+    padding: 6px 8px;
+    gap: 2px;
+  }
+  .site-navbar--web .nav-link {
+    display: inline-flex; align-items: center;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.76rem; letter-spacing: 0.04em;
+    color: #9aa1a9; text-decoration: none;
+    padding: 9px 13px; border-radius: 999px;
+    transition: color .2s, background .2s;
+    white-space: nowrap;
+  }
+  .site-navbar--web .nav-link:hover {
+    color: #e4a339; background: rgba(228, 163, 57, 0.1);
+  }
+  .site-navbar--web .nav-link:focus-visible {
+    outline: 2px solid #e4a339; outline-offset: 2px;
+  }
+  .site-navbar--web .nav-brand {
+    display: inline-flex; align-items: center;
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-weight: 700; letter-spacing: 0.06em;
+    font-size: 0.9rem; color: #e3e8ef; text-decoration: none;
+    padding: 9px 16px; margin: 0 4px;
+    border-left: 1px solid #2a2e34; border-right: 1px solid #2a2e34;
+    transition: color .2s;
+  }
+  .site-navbar--web .nav-brand:hover { color: #e4a339; }
+  .site-navbar--web .nav-brand:focus-visible { outline: 2px solid #e4a339; outline-offset: 2px; }
+  /* Mobile (<720px): tata letak 2-1-2, sembunyikan Teknologi & Kontak. */
+  @media (max-width: 719px) {
+    .site-navbar--web .nav-link--wide { display: none; }
+    .site-navbar--web .nav-pill { gap: 2px; padding: 5px 6px; }
+    .site-navbar--web .nav-link { padding: 9px 11px; font-size: 0.7rem; letter-spacing: 0.01em; }
+    .site-navbar--web .nav-brand { padding: 9px 12px; font-size: 0.8rem; letter-spacing: 0.03em; margin: 0 2px; }
+  }
+  @media (max-width: 430px) {
+    .site-navbar--web .nav-pill { gap: 1px; padding: 4px 5px; }
+    .site-navbar--web .nav-link { padding: 9px 8px; font-size: 0.66rem; }
+    .site-navbar--web .nav-brand { padding: 9px 9px; font-size: 0.74rem; }
+  }
+  @media (max-width: 360px) {
+    .site-navbar--web .nav-link { padding: 8px 6px; font-size: 0.62rem; }
+    .site-navbar--web .nav-brand { padding: 8px 7px; font-size: 0.68rem; }
+  }
+  @media (max-width: 330px) {
+    .site-navbar--web .nav-link { padding: 8px 5px; font-size: 0.58rem; }
+    .site-navbar--web .nav-brand { padding: 8px 6px; font-size: 0.64rem; }
   }
 </style>

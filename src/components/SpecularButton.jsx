@@ -100,7 +100,7 @@ const SpecularButton = ({
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) {
       setIsCssFallback(true);
-      return; // skip WebGL render loop on mobile — pakai CSS fallback
+				return; // skip WebGL render loop on mobile, pakai CSS fallback
     }
     const btn = btnRef.current;
     const fx = fxRef.current;

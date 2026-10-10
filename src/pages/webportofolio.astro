@@ -1,0 +1,1265 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+	{
+		n: '01', title: 'Landing Page',
+		desc: 'Halaman fokus: memperkenalkan bisnis, menyampaikan nilai, dan mengarahkan pengunjung ke satu aksi yang jelas.',
+		forWho: ['Usaha kecil', 'Personal brand', 'Promosi acara', 'Kampanye produk'],
+		gives: ['Halaman responsif', 'Bagian hero & proposisi nilai', 'Info layanan / produk', 'CTA WhatsApp', 'Metadata SEO dasar'],
+	},
+	{
+		n: '02', title: 'Website Bisnis',
+		desc: 'Website multi-halaman yang menampilkan bisnis secara profesional dan membuat informasi penting mudah diakses pelanggan.',
+		forWho: ['Jasa & layanan', 'Perusahaan lokal', 'Studio kreatif', 'Organisasi'],
+		gives: ['Halaman beranda, tentang, layanan, kontak', 'Navigasi responsif', 'Form kontak / WhatsApp', 'Konfigurasi SEO dasar'],
+	},
+	{
+		n: '03', title: 'Katalog Produk',
+		desc: 'Katalog digital agar pelanggan bisa menelusuri produk dan kategori, lalu menghubungi bisnis lewat WhatsApp, bukan checkout.',
+		forWho: ['Toko & retail', 'UMKM produk', 'Distributor', 'Konveksi & apparel'],
+		gives: ['Katalog + filter kategori', 'Halaman detail produk', 'Galeri produk', 'Alur tanya via WhatsApp', 'Dashboard admin (opsional)'],
+	},
+	{
+		n: '04', title: 'Aplikasi Web',
+		desc: 'Aplikasi web interaktif untuk kebutuhan kerja tertentu: kalkulator, dashboard, atau alur bisnis yang khusus.',
+		forWho: ['Alat internal', 'Perencanaan & budget', 'Data-driven', 'Discovery berbasis lokasi'],
+		gives: ['Antarmuka interaktif', 'Alur kerja khusus', 'Validasi & penanganan error', 'Integrasi API sesuai kebutuhan'],
+	},
+	{
+		n: '05', title: 'Perbaikan Website',
+		desc: 'Merapikan website yang sudah ada: tampilan, kemudahan pakai, responsif, kecepatan, dan bug yang mengganggu.',
+		forWho: ['Website lama', 'Tampilan berantakan', 'Tidak responsif', 'Sering error'],
+		gives: ['Perbaikan layout responsif', 'Rapikan antarmuka & navigasi', 'Investigasi performa', 'Perbaikan bug', 'Update fitur yang ada'],
+	},
+];
+
+// Case study NYATA, status jujur (anti-slop R-17/R-36/R-38)
+// Urutan: Camp Plan dulu (proyek unggulan), lalu KonveksiKampus, PAKTJIP terakhir.
+const projects = [
+	{
+		name: 'Camp Plan',
+		kind: 'Aplikasi Web',
+		meta: 'Next.js · Supabase · Peta',
+		image: '/images/webportofolio/campplan.png',
+		summary: 'Marketplace sewa alat outdoor: temukan vendor terdekat lewat peta, hitung biaya patungan per orang, lalu booking lewat WhatsApp.',
+		points: [
+			'Pencarian vendor berbasis lokasi (peta interaktif).',
+			'Kalkulator biaya patungan per orang dengan validasi ketat.',
+			'Alur kontak langsung ke vendor lewat WhatsApp.',
+			'Autentikasi & data lewat Supabase; cache Upstash Redis.',
+		],
+		stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Leaflet', 'Zod'],
+		status: 'Demo publik sedang tidak aktif (kendala kredit hosting).',
+	},
+	{
+		name: 'KonveksiKampus',
+		kind: 'Katalog Produk',
+		meta: 'MVP · Next.js · Static',
+		image: '/images/webportofolio/konveksi.png',
+		summary: 'Website katalog untuk vendor konveksi Yogyakarta (sejak 2012): unggulkan produk, jelaskan proses, arahkan ke konsultasi WhatsApp.',
+		points: [
+			'Arsitektur content-layer: data dipisah dari UI, siap naik ke database.',
+			'Katalog per kategori dengan halaman detail dan CTA WhatsApp.',
+			'Static export, cepat dan murah di-hosting.',
+			'Preview klien otomatis live lewat GitHub Pages.',
+		],
+		stack: ['Next.js 16', 'TypeScript', 'Tailwind v4'],
+		status: 'Tahap Standard (MVP). Preview klien berjalan; produksi menyusul.',
+	},
+	{
+		name: 'PAKTJIP',
+		kind: 'Website Bisnis + Admin Panel',
+		meta: 'Klien nyata · PHP · MySQL',
+		image: '/images/webportofolio/paktjip.png',
+		summary: 'Etalase digital CV PakTjip Digital Printing, pengganti Linktree: katalog produk, kalkulator estimasi, admin panel untuk kelola konten sendiri.',
+		points: [
+			'Landing page 7 bagian yang menarik data dari database.',
+			'Admin panel: CRUD produk, galeri, FAQ, dan pengaturan toko.',
+			'Upload foto otomatis dikonversi ke WebP (GD), hemat kuota hosting.',
+			'SEO lokal: JSON-LD LocalBusiness + sitemap.',
+			'Setiap CTA mengarah ke WhatsApp dengan pesan terisi.',
+		],
+		stack: ['PHP 8', 'MySQL', 'PDO', 'GD', 'Vanilla JS'],
+		status: 'Selesai dibangun; belum dipublikasikan sebagai situs produksi.',
+	},
+];
+
+// Paket layanan sesuai brief §5 (isi fitur per tingkatan; harga final
+// dibicarakan terpisah - jangan asumsikan harga per tipe; satu patokan
+// "Mulai dari Rp500rb" ditaruh di judul section, bukan di tiap card).
+const packages = [
+	{
+		name: 'Basic', tag: 'Kehadiran Digital',
+		desc: 'Untuk usaha yang butuh kehadiran online sederhana tapi profesional.',
+		items: ['Landing page satu halaman', 'Perkenalan bisnis', 'Ringkasan layanan / produk', 'Info kontak & CTA WhatsApp', 'Desain responsif', 'Metadata SEO dasar', 'Bantuan deploy'],
+	},
+	{
+		name: 'Business', tag: 'Katalog Terkelola', featured: true,
+		desc: 'Untuk usaha yang butuh katalog produk lebih terstruktur.',
+		items: ['Fitur Basic', 'Struktur multi-halaman', 'Katalog produk + kategori', 'Dashboard admin', 'CRUD produk & kategori', 'Upload foto produk', 'Integrasi database'],
+	},
+	{
+		name: 'Pro', tag: 'Manajemen Konten',
+		desc: 'Untuk usaha yang butuh kontrol lebih atas konten website.',
+		items: ['Fitur Business', 'Manajemen konten lebih luas', 'Bagian website yang bisa diedit', 'Struktur konten fleksibel', 'Integrasi tambahan', 'Dokumentasi serah terima'],
+	},
+];
+
+const addons = ['Setup domain', 'Setup hosting & deploy', 'Halaman tambahan', 'Kategori produk tambahan', 'Migrasi konten', 'Maintenance website', 'Integrasi analytics', 'Integrasi form tambahan'];
+
+const tools = ['Git / GitHub', 'Figma', 'XAMPP', 'Vercel / Netlify'];
+
+const techGroups = [
+	{ group: 'Frontend', items: ['Astro', 'React', 'Next.js', 'TypeScript', 'JavaScript'] },
+	{ group: 'Styling & UI', items: ['Tailwind CSS', 'Figma'] },
+	{ group: 'Backend & Data', items: ['PHP', 'MySQL', 'Supabase', 'Node.js'] },
+	{ group: 'Deploy', items: ['Vercel', 'Netlify', 'Git / GitHub'] },
+];
+
+const workflow = [
+	{ n: '01', title: 'Diskusi', desc: 'Memahami bisnis, target pengguna, tujuan, dan fitur yang dibutuhkan.', out: 'Brief & lingkup awal' },
+	{ n: '02', title: 'Perencanaan', desc: 'Menyusun struktur halaman, alur pengguna, dan kebutuhan teknis.', out: 'Sitemap & daftar fitur' },
+	{ n: '03', title: 'Desain', desc: 'Menentukan arah visual, hierarki, dan pola interaksi.', out: 'Arah desain / mockup' },
+	{ n: '04', title: 'Pengembangan', desc: 'Membangun website dan fitur yang disepakati.', out: 'Build yang bisa dijalankan' },
+	{ n: '05', title: 'Pengujian', desc: 'Memeriksa navigasi, responsif, form, dan fitur interaktif.', out: 'Release candidate teruji' },
+	{ n: '06', title: 'Deploy & Serah Terima', desc: 'Menerbitkan website dan menyerahkan dokumentasi yang disepakati.', out: 'Website live + dokumentasi' },
+];
+
+const marqueeItems = ['opencode', 'Astro', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'PHP', 'MySQL', 'Supabase', 'Node.js', 'Vite', 'Figma'];
+---
+
+	<Layout
+		title="Web Development | REVANZART"
+		description="Revanza membangun website modern dan responsif: landing page, website bisnis, katalog produk, aplikasi web, dan perbaikan website. Proyek nyata, status jujur, kontak langsung via WhatsApp."
+		canonicalPath="/webportofolio"
+		ogImage="/images/webportofolio/campplan.png"
+		ogImageAlt="Pratinjau proyek web development Revanza"
+		navVariant="web"
+	>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@500;600;700;800&display=swap"
+	/>
+
+	<main class="wp-page">
+		<!--
+			CONTRACT - /webportofolio (impeccable surface round, seed d0700071)
+			THESIS: bukti seorang web developer, bukan iklan jasa. Menolak susunan "hero + grid kartu seragam + statistik".
+			OWN-WORLD: dark hangat (near-black #090a0d), aksen amber (#e4a339), hairline 1px, radius kecil, Archivo display + IBM Plex Mono data.
+			STORY: pengunjung paham kemampuan, melihat bukti nyata, lalu menghubungi via WhatsApp.
+			FIRST VIEWPORT: display besar + kolom figur kanan (counter), narasi kiri; CTA tunggal di bawah.
+			FORM: Card Deck Proyek, diadaptasi jadi horizontal pin track (mekanik rafaelkurosawa, vanilla JS).
+			FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+		-->
+
+		{/* ---- overlay: progress + grain + cursor ---- */}
+		<div class="wp-progress" aria-hidden="true"><span class="wp-progress__fill" data-progress></span></div>
+		<div class="wp-grain" aria-hidden="true"></div>
+		<div class="wp-cursor" data-cursor aria-hidden="true"></div>
+		<div class="wp-cursor-ring" data-cursor-ring aria-hidden="true"></div>
+
+		{/* ============ HERO ============ */}
+		<section class="wp-hero" aria-labelledby="wp-title">
+			<div class="wp-hero__bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="eager" /></div>
+			<div class="wp-wrap wp-hero__grid">
+				<div class="wp-hero__lead">
+					<p class="wp-eyebrow wp-fade" data-fade>Revanza, Web Development</p>
+					<h1 id="wp-title" class="wp-display" data-split>Website dengan tujuan, bukan sekadar tampil.</h1>
+					<p class="wp-lede wp-fade" data-fade>
+						Saya membangun website modern dan responsif: membantu bisnis
+						punya kehadiran online, menampilkan produk, dan terhubung
+						dengan pelanggannya.
+					</p>
+					<div class="wp-actions wp-fade" data-fade>
+						<a class="wp-btn wp-btn--solid" href="#kontak" data-magnetic>Mulai Proyek Website</a>
+						<a class="wp-btn wp-btn--ghost" href="#proyek" data-magnetic>Lihat Proyek</a>
+					</div>
+				</div>
+
+				<div class="wp-hero__index">
+					<div class="wp-figure wp-fade" data-fade>
+						<span class="wp-figure__num" data-value="3" data-pad="2">03</span>
+						<span class="wp-figure__cap">Proyek nyata dibangun &amp; didokumentasikan</span>
+					</div>
+					<div class="wp-figure wp-fade" data-fade>
+						<span class="wp-figure__num" data-value="5" data-pad="2">05</span>
+						<span class="wp-figure__cap">Jenis website yang bisa dikerjakan</span>
+					</div>
+					<div class="wp-figure wp-fade" data-fade>
+						<span class="wp-figure__num" data-value="1" data-pad="2">01</span>
+						<span class="wp-figure__cap">Alat kerja utama: opencode</span>
+					</div>
+					<div class="wp-hero__list wp-fade" data-fade>
+						<span class="wp-figure__cap">Yang saya kerjakan</span>
+						<ul>
+							<li>Landing page</li>
+							<li>Website bisnis</li>
+							<li>Katalog produk</li>
+							<li>Aplikasi web</li>
+							<li>Perbaikan website</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ PROYEK - HORIZONTAL PIN TRACK ============ */}
+		<section id="proyek" class="wp-track-section" aria-labelledby="wp-proyek-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-track-pin" data-pin>
+				<div class="wp-track-stage">
+					<div class="wp-wrap wp-track-head">
+						<h2 id="wp-proyek-title" class="wp-h2 wp-display--sm" data-split>Proyek</h2>
+						<div class="wp-track-meta">
+							<span class="wp-track-count" data-count>01<span> / 03</span></span>
+							<span class="wp-track-hint" data-hint>scroll ↓</span>
+						</div>
+					</div>
+
+					<div class="wp-track-viewport">
+						<div class="wp-track" data-track>
+							{projects.map((p, i) => (
+								<article class="wp-slide" data-slide>
+									<figure class="wp-slide__shot">
+										<img src={p.image} alt={`Tampilan website ${p.name}`} loading="lazy" width="1440" height="900" />
+									</figure>
+									<div class="wp-slide__body">
+										<header class="wp-slide__top">
+											<span class="wp-slide__idx">{String(i + 1).padStart(2, '0')}</span>
+											<span class="wp-slide__kind">{p.kind}</span>
+										</header>
+										<h3 class="wp-slide__name">{p.name}</h3>
+										<p class="wp-slide__meta">{p.meta}</p>
+										<p class="wp-slide__summary">{p.summary}</p>
+										<ul class="wp-slide__points">
+											{p.points.map((pt) => <li>{pt}</li>)}
+										</ul>
+										<div class="wp-slide__stack">
+											{p.stack.map((s) => <span class="wp-chip">{s}</span>)}
+										</div>
+										<p class="wp-slide__status">{p.status}</p>
+									</div>
+								</article>
+							))}
+						</div>
+					</div>
+
+					<div class="wp-wrap wp-track-dots" data-dots aria-hidden="true">
+						{projects.map(() => <i></i>)}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ LAYANAN - STICKY STACK ============ */}
+		<section id="layanan" class="wp-section wp-section--stack" aria-labelledby="wp-layanan-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap">
+				<div class="wp-head">
+					<h2 id="wp-layanan-title" class="wp-h2" data-split>Layanan</h2>
+					<p class="wp-sub">Jenis website yang bisa saya kerjakan.</p>
+				</div>
+				<div class="wp-stack" data-stack>
+					<div class="wp-stack-stage">
+						{services.map((s) => (
+							<article class="wp-stack-card" data-stack-card>
+								<div class="wp-stack-card__inner">
+									<span class="wp-stack-card__n">{s.n}</span>
+									<div class="wp-stack-card__body">
+										<h3 class="wp-stack-card__title">{s.title}</h3>
+										<p class="wp-stack-card__desc">{s.desc}</p>
+										<div class="wp-stack-card__cols">
+											<div>
+												<h4 class="wp-mini">Cocok untuk</h4>
+												<ul class="wp-mini__list">
+													{s.forWho.map((f) => <li>{f}</li>)}
+												</ul>
+											</div>
+											<div>
+												<h4 class="wp-mini">Yang didapat</h4>
+												<ul class="wp-mini__list">
+													{s.gives.map((g) => <li>{g}</li>)}
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ MARQUEE ============ */}
+		<div class="wp-marquee" aria-hidden="true">
+			<div class="wp-marquee__track">
+				{[...marqueeItems, ...marqueeItems].map((m) => <span class="wp-marquee__item">{m}</span>)}
+			</div>
+		</div>
+
+		{/* ============ TEKNOLOGI ============ */}
+		<section id="teknologi" class="wp-section" aria-labelledby="wp-teknologi-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap">
+				<div class="wp-head">
+					<h2 id="wp-teknologi-title" class="wp-h2" data-split>Teknologi</h2>
+					<p class="wp-sub">Hanya yang benar-benar dipakai di proyek nyata.</p>
+				</div>
+
+				<div class="wp-tools wp-fade" data-fade>
+					<h3 class="wp-tools__label">Tools I Use</h3>
+					<div class="wp-tools__row">
+						<span class="wp-chip wp-chip--accent">opencode <em>(AI coding agent)</em></span>
+						{tools.map((t) => <span class="wp-chip">{t}</span>)}
+					</div>
+					<p class="wp-tools__note">
+						Alur kerja modern: perencanaan &amp; dokumentasi terstruktur, version control,
+						serta bantuan AI coding agent.
+					</p>
+				</div>
+
+				<div class="wp-grid4">
+					{techGroups.map((g) => (
+						<div class="wp-group wp-fade" data-fade>
+							<h3 class="wp-group__label">{g.group}</h3>
+							<ul class="wp-group__list">
+								{g.items.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		{/* ============ PROSES - STICKY STACK ============ */}
+		<section id="proses" class="wp-section wp-section--stack" aria-labelledby="wp-proses-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap">
+				<div class="wp-head">
+					<h2 id="wp-proses-title" class="wp-h2" data-split>Proses Kerja</h2>
+					<p class="wp-sub">Enam langkah dari ide sampai website terbit.</p>
+				</div>
+				<div class="wp-stack" data-stack>
+					<div class="wp-stack-stage">
+						{workflow.map((w) => (
+							<article class="wp-stack-card" data-stack-card>
+								<div class="wp-stack-card__inner">
+									<span class="wp-stack-card__n">{w.n}</span>
+									<div class="wp-stack-card__body">
+										<h3 class="wp-stack-card__title">{w.title}</h3>
+										<p class="wp-stack-card__desc">{w.desc}</p>
+										<p class="wp-stack-card__out"><span>Hasil:</span> {w.out}</p>
+									</div>
+								</div>
+							</article>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ TENTANG ============ */}
+		<section id="tentang" class="wp-section" aria-labelledby="wp-tentang-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap wp-about">
+				<h2 id="wp-tentang-title" class="wp-h2" data-split>Tentang</h2>
+				<div class="wp-about__body">
+					<p>Kreator digital multidisiplin: menggabungkan pengembangan web dengan sisi visual, menekankan penyajian yang jelas, fungsi praktis, dan desain yang berpusat pada pengguna.</p>
+					<p>Saya senang mengeksplorasi bagaimana produk digital menyelesaikan masalah nyata: dari website bisnis, katalog produk, sampai aplikasi web interaktif. Tiap proyek jadi cara memperdalam kemampuan teknis dan menajamkan pertimbangan desain.</p>
+					<ul class="wp-about__facts">
+						<li><span>Pendidikan</span> Teknologi Informasi, Universitas Amikom Yogyakarta</li>
+						<li><span>Fokus</span> Website &amp; aplikasi web</li>
+						<li><span>Pendekatan</span> Visual-first, praktis, siap berkembang</li>
+						<li><span>Lokasi</span> Yogyakarta, Indonesia</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ PAKET ============ */}
+		<section id="paket" class="wp-section" aria-labelledby="wp-paket-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap">
+				<div class="wp-head wp-head--paket">
+					<h2 id="wp-paket-title" class="wp-h2" data-split>Paket</h2>
+					<span class="wp-price-badge">
+						<span class="wp-price-badge__label">Mulai dari</span>
+						<span class="wp-price-badge__amount">Rp500rb</span>
+					</span>
+					<p class="wp-sub">Tiga tingkatan layanan. Harga &amp; lingkup final dibicarakan terpisah sesuai kebutuhan.</p>
+				</div>
+				<div class="wp-packs">
+					{packages.map((p) => (
+						<article class:list={["wp-pack wp-fade", p.featured && "wp-pack--featured"]} data-fade>
+							<header class="wp-pack__head">
+								<span class="wp-pack__name">{p.name}</span>
+								<span class="wp-pack__tag">{p.tag}</span>
+							</header>
+							<p class="wp-pack__desc">{p.desc}</p>
+							<ul class="wp-pack__list">
+								{p.items.map((it) => <li>{it}</li>)}
+							</ul>
+						</article>
+					))}
+				</div>
+				<div class="wp-addons wp-fade" data-fade>
+					<h3 class="wp-mini">Tambahan opsional</h3>
+					<div class="wp-tools__row">
+						{addons.map((a) => <span class="wp-chip">{a}</span>)}
+					</div>
+					<p class="wp-tools__note">Biaya berkala (domain, hosting, layanan pihak ketiga) dihitung terpisah dari biaya pengembangan.</p>
+				</div>
+			</div>
+		</section>
+
+		{/* ============ KONTAK ============ */}
+		<section id="kontak" class="wp-section wp-section--contact" aria-labelledby="wp-kontak-title">
+			<div class="wp-bg" aria-hidden="true"><img src="/images/webportofolio/bg/hero-amber-glow.png" alt="" loading="lazy" /></div>
+			<div class="wp-wrap wp-contact">
+				<h2 id="wp-kontak-title" class="wp-display wp-display--sm" data-split>Punya rencana website?</h2>
+				<p class="wp-lede wp-lede--center wp-fade" data-fade>
+					Mau landing page, website bisnis, katalog produk, atau aplikasi web,
+					mari diskusikan kebutuhan Anda dan cari pendekatan yang paling pas.
+				</p>
+				<div class="wp-actions wp-actions--center wp-fade" data-fade>
+					<a class="wp-btn wp-btn--solid" href="https://wa.me/628559992302" target="_blank" rel="noopener noreferrer" data-magnetic>Chat WhatsApp</a>
+					<a class="wp-btn wp-btn--ghost" href="mailto:importantrevanza@gmail.com" data-magnetic>Email</a>
+					<a class="wp-btn wp-btn--ghost" href="/" data-magnetic>Portfolio Visual</a>
+				</div>
+
+				{/* Form inquiry (brief §11). Static: susun pesan lalu buka WhatsApp.
+				    Tanpa backend/pihak ketiga; output tetap `static`. */}
+				<form class="wp-form wp-fade" data-inquiry data-fade novalidate>
+					<h3 class="wp-form__title">Ceritakan proyek Anda</h3>
+					<p class="wp-form__note">Isi detailnya, lalu kirim langsung lewat WhatsApp (pesan otomatis terisi).</p>
+
+					<div class="wp-form__grid">
+						<label class="wp-field">
+							<span class="wp-field__label">Nama <em>*</em></span>
+							<input class="wp-field__input" type="text" name="nama" autocomplete="name" required />
+						</label>
+						<label class="wp-field">
+							<span class="wp-field__label">Email / kontak</span>
+							<input class="wp-field__input" type="text" name="kontak" autocomplete="email" placeholder="email atau nomor" />
+						</label>
+						<label class="wp-field">
+							<span class="wp-field__label">Jenis website</span>
+							<select class="wp-field__input" name="jenis">
+								<option value="">Pilih jenis</option>
+								<option>Landing page</option>
+								<option>Website bisnis</option>
+								<option>Katalog produk</option>
+								<option>Aplikasi web</option>
+								<option>Perbaikan website</option>
+								<option>Belum yakin</option>
+							</select>
+						</label>
+						<label class="wp-field">
+							<span class="wp-field__label">Perkiraan budget (opsional)</span>
+							<input class="wp-field__input" type="text" name="budget" placeholder="mis. 500rb - 1jt" />
+						</label>
+						<label class="wp-field wp-field--full">
+							<span class="wp-field__label">Fitur yang dibutuhkan</span>
+							<input class="wp-field__input" type="text" name="fitur" placeholder="mis. katalog, WA, dashboard" />
+						</label>
+						<label class="wp-field wp-field--full">
+							<span class="wp-field__label">Catatan tambahan</span>
+							<textarea class="wp-field__input" name="catatan" rows="3" placeholder="target waktu, referensi, dll"></textarea>
+						</label>
+					</div>
+
+					<div class="wp-form__foot">
+						<button class="wp-btn wp-btn--solid" type="submit" data-magnetic>Kirim via WhatsApp</button>
+						<span class="wp-form__hint" data-form-hint aria-live="polite"></span>
+					</div>
+					<p class="wp-form__fallback">Lebih suka email? <a href="mailto:importantrevanza@gmail.com">importantrevanza@gmail.com</a></p>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		(function () {
+			var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+			/* ---------- Safety net: konten tak boleh tinggal tak terlihat ---------- */
+			function revealAll() {
+				document.querySelectorAll('[data-fade]').forEach(function (el) {
+					el.style.opacity = 1;
+					el.style.transform = 'none';
+				});
+				document.querySelectorAll('[data-split]').forEach(function (el) {
+					el.classList.add('wp-split-done');
+				});
+			}
+
+			/* ---------- 1. Custom cursor (desktop) ---------- */
+			function initCursor() {
+				if (!fine || reduce) return;
+				var dot = document.querySelector('[data-cursor]');
+				var ring = document.querySelector('[data-cursor-ring]');
+				if (!dot || !ring) return;
+				document.body.classList.add('wp-has-cursor');
+				var mx = -100, my = -100, rx = -100, ry = -100;
+				window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+				(function loop() {
+					rx += (mx - rx) * 0.12;
+					ry += (my - ry) * 0.12;
+					dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+					ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+					requestAnimationFrame(loop);
+				})();
+				document.addEventListener('mouseover', function (e) {
+					if (e.target.closest('a, button, [data-slide]')) document.body.classList.add('wp-cursor-hot');
+				});
+				document.addEventListener('mouseout', function (e) {
+					if (e.target.closest('a, button, [data-slide]')) document.body.classList.remove('wp-cursor-hot');
+				});
+			}
+
+			/* ---------- 2. Split words (aman untuk markup bersarang) ---------- */
+			function splitWords(el) {
+				var inners = [];
+				function walk(node) {
+					Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+						if (child.nodeType === 3) {
+							var text = child.nodeValue;
+							if (!text || !text.trim()) return;
+							var frag = document.createDocumentFragment();
+							text.split(/(\s+)/).forEach(function (part) {
+								if (part === '') return;
+								if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+								var mask = document.createElement('span');
+								mask.className = 'wp-word';
+								var inner = document.createElement('span');
+								inner.textContent = part;
+								mask.appendChild(inner);
+								frag.appendChild(mask);
+								inners.push(inner);
+							});
+							node.replaceChild(frag, child);
+						} else if (child.nodeType === 1) {
+							if (child.tagName === 'BR' || child.classList.contains('wp-word')) return;
+							walk(child);
+						}
+					});
+				}
+				walk(el);
+				return inners;
+			}
+
+			/* ---------- 3. Scroll engine (vanilla rAF) ---------- */
+			var vh = 0, vw = 0, stacked = false;
+			var heroEl, heroBg, heroLead;
+			var pinEl, trackEl, slides, dots, countEl, hintEl;
+			var pinTop = 0, slideTravel = 0, pinRunwayPx = 0;
+			var PIN_RUNWAY = 1, PIN_HOLD = 0.35;
+			var stackUnits = [];
+			var STACK_LIFT = 26, STACK_MIN_SCALE = 0.9, STACK_SCALE_STEP = 0.03;
+
+			function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+			function outExpo(t) { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+			function measure() {
+				vh = Math.max(560, window.innerHeight);
+				vw = window.innerWidth;
+				stacked = vw <= 900;
+
+				// Hero: jangan dipaksa tinggi, cukup setinggi kontennya (buang whitespace).
+				if (heroEl) heroEl.style.height = '';
+
+				// --- Pin track: rumus PERSIS Kurosawa ---
+				// runway = vh × n × 1 ; wrapper = runway + stage(vh) + hold(vh×0.35)
+				if (pinEl && slides.length) {
+					if (stacked) {
+						pinEl.style.height = '';
+						if (trackEl) trackEl.style.transform = '';
+						slides.forEach(function (s) { s.classList.add('is-on'); });
+					} else {
+						slideTravel = Math.max(0, trackEl.scrollWidth - vw);
+						pinRunwayPx = vh * slides.length * PIN_RUNWAY;
+						pinEl.style.height = (pinRunwayPx + vh + vh * PIN_HOLD) + 'px';
+					}
+				}
+
+				pinTop = pinEl ? pinEl.getBoundingClientRect().top + window.pageYOffset : 0;
+
+				// --- Stack: runway = tinggi kartu aktual (bukan 0.72vh, itu menyisakan gap kosong) ---
+				// step = tinggi kartu + sedikit gap ; runway = (n-1) × step ; wrapper = runway + stage(vh) + hold tipis
+				stackUnits = Array.prototype.slice.call(document.querySelectorAll('[data-stack]')).map(function (wrap) {
+					var cards = Array.prototype.slice.call(wrap.querySelectorAll('[data-stack-card]'));
+					if (stacked) {
+						wrap.style.height = '';
+						wrap.__runway = 0;
+					} else {
+						var cardH = cards[0] ? cards[0].offsetHeight : vh * 0.5;
+						var step = cardH + 40;                       // sedikit lebih dari tinggi kartu
+						var runway = (cards.length - 1) * step;
+						wrap.style.height = (runway + vh + vh * 0.1) + 'px';
+						wrap.__runway = runway;
+						wrap.__step = step;
+					}
+					return { wrap: wrap, cards: cards, top: wrap.getBoundingClientRect().top + window.pageYOffset };
+				});
+			}
+
+			function resetSmooth() {
+				// tidak ada meta-lag: nilai mengikuti scroll persis (ala Kurosawa)
+			}
+
+			// render(): mapping INSTAN & LINEAR dari scroll (persis Kurosawa, terbukti lag 0).
+		 // Tidak ada lerp pada posisi: itu justru bikin "ngebut" saat settle & "pelan" saat mulai.
+			function render() {
+				var y = window.pageYOffset;
+				var max = document.documentElement.scrollHeight - window.innerHeight;
+
+				// progress bar
+				var fill = document.querySelector('[data-progress]');
+				if (fill) fill.style.transform = 'scaleX(' + (max > 0 ? clamp(y / max, 0, 1) : 0) + ')';
+
+				// hero parallax 2 lapis (instan, linear, rasio 0.18 : -0.09)
+				if (heroEl && !stacked && !reduce) {
+					if (heroBg) heroBg.style.transform = 'translateY(' + (y * 0.18).toFixed(2) + 'px)';
+					if (heroLead) heroLead.style.transform = 'translateY(' + (-y * 0.09).toFixed(2) + 'px)';
+				} else if (heroEl) {
+					if (heroBg) heroBg.style.transform = '';
+					if (heroLead) heroLead.style.transform = '';
+				}
+
+				// horizontal pin track, linear murni, mengikuti scroll instan
+				if (pinEl && trackEl && slides.length && !stacked) {
+					var runway = pinRunwayPx || vh;
+					var into = clamp(y - pinTop, 0, runway);
+					var p = runway > 0 ? into / runway : 0;
+					trackEl.style.transform = 'translateX(' + (-p * slideTravel).toFixed(2) + 'px)';
+
+					var active = Math.min(slides.length - 1, Math.round(p * (slides.length - 1)));
+					slides.forEach(function (s, i) { s.classList.toggle('is-on', i === active); });
+					if (dots) dots.forEach(function (d, i) { d.classList.toggle('is-on', i === active); });
+					if (countEl) countEl.firstChild.nodeValue = String(active + 1).padStart(2, '0');
+					if (hintEl) hintEl.style.opacity = p < 0.04 ? '1' : '0';
+				}
+
+				// sticky stacking decks, PERSIS Kurosawa:
+				// kartu masuk dari bawah (translateY 105%→0) lalu yang sudah lewat mengecil + naik.
+				if (!reduce) {
+					stackUnits.forEach(function (unit) {
+						if (stacked) {
+							unit.cards.forEach(function (card) { card.style.transform = ''; card.style.opacity = ''; card.style.zIndex = ''; card.classList.remove('is-top'); });
+							return;
+						}
+						var sInto = Math.max(0, y - unit.top);
+						var step = unit.wrap.__step || (vh * 0.5);
+						var front = clamp(sInto / step, 0, unit.cards.length);
+						unit.cards.forEach(function (card, i) {
+							var raw = (sInto - i * step) / step;       // progress kartu ini
+							var prog = clamp(raw, 0, 1);
+							var visible = raw > -0.55;                 // mulai lebih awal (kurangi zona kosong)
+							if (!visible) {
+								card.style.transform = 'translateY(105%)';
+								card.style.opacity = '0';
+							} else if (prog < 0.5) {
+								var e = outExpo(clamp((raw + 0.55) / 1.05, 0, 1)); // masuk mulus dari bawah
+								card.style.transform = 'translateY(' + ((1 - e) * 100).toFixed(2) + '%)';
+								card.style.opacity = clamp((raw + 0.55) * 1.6, 0, 1).toFixed(3);
+							} else {
+								var behind = Math.max(0, front - i - 0.35); // kartu yang sudah lewat
+								var sc = Math.max(STACK_MIN_SCALE, 1 - behind * STACK_SCALE_STEP);
+								var lift = -behind * STACK_LIFT;
+								card.style.transform = 'translateY(' + lift.toFixed(2) + 'px) scale(' + sc.toFixed(4) + ')';
+								card.style.opacity = '1';
+								// kartu yang sudah jauh di belakang: kontennya diredupkan agar tidak mengintip seperti bug
+								card.classList.toggle('is-behind', behind > 1.15);
+							}
+							card.style.zIndex = String(10 + i);
+							card.classList.toggle('is-top', Math.round(front) === i);
+						});
+					});
+				}
+			}
+
+			// render dipanggil langsung pada event scroll (rAF-throttled, tanpa meta-lag)
+			var ticking = false;
+			function onScroll() {
+				if (ticking) return;
+				ticking = true;
+				requestAnimationFrame(function () { render(); ticking = false; });
+			}
+
+			/* ---------- 4. Reveals via IntersectionObserver ---------- */
+			function initReveals() {
+				if (reduce) { revealAll(); return; }
+				var io = new IntersectionObserver(function (entries) {
+					entries.forEach(function (en) {
+						if (!en.isIntersecting) return;
+						var el = en.target;
+						var words = el.__words;
+						if (words && words.length) {
+							words.forEach(function (w, i) {
+								w.style.transition = 'transform .9s cubic-bezier(.16,1,.3,1) ' + (i * 0.03) + 's, opacity .6s ease ' + (i * 0.03) + 's';
+								w.style.transform = 'translateY(0)';
+								w.style.opacity = '1';
+							});
+						} else {
+							el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)';
+							el.style.opacity = '1';
+							el.style.transform = 'translateY(0)';
+						}
+						io.unobserve(el);
+					});
+				}, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+				document.querySelectorAll('[data-fade]').forEach(function (el) {
+					el.style.opacity = '0';
+					el.style.transform = 'translateY(22px)';
+					io.observe(el);
+				});
+				document.querySelectorAll('[data-split]').forEach(function (el) {
+					var words = splitWords(el);
+					el.__words = words;
+					words.forEach(function (w) { w.style.transform = 'translateY(110%)'; w.style.opacity = '0'; });
+					io.observe(el);
+				});
+			}
+
+			/* ---------- 5. Counters ---------- */
+			function initCounters() {
+				var nodes = document.querySelectorAll('[data-value]');
+				if (!nodes.length) return;
+				if (reduce) {
+					nodes.forEach(function (el) {
+						var pad = parseInt(el.dataset.pad || '0', 10);
+						el.textContent = pad ? String(el.dataset.value).padStart(pad, '0') : el.dataset.value;
+					});
+					return;
+				}
+				var io = new IntersectionObserver(function (entries) {
+					entries.forEach(function (en) {
+						if (!en.isIntersecting) return;
+						var el = en.target;
+						var target = parseInt(el.dataset.value, 10);
+						var pad = parseInt(el.dataset.pad || '0', 10);
+						var start = performance.now();
+						(function step(now) {
+							var t = clamp((now - start) / 1000, 0, 1);
+							var e = 1 - Math.pow(1 - t, 3); // power3-ish out
+							var v = Math.round(e * target);
+							el.textContent = pad ? String(v).padStart(pad, '0') : String(v);
+							if (t < 1) requestAnimationFrame(step);
+						})(start);
+						io.unobserve(el);
+					});
+				}, { threshold: 0.5 });
+				nodes.forEach(function (el) { io.observe(el); });
+			}
+
+			/* ---------- 6. Magnetic buttons (desktop) ---------- */
+			function initMagnetic() {
+				if (!fine || reduce) return;
+				document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
+					btn.addEventListener('mousemove', function (e) {
+						var r = btn.getBoundingClientRect();
+						var x = (e.clientX - r.left - r.width / 2) * 0.22;
+						var y = (e.clientY - r.top - r.height / 2) * 0.28;
+						btn.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+					});
+					btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+				});
+			}
+
+			/* ---------- 7. Anchor offset ---------- */
+			function initAnchors() {
+				document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+					a.addEventListener('click', function (e) {
+						var id = a.getAttribute('href');
+						if (!id || id === '#' || id.length < 2) return;
+						var t = document.querySelector(id);
+						if (!t) return;
+						e.preventDefault();
+						var top = t.getBoundingClientRect().top + window.pageYOffset - 10;
+						window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+					});
+				});
+			}
+
+			/* ---------- 8. Inquiry form -> WhatsApp (static, no backend) ---------- */
+			function initInquiry() {
+				var form = document.querySelector('[data-inquiry]');
+				if (!form) return;
+				var hint = form.querySelector('[data-form-hint]');
+				var phone = '628559992302';
+
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
+					var nama = form.nama.value.trim();
+					if (!nama) {
+						if (hint) { hint.textContent = 'Nama wajib diisi.'; hint.className = 'wp-form__hint wp-form__hint--err'; }
+						form.nama.focus();
+						return;
+					}
+					var lines = ['Halo Revanza, saya ingin bikin website.', '', 'Nama: ' + nama];
+					var kontak = form.kontak.value.trim(); if (kontak) lines.push('Kontak: ' + kontak);
+					var jenis = form.jenis.value; if (jenis) lines.push('Jenis: ' + jenis);
+					var fitur = form.fitur.value.trim(); if (fitur) lines.push('Fitur: ' + fitur);
+					var budget = form.budget.value.trim(); if (budget) lines.push('Budget: ' + budget);
+					var catatan = form.catatan.value.trim(); if (catatan) lines.push('Catatan: ' + catatan);
+
+					var url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(lines.join('\n'));
+					if (hint) { hint.textContent = 'Membuka WhatsApp...'; hint.className = 'wp-form__hint'; }
+					window.open(url, '_blank', 'noopener');
+				});
+			}
+
+			/* ---------- Boot ---------- */
+			function boot() {
+				heroEl = document.querySelector('.wp-hero');
+				heroBg = document.querySelector('.wp-hero__bg');
+				heroLead = document.querySelector('.wp-hero__lead');
+				pinEl = document.querySelector('[data-pin]');
+				trackEl = document.querySelector('[data-track]');
+				slides = trackEl ? Array.prototype.slice.call(trackEl.querySelectorAll('[data-slide]')) : [];
+				dots = document.querySelector('[data-dots]') ? document.querySelector('[data-dots]').querySelectorAll('i') : null;
+				countEl = document.querySelector('[data-count]');
+				hintEl = document.querySelector('[data-hint]');
+
+
+				initCursor();
+				initReveals();
+				initCounters();
+				initMagnetic();
+				initAnchors();
+				initInquiry();
+
+				measure();
+				resetSmooth();
+				render();
+				window.addEventListener('scroll', onScroll, { passive: true });
+				window.addEventListener('resize', function () { measure(); resetSmooth(); render(); });
+				window.addEventListener('load', function () { measure(); resetSmooth(); render(); });
+				if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); resetSmooth(); render(); });
+				setTimeout(function () { measure(); resetSmooth(); render(); }, 400);
+			}
+
+			if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+			else boot();
+		})();
+	</script>
+
+	<style is:global>
+		/* Body global pakai overflow-x: hidden yang mematikan position: sticky.
+		   Halaman ini butuh sticky (stack & pin), jadi override ke `clip`
+		   (perilaku visual sama untuk mencegah scroll horizontal, tapi TIDAK
+		   membuat scroll-container sehingga sticky tetap bekerja). */
+		body:has(.wp-page) { overflow-x: clip; }
+
+		/* =====================================================================
+		   /webportofolio, dunia visual lokal (scoped ke .wp-page).
+		   Palet dark-hangat + aksen amber. TIDAK menyentuh token global.
+		   Kontras terukur: text 16:1, mute 7:1, aksen 9:1 (lihat DESIGN.md).
+		   ===================================================================== */
+		.wp-page {
+			--wp-bg0: #090a0d;
+			--wp-bg1: #101316;
+			--wp-bg2: #1b1e23;
+			--wp-line: #2a2e34;
+			--wp-mute: #9aa1a9;
+			--wp-text: #e3e8ef;
+			--wp-accent: #e4a339;
+			--wp-accent-deep: #bb7400;
+			--wp-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+			--wp-display: 'Archivo', 'Inter', system-ui, sans-serif;
+			background: var(--wp-bg0);
+			color: var(--wp-text);
+			overflow-x: visible;
+			position: relative;
+		}
+		.wp-page ::selection { background: var(--wp-accent); color: #090a0d; }
+
+		.wp-wrap { max-width: 1160px; margin-inline: auto; padding-inline: 24px; }
+
+		/* ---------- Overlays ---------- */
+		.wp-progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; background: rgba(255,255,255,0.06); }
+		.wp-progress__fill { display: block; height: 100%; width: 100%; background: var(--wp-accent); transform: scaleX(0); transform-origin: left center; }
+		.wp-grain {
+			position: fixed; inset: 0; z-index: 55; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+		}
+		.wp-cursor, .wp-cursor-ring { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; border-radius: 50%; opacity: 0; }
+		.wp-has-cursor .wp-cursor, .wp-has-cursor .wp-cursor-ring { opacity: 1; }
+		.wp-has-cursor { cursor: none; }
+		.wp-cursor { width: 8px; height: 8px; background: var(--wp-accent); mix-blend-mode: difference; }
+		.wp-cursor-ring { width: 34px; height: 34px; border: 1px solid var(--wp-accent); z-index: 9998; transition: width .25s, height .25s, border-color .25s; }
+		.wp-cursor-hot .wp-cursor-ring { width: 58px; height: 58px; border-color: var(--wp-accent); }
+
+		/* ---------- Typography ---------- */
+		.wp-display {
+			font-family: var(--wp-display);
+			font-size: clamp(2.4rem, 6.6vw, 5.2rem);
+			line-height: 0.98; letter-spacing: -0.035em; font-weight: 800; color: var(--wp-text); margin: 0;
+		}
+		.wp-display--sm { font-family: var(--wp-display); font-size: clamp(1.6rem, 3.4vw, 2.5rem); letter-spacing: -0.02em; font-weight: 700; }
+		.wp-h2 { font-family: var(--wp-display); font-size: clamp(1.6rem, 3.4vw, 2.5rem); letter-spacing: -0.02em; font-weight: 700; margin: 0; }
+		.wp-sub { color: var(--wp-mute); margin: 10px 0 0; max-width: 46ch; line-height: 1.6; }
+		.wp-eyebrow { font-family: var(--wp-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wp-accent); margin: 0 0 22px; }
+		.wp-lede { color: var(--wp-mute); font-size: 1.075rem; line-height: 1.7; max-width: 52ch; margin: 26px 0 0; }
+		.wp-lede--center { margin-inline: auto; text-align: center; }
+
+		/* kata terpisah (split reveal) */
+		.wp-word { display: inline-block; overflow: hidden; vertical-align: top; }
+		.wp-word > span { display: inline-block; will-change: transform, opacity; }
+		[data-split] { overflow: hidden; }
+
+		/* ---------- Buttons ---------- */
+		.wp-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+		.wp-actions--center { justify-content: center; }
+		.wp-btn {
+			display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; font-size: 0.9rem; font-weight: 600;
+			border-radius: 4px; text-decoration: none; letter-spacing: 0.01em; will-change: transform;
+			transition: transform .25s cubic-bezier(.16,1,.3,1), background .25s, border-color .25s, color .25s;
+		}
+		.wp-btn--solid { background: var(--wp-accent); color: #090a0d; }
+		.wp-btn--solid:hover { background: #f0b455; }
+		.wp-btn--ghost { border: 1px solid var(--wp-line); color: var(--wp-text); }
+		.wp-btn--ghost:hover { border-color: var(--wp-accent); color: var(--wp-accent); }
+		.wp-btn:focus-visible { outline: 2px solid var(--wp-accent); outline-offset: 3px; }
+
+		/* ---------- Hero ---------- */
+		.wp-hero {
+			position: relative; overflow: hidden;
+			padding: clamp(120px, 16vh, 190px) 0 clamp(70px, 9vw, 110px);
+			border-bottom: 1px solid var(--wp-line);
+		}
+		.wp-hero__bg {
+			position: absolute; inset: -10% 0 -10% 0; z-index: 0; will-change: transform;
+			background: radial-gradient(130% 90% at 12% 0%, rgba(228,163,57,0.10), transparent 58%);
+			overflow: hidden;
+		}
+		/* Hero punya gambar amber tersendiri; jangan ikut tinggi section */
+		.wp-hero__bg img {
+			position: absolute; left: 50%; top: 50%; width: 110%; height: 110%;
+			transform: translate(-50%, -50%); object-fit: cover; object-position: center 30%;
+			opacity: 0.6;
+		}
+		.wp-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; gap: 56px; }
+		@media (min-width: 900px) { .wp-hero__grid { grid-template-columns: 1.35fr 0.65fr; align-items: end; } }
+		.wp-hero__lead { will-change: transform; }
+		.wp-hero__index { display: flex; flex-direction: column; gap: 26px; border-left: 1px solid var(--wp-line); padding-left: 28px; }
+		.wp-figure { display: flex; flex-direction: column; gap: 4px; }
+		.wp-figure__num { font-family: var(--wp-mono); font-size: 2.2rem; font-weight: 600; color: var(--wp-accent); line-height: 1; }
+		.wp-figure__cap { color: var(--wp-mute); font-size: 0.82rem; line-height: 1.5; max-width: 24ch; }
+
+		/* ---------- Sections ---------- */
+		.wp-section { position: relative; padding-top: clamp(104px, 12vh, 160px); padding-bottom: clamp(56px, 6vw, 80px); border-bottom: 1px solid var(--wp-line); }
+		.wp-section--contact { border-bottom: none; }
+		.wp-head { margin-bottom: 32px; }
+
+		/* ---------- Horizontal pin track ---------- */
+		.wp-track-section { position: relative; border-bottom: 1px solid var(--wp-line); }
+		.wp-track-pin { position: relative; }
+		.wp-track-stage {
+			position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 22px;
+			padding-block: 88px;
+		}
+		.wp-track-head { width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+		.wp-track-meta { display: flex; align-items: center; gap: 18px; font-family: var(--wp-mono); }
+		.wp-track-count { font-size: 1rem; color: var(--wp-accent); }
+		.wp-track-count span { color: var(--wp-mute); }
+		.wp-track-hint { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wp-mute); transition: opacity .3s; }
+		.wp-track-viewport { width: 100%; overflow: hidden; }
+		.wp-track { display: flex; gap: 40px; will-change: transform; padding-inline: 24px; }
+		@media (min-width: 1160px) { .wp-track { padding-inline: calc((100vw - 1160px) / 2 + 24px); } }
+		.wp-slide {
+			flex: 0 0 86vw; max-width: 980px; min-width: 0;
+			background: var(--wp-bg1); border: 1px solid var(--wp-line); border-radius: 8px; padding: 26px 26px 28px;
+			opacity: 0.35; transition: opacity .45s, border-color .45s, transform .45s cubic-bezier(.16,1,.3,1);
+			max-height: calc(100vh - 220px); overflow: hidden;
+		}
+		.wp-slide.is-on { opacity: 1; border-color: var(--wp-accent); }
+		@media (min-width: 900px) { .wp-slide { flex: 0 0 86vw; max-width: 980px; } }
+		.wp-slide__body { overflow-y: auto; padding-right: 6px; margin-top: 2px; }
+		.wp-slide__body::-webkit-scrollbar { width: 4px; }
+		.wp-slide__body::-webkit-scrollbar-thumb { background: var(--wp-line); border-radius: 9999px; }
+		.wp-slide__body { scrollbar-width: thin; scrollbar-color: var(--wp-line) transparent; }
+		.wp-slide__shot {
+			margin: -26px -26px 22px; overflow: hidden; border-radius: 6px 6px 0 0;
+			border-bottom: 1px solid var(--wp-line); background: var(--wp-bg2);
+			aspect-ratio: 16 / 10; flex: 0 0 auto;
+		}
+		.wp-slide__shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: saturate(0.95); transition: transform .6s cubic-bezier(.16,1,.3,1); }
+		.wp-slide:hover .wp-slide__shot img { transform: scale(1.03); }
+		/* Desktop: gambar KIRI, detail KANAN.
+		   Fix 2026-10-11 (#2): gambar screenshot asli 1440x900 (16:10 landscape)
+		   tapi frame dulu ikut tinggi kolom teks -> jadi portrait 476x611,
+		   `object-fit:cover` potong kiri-kanan = screenshot cuma tampil fragmen.
+		   Solusi: kunci frame ke `aspect-ratio: 16/10` + `align-self: center`
+		   (tidak stretch). Sisa ruang vertikal kolom kiri = background surface
+		   gelap (bukan gambar melar). Screenshot tampil utuh. */
+		@media (min-width: 860px) {
+			.wp-slide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: center; }
+			.wp-slide__shot {
+				margin: 0; border-radius: 8px; border: 1px solid var(--wp-line);
+				aspect-ratio: 16 / 10; align-self: center;
+				min-width: 0; position: relative; background: var(--wp-bg2);
+			}
+			.wp-slide__shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+			.wp-slide__body { margin-top: 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+		}
+		.wp-slide__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+		.wp-slide__idx { font-family: var(--wp-mono); color: var(--wp-accent); font-size: 0.9rem; }
+		.wp-slide__kind { font-family: var(--wp-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wp-mute); text-align: right; }
+		.wp-slide__name { font-family: var(--wp-display); font-size: clamp(1.7rem, 2.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.01em; margin: 18px 0 0; }
+		.wp-slide__meta { font-family: var(--wp-mono); font-size: 0.85rem; color: var(--wp-mute); margin: 10px 0 0; }
+		.wp-slide__summary { color: var(--wp-mute); font-size: 1rem; line-height: 1.65; margin: 16px 0 0; }
+		.wp-slide__points { list-style: none; margin: 18px 0 0; padding: 18px 0 0; border-top: 1px solid var(--wp-line); }
+		.wp-slide__points li { position: relative; padding-left: 20px; color: var(--wp-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 9px; }
+		.wp-slide__points li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; background: var(--wp-accent); border-radius: 1px; }
+		.wp-slide__stack { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+		.wp-slide__chip, .wp-slide__stack .wp-chip { font-size: 0.78rem; }
+		.wp-slide__status { color: var(--wp-mute); font-size: 0.9rem; font-style: italic; margin: 16px 0 0; line-height: 1.6; }
+		.wp-track-dots { display: flex; gap: 10px; }
+		.wp-track-dots i { width: 26px; height: 2px; background: var(--wp-line); transition: background .3s, transform .3s; }
+		.wp-track-dots i.is-on { background: var(--wp-accent); transform: scaleY(2); }
+
+		.wp-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--wp-line); border-radius: 3px; padding: 6px 11px; font-family: var(--wp-mono); font-size: 0.72rem; color: var(--wp-text); }
+		.wp-chip--accent { background: var(--wp-accent); color: #090a0d; border-color: var(--wp-accent); font-weight: 600; }
+		.wp-chip--accent em { font-style: normal; opacity: 0.7; font-weight: 400; }
+
+		/* ---------- Marquee ---------- */
+		.wp-marquee { overflow: hidden; border-bottom: 1px solid var(--wp-line); padding: 22px 0; background: var(--wp-bg1); }
+		.wp-marquee__track { display: flex; align-items: center; gap: 0; white-space: nowrap; min-width: max-content; animation: wp-marquee 40s linear infinite; }
+		.wp-marquee__item { font-family: var(--wp-mono); font-size: 0.9rem; color: var(--wp-mute); padding: 0 28px; position: relative; }
+		.wp-marquee__item::after { content: "/"; position: absolute; right: -3px; color: var(--wp-accent); }
+		@keyframes wp-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+		/* ---------- Numbered list ---------- */
+		.wp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--wp-line); }
+		.wp-row { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 28px 4px; border-bottom: 1px solid var(--wp-line); align-items: baseline; }
+		.wp-row__n { font-family: var(--wp-mono); color: var(--wp-accent); font-size: 0.85rem; }
+		.wp-row__title { font-family: var(--wp-display); font-size: 1.18rem; font-weight: 700; margin: 0; }
+		.wp-row__desc { color: var(--wp-mute); font-size: 0.92rem; line-height: 1.6; margin: 8px 0 0; max-width: 62ch; }
+
+		/* ---------- Sticky stack (Layanan & Proses Kerja) ---------- */
+		.wp-section--stack { position: relative; }
+		.wp-stack { position: relative; }
+
+		/* =====================================================================
+		   BACKGROUND SISTEM, 1 gambar (amber glow), di-transform berbeda tiap
+		   section. Elemen <div class="wp-bg"> (child pertama section) memuat
+		   gambar di dalamnya; rotate/flip/scale di <img> anaknya. Konten section
+		   otomatis di atas karena bg di belakang konten.
+		   ===================================================================== */
+		/* .wp-bg = band 100vh yang STICKY di dalam section. Dipakai supaya
+		   gambar amber tetap menempel di viewport selama section (tinggi, mis.
+		   Layanan 3887px) di-scroll - kalau cuma `inset:0` + img centered,
+		   glow keluar viewport dan section terlihat gelap polos.
+		   Struktur: .wp-bg (sticky, height 100vh, top 0) > img + ::after. */
+		.wp-bg {
+			position: sticky; top: 0; z-index: 0; pointer-events: none;
+			height: 100vh; margin-bottom: -100vh; overflow: hidden;
+		}
+		.wp-bg img {
+			position: absolute; inset: 0;
+			width: 100%; height: 100%; object-fit: cover;
+			object-position: 0% 100%;
+			opacity: 1;
+		}
+		.wp-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(9,10,13,0.5), rgba(9,10,13,0.72)); }
+		/* Konten di atas bg. `position: relative` + z-index; JANGAN timpa elemen
+		   yang sudah punya position sendiri (track-stage/stage sticky). */
+		.wp-hero__grid { position: relative; z-index: 1; }
+		.wp-track-pin { position: relative; z-index: 1; }
+		.wp-stack { z-index: 1; }
+		.wp-section > .wp-wrap { position: relative; z-index: 1; }
+		.wp-marquee { position: relative; z-index: 1; }
+
+		/* Variasi per section: img `inset:0` + cover (sticky band).
+		   Glow amber ada di KIRI-BAWAH gambar (0% 100%) - jadi SEMUA section
+		   diarahkan ke 0% 100% supaya amber selalu masuk viewport. Variasi
+		   antar-section dibedakan lewat kekuatan overlay saja (biar tidak
+		   ada section yang glow-nya "hilang" karena object-position salah).
+		   JANGAN pakai transform/rotate (band keluar bounds sticky).
+		   Hero tidak masuk sini (pakai .wp-hero__bg). */
+		.wp-track-section .wp-bg img { object-position: 0% 100%; }
+		.wp-track-section .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.44), rgba(9,10,13,0.68)); }
+		#layanan .wp-bg img { object-position: 0% 100%; }
+		#layanan .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.4), rgba(9,10,13,0.64)); }
+		#teknologi .wp-bg img { object-position: 0% 100%; }
+		#teknologi .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.42), rgba(9,10,13,0.66)); }
+		#proses .wp-bg img { object-position: 0% 100%; }
+		#proses .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.4), rgba(9,10,13,0.64)); }
+		#paket .wp-bg img { object-position: 0% 100%; }
+		#paket .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.42), rgba(9,10,13,0.66)); }
+		#tentang .wp-bg img { object-position: 0% 100%; }
+		#tentang .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.4), rgba(9,10,13,0.64)); }
+		#kontak .wp-bg img { object-position: 0% 100%; }
+		#kontak .wp-bg::after { background: linear-gradient(rgba(9,10,13,0.44), rgba(9,10,13,0.72)); }
+
+		@media (max-width: 900px) {
+			.wp-hero::before, .wp-track-section::before, .wp-section::before { inset: -6%; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			/* biarkan statis, tidak ada animasi di sini */
+		}
+
+		.wp-stack-stage {
+			position: sticky; top: 0;
+			height: 100vh; display: grid; align-items: center; justify-items: center;
+			padding-inline: 24px; padding-top: 6vh;
+		}
+		.wp-stack-stage > .wp-stack-card { grid-area: 1 / 1; width: 100%; max-width: 1160px; }
+		.wp-stack-card {
+			will-change: transform, opacity; transform-origin: center bottom;
+		}
+		.wp-stack-card__inner {
+			display: grid; grid-template-columns: 76px 1fr; gap: 26px; align-items: start;
+			background: var(--wp-bg1); border: 1px solid var(--wp-line); border-radius: 12px;
+			padding: 52px 54px; min-height: clamp(360px, 68vh, 640px);
+			box-shadow: 0 -14px 34px rgba(0,0,0,0.5);
+		}
+		.wp-stack-card:nth-child(2n) .wp-stack-card__inner { background: var(--wp-bg2); }
+		.wp-stack-card.is-top .wp-stack-card__inner { border-color: var(--wp-accent); }
+		.wp-stack-card__body { transition: opacity .3s ease; }
+		.wp-stack-card.is-behind .wp-stack-card__body { opacity: 0.12; }
+		.wp-stack-card__n { font-family: var(--wp-mono); font-size: clamp(1.6rem, 3vw, 2.6rem); color: var(--wp-accent); line-height: 1; }
+		.wp-stack-card__body { min-width: 0; }
+		.wp-stack-card__title { font-family: var(--wp-display); font-size: clamp(1.5rem, 3.2vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+		.wp-stack-card__desc { color: var(--wp-mute); font-size: clamp(0.95rem, 1.3vw, 1.1rem); line-height: 1.7; margin: 14px 0 0; max-width: 62ch; }
+		.wp-stack-card__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--wp-line); }
+		.wp-stack-card__out { margin: 18px 0 0; color: var(--wp-text); font-size: 0.95rem; }
+		.wp-stack-card__out span { font-family: var(--wp-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wp-accent); margin-right: 8px; }
+		.wp-mini { font-family: var(--wp-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wp-accent); margin: 0 0 12px; }
+		.wp-mini__list { list-style: none; margin: 0; padding: 0; }
+		.wp-mini__list li { position: relative; padding-left: 16px; color: var(--wp-text); font-size: 0.88rem; line-height: 1.5; margin-bottom: 7px; }
+		.wp-mini__list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 5px; height: 5px; background: var(--wp-accent); border-radius: 1px; }
+		@media (max-width: 700px) {
+			.wp-stack-card__cols { grid-template-columns: 1fr; gap: 18px; }
+		}
+		@media (max-width: 900px) {
+			.wp-stack-stage { position: static; }
+			.wp-stack-card__inner { grid-template-columns: 44px 1fr; padding: 24px 20px; min-height: 0; box-shadow: none; }
+			.wp-stack-card__n { font-size: 1.1rem; }
+		}
+
+		/* ---------- Hero list ---------- */
+		.wp-hero__list { border-top: 1px solid var(--wp-line); padding-top: 16px; }
+		.wp-hero__list ul { list-style: none; margin: 10px 0 0; padding: 0; }
+		.wp-hero__list li { color: var(--wp-text); font-size: 0.85rem; padding: 4px 0; }
+		.wp-hero__list li + li { border-top: 1px solid var(--wp-line); }
+
+		/* ---------- Paket ---------- */
+		.wp-packs { display: grid; grid-template-columns: 1fr; gap: 20px; }
+		@media (min-width: 860px) { .wp-packs { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+		/* Judul Paket + badge harga "Mulai dari Rp500rb" di sampingnya.
+		   Satu patokan harga saja (bukan harga per tipe - scope final beda-beda). */
+		.wp-head--paket { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 18px; }
+		.wp-head--paket .wp-h2 { grid-column: 1; }
+		.wp-head--paket .wp-sub { grid-column: 1 / -1; }
+		.wp-price-badge {
+			grid-column: 2; justify-self: start;
+			display: inline-flex; align-items: baseline; gap: 8px;
+			border: 1px solid var(--wp-accent); border-radius: 999px;
+			padding: 8px 18px; background: rgba(228, 163, 57, 0.08);
+		}
+		.wp-price-badge__label { font-family: var(--wp-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wp-mute); }
+		.wp-price-badge__amount { font-family: var(--wp-display); font-size: 1.15rem; font-weight: 700; color: var(--wp-accent); letter-spacing: -0.01em; }
+		@media (max-width: 560px) {
+			.wp-head--paket { grid-template-columns: 1fr; row-gap: 12px; }
+			.wp-price-badge { grid-column: 1; }
+		}
+		.wp-pack {
+			display: flex; flex-direction: column;
+			border: 1px solid var(--wp-line); border-radius: 12px; background: var(--wp-bg1);
+			padding: 32px 30px;
+		}
+		.wp-pack--featured { border-color: var(--wp-accent); background: var(--wp-bg2); }
+		.wp-pack__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+		.wp-pack__name { font-family: var(--wp-display); font-size: 1.6rem; font-weight: 700; color: var(--wp-text); }
+		.wp-pack__tag { font-family: var(--wp-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wp-accent); text-align: right; }
+		.wp-pack__desc { color: var(--wp-mute); font-size: 0.92rem; line-height: 1.6; margin: 14px 0 0; }
+		.wp-pack__list { list-style: none; margin: 22px 0 0; padding: 22px 0 0; border-top: 1px solid var(--wp-line); }
+		.wp-pack__list li { position: relative; padding-left: 18px; color: var(--wp-text); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; }
+		.wp-pack__list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; background: var(--wp-accent); border-radius: 1px; }
+		.wp-addons { margin-top: 22px; border: 1px solid var(--wp-line); border-radius: 12px; padding: 28px 30px; background: var(--wp-bg1); }
+
+		/* ---------- Tentang ---------- */
+		.wp-about { display: grid; grid-template-columns: 1fr; gap: 28px; }
+		@media (min-width: 900px) { .wp-about { grid-template-columns: 0.34fr 0.66fr; align-items: start; } }
+		.wp-about__body p { color: var(--wp-mute); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.75; margin: 0 0 18px; max-width: 66ch; }
+		.wp-about__facts { list-style: none; margin: 26px 0 0; padding: 24px 0 0; border-top: 1px solid var(--wp-line); display: grid; grid-template-columns: 1fr; gap: 12px; }
+		@media (min-width: 640px) { .wp-about__facts { grid-template-columns: repeat(2, 1fr); } }
+		@media (min-width: 1040px) { .wp-about__facts { grid-template-columns: repeat(4, 1fr); } }
+		.wp-about__facts li { color: var(--wp-text); font-size: 0.92rem; }
+		.wp-about__facts span { display: block; font-family: var(--wp-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wp-accent); margin-bottom: 6px; }
+
+		/* ---------- Tools & tech ---------- */
+		.wp-tools { border: 1px solid var(--wp-line); border-radius: 6px; padding: 30px 28px; background: var(--wp-bg1); }
+		.wp-tools__label { font-family: var(--wp-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wp-mute); margin: 0 0 16px; }
+		.wp-tools__row { display: flex; flex-wrap: wrap; gap: 8px; }
+		.wp-tools__note { color: var(--wp-mute); font-size: 0.88rem; line-height: 1.65; margin: 20px 0 0; max-width: 60ch; }
+		.wp-grid4 { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 22px; }
+		@media (min-width: 720px) { .wp-grid4 { grid-template-columns: repeat(2, 1fr); } }
+		@media (min-width: 1040px) { .wp-grid4 { grid-template-columns: repeat(4, 1fr); } }
+		.wp-group { border: 1px solid var(--wp-line); border-radius: 6px; padding: 22px 20px; }
+		.wp-group__label { font-family: var(--wp-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wp-accent); margin: 0 0 14px; }
+		.wp-group__list { list-style: none; margin: 0; padding: 0; }
+		.wp-group__list li { color: var(--wp-text); font-size: 0.9rem; padding: 5px 0; }
+		.wp-group__list li + li { border-top: 1px solid var(--wp-line); }
+
+		/* ---------- Contact ---------- */
+		.wp-contact { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+		/* ---------- Inquiry form (brief §11) ---------- */
+		.wp-form {
+			width: 100%; max-width: 760px; margin-top: 46px; text-align: left;
+			border: 1px solid var(--wp-line); border-radius: 12px; background: var(--wp-bg1);
+			padding: 32px 30px 28px;
+		}
+		.wp-form__title { font-family: var(--wp-display); font-size: 1.35rem; font-weight: 700; margin: 0; color: var(--wp-text); }
+		.wp-form__note { color: var(--wp-mute); font-size: 0.9rem; line-height: 1.6; margin: 8px 0 0; }
+		.wp-form__grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+		@media (min-width: 640px) { .wp-form__grid { grid-template-columns: 1fr 1fr; } .wp-field--full { grid-column: 1 / -1; } }
+		.wp-field { display: flex; flex-direction: column; gap: 7px; }
+		.wp-field__label { font-family: var(--wp-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wp-mute); }
+		.wp-field__label em { color: var(--wp-accent); font-style: normal; }
+		.wp-field__input {
+			font-family: var(--wp-mono); font-size: 0.95rem; color: var(--wp-text);
+			background: var(--wp-bg0); border: 1px solid var(--wp-line); border-radius: 6px;
+			padding: 12px 14px; width: 100%; box-sizing: border-box; transition: border-color .2s, box-shadow .2s;
+		}
+		.wp-field__input::placeholder { color: #6b727a; }
+		.wp-field__input:focus { outline: none; border-color: var(--wp-accent); box-shadow: 0 0 0 3px rgba(228,163,57,0.18); }
+		.wp-field__input:invalid:not(:placeholder-shown) { border-color: #d9694a; }
+		textarea.wp-field__input { resize: vertical; min-height: 84px; }
+		.wp-form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
+		.wp-form__foot .wp-btn { flex: 0 0 auto; }
+		.wp-form__hint { display: inline-block; min-height: 1.1em; font-family: var(--wp-mono); font-size: 0.78rem; color: var(--wp-text); opacity: 0.85; }
+		.wp-form__hint--err { color: #e08b6a; }
+		.wp-form__fallback { color: var(--wp-mute); font-size: 0.82rem; margin: 18px 0 0; }
+		/* Tap target email >= 44px (audit [1]) - naikkan tanpa mengubah tampilan teks */
+		.wp-form__fallback a {
+			display: inline-flex; align-items: center; min-height: 44px; padding-block: 10px;
+			color: var(--wp-accent); text-decoration: none; word-break: break-all;
+		}
+		.wp-form__fallback a:hover { text-decoration: underline; }
+
+		/* ---------- Reduced motion ---------- */
+		@media (prefers-reduced-motion: reduce) {
+			.wp-marquee__track { animation: none; }
+			.wp-slide, .wp-btn, .wp-progress__fill { transition: none; }
+			.wp-word > span, [data-fade] { opacity: 1 !important; transform: none !important; }
+		}
+		/* Mobile: pin dimatikan → slide jadi kolom normal */
+		@media (max-width: 900px) {
+			.wp-track-stage { position: static; height: auto; padding: 72px 0; }
+			.wp-track-viewport { overflow: visible; }
+			.wp-track { flex-direction: column; transform: none !important; gap: 18px; }
+			.wp-slide { flex: 1 1 auto; max-width: none; opacity: 1; }
+			.wp-track-dots, .wp-track-hint { display: none; }
+		}
+	</style>
+</Layout>
