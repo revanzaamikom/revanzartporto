@@ -152,11 +152,13 @@ document.addEventListener('click', function(e){
     .site-navbar--web .nav-brand { padding: 9px 9px; font-size: 0.74rem; }
   }
   @media (max-width: 360px) {
-    .site-navbar--web .nav-link { padding: 8px 6px; font-size: 0.62rem; }
-    .site-navbar--web .nav-brand { padding: 8px 7px; font-size: 0.68rem; }
+    .site-navbar--web .nav-link { padding: 8px 6px; font-size: 0.68rem; }
+    .site-navbar--web .nav-brand { padding: 8px 7px; font-size: 0.72rem; }
   }
   @media (max-width: 330px) {
-    .site-navbar--web .nav-link { padding: 8px 5px; font-size: 0.58rem; }
-    .site-navbar--web .nav-brand { padding: 8px 6px; font-size: 0.64rem; }
+    /* Font jangan di bawah ~11px (legibilitas; ui-ux-pro-max priority 6).
+       Rapatkan padding, bukan mengecilkan teks sampai tak terbaca. */
+    .site-navbar--web .nav-link { padding: 8px 4px; font-size: 0.68rem; letter-spacing: 0; }
+    .site-navbar--web .nav-brand { padding: 8px 5px; font-size: 0.7rem; }
   }
 </style>

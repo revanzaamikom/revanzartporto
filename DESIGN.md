@@ -343,6 +343,29 @@ Dua bug dari TODO sesi sebelumnya, selesai & terverifikasi.
 - Section `Paket` ↔ `Tentang` ditukar → urutan: Proyek, Layanan, Teknologi, Proses, **Tentang, Paket**, Kontak.
 - `.wp-section` top padding dinaikkan ke `clamp(104px,12vh,160px)` (dari `clamp(56px,6vw,80px)`); bottom tetap `clamp(56px,6vw,80px)`. Judul ~104-108px dari atas section (tidak mepet / tidak ketutup navbar). Hero tidak diubah.
 
+### Mobile spacing & density audit (2026-10-12, audit-002)
+Keluhan owner: card proyek terpotong, teks mepet, antar-section mepet, dalam section kurang padat. Semua terukur + diperbaiki, **scoped `@media (max-width:900px)`** (desktop tak tersentuh).
+- **Card proyek terpotong:** `.wp-slide { max-height:calc(100vh-220px); overflow:hidden }` (aturan desktop) tak direset di mobile → isi terklip (`statusClipped:true`). Fix: `max-height:none; overflow:visible` + `.wp-slide__body{overflow:visible}` di mobile. *Alasan: card harus memanjang sesuai isi di HP, bukan dipaksa setinggi viewport.*
+- **Jarak judul→card stack (kurang padat):** `.wp-stack-stage` (`height:100vh; display:grid; align-items:center`) masih aktif saat `position:static` → celah 153px. Fix: `height:auto; display:block; padding:0` di mobile. *Alasan: di mobile tak ada pin, jadi stage tak perlu 100vh center.*
+- **Antar-section mepet:** `padTop 104 / padBottom 56` bikin garis section nempel konten. Fix: padding section **simetris** `clamp(64px,9vw,96px)` di mobile. *Alasan: jarak antar-section konsisten + garis pemisah di tengah.*
+- **Scroll effect ringan mobile:** pin/stack tetap dimatikan (degrade by design), diganti reveal stagger fade-up `.wp-slide`/`.wp-stack-card` (`initMobileCardReveal`, hanya saat `stacked`) + reveal/counter/progress yang sudah ada. `render()` saat `stacked` tidak lagi me-reset inline style kartu (dulu membunuh reveal).
+- **iOS zoom:** `.wp-field__input` 15.2px → **16px** (mobile) supaya fokus tak memicu auto-zoom.
+- **Navbar varian web:** font ≤360/≤330px dinaikkan `0.58rem`(~9.3px) → `0.68rem`(~10.9px); padding dirapatkan. *Alasan: legibilitas (ui-ux-pro-max priority 6).*
+- Terverifikasi (320/360/390/430): card `overflow:visible`, `statusClipped:false`; celah judul→card 58px; padding 64/64; input 16px; no horizontal overflow. Desktop 1440: pin/sticky/3-1-3 utuh, no regresi. Detail: `anti-slop/audit-002-2026-10-12.md`.
+
+### Judul section kepotong + jarak antar-section (2026-10-12, lanjutan audit-002)
+Keluhan owner: "title section kepotong dikit bagian atas, mepet banget dengan section atasnya".
+- **Judul kepotong:** `[data-split]` + `.wp-word { overflow:hidden }` (mask reveal) memotong ascender/descender glyph saat animasi belum tuntas (terukur: inner `translateY(42px)` di dalam mask 38px). Fix: mask dapat headroom `padding-bottom:0.16em; margin-bottom:-0.16em`, dan `[data-split]` → `overflow:visible`. *Alasan: animasi reveal tetap jalan, tapi glyph utuh (tidak terpangkas).* Terukur sesudah: word mask 42px, glyph 38px, `innerTopInsideMask ≥0` (tidak ter-clip).
+- **Antar-section mepet:** judul hanya 64px dari section atas → naikkan padding-atas section mobile jadi `clamp(88px,12vw,104px)` (asimetris: atas > bawah, karena bawah sudah ketemu judul section berikutnya). Terukur: `titleFromSecTop` 64 → **88px**.
+- Desktop tak berubah (padding 108/80, pin/stack/3-1-3 utuh). Detail: `anti-slop/audit-002-2026-10-12.md`.
+
+### Verifikasi render nyata + jarak judul↔background (2026-10-12)
+Diverifikasi ulang dengan Playwright (render `astro dev`, viewport 390×844) + analisis screenshot.
+- **Judul ter-clip:** TERATASI. Setelah reveal, `clippedTop 0` / `clippedBottom -4.1` (glyph di dalam mask); screenshot "Layanan" memperlihatkan `L` + descender `y/g` utuh. *Jadi fix headroom mask sudah benar.*
+- **Judul nempel background:** `.wp-bg` (sticky band glow) mulai tepat di posisi judul → judul duduk di tepi gelap band. Fix: `.wp-head`/`.wp-track-head` dapat `padding-top:24px` + padding section mobile naik ke `clamp(96px,13vw,116px)` / `clamp(80px,11vw,104px)`. Terukur: `titleFromSecTop` 88 → **120px**.
+- **Anchor lompat:** `scroll-margin-top:84px` pada section + `initAnchors` offset `-10` → `-84` supaya judul tidak tertutup navbar varian web (`fixed top-5`).
+- Desktop 1440 tidak regresi (pin 3915, stack-stage sticky grid, slide grid/overflow hidden). *Alasan semua scoped `@media (max-width:900px)` + handler anchor halaman ini saja.*
+
 ### Gotcha penting: `overflow-x` mematikan `position: sticky`
 `Layout.astro` memberi `<body class="... overflow-x-hidden">`. Nilai `overflow-x: hidden` membuat body jadi **scroll container**, sehingga semua `position: sticky` di dalamnya **mati** (sticky relatif ke body, bukan viewport).
 

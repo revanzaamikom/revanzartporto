@@ -38,3 +38,6 @@ src/components/lanyard/
 .agents/
 skills-lock.json
 .opencode/
+
+# Debug screenshots (local QA evidence, not shipped)
+public/debug/
